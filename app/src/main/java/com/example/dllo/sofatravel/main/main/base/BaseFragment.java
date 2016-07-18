@@ -12,7 +12,6 @@ import android.view.ViewGroup;
  * Created by dllo on 16/7/16.
  */
 public abstract class BaseFragment extends Fragment {
-
     protected Context context;
 
     @Override
@@ -40,7 +39,6 @@ public abstract class BaseFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
-
 
     }
 

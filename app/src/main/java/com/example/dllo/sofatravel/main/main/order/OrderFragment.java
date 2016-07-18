@@ -1,7 +1,7 @@
 package com.example.dllo.sofatravel.main.main.order;
 
 /**
- * Created by dllo on 16/7/16.
+ * Created by dllo on 16/7/18.
  */
-public class OrderActivity {
+public class OrderFragment {
 }
