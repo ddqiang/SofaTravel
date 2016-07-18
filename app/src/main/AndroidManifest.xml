@@ -3,8 +3,9 @@
     package="com.example.dllo.sofatravel">
 
     <application
+        android:name=".main.main.base.MyApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon_center_head"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -16,5 +17,6 @@
             </intent-filter>
         </activity>
     </application>
+
 
 </manifest>

@@ -7,6 +7,8 @@ import android.widget.RadioButton;
 
 import com.example.dllo.sofatravel.R;
 import com.example.dllo.sofatravel.main.main.base.BaseActivity;
+import com.example.dllo.sofatravel.main.main.mine.MineContract;
+import com.example.dllo.sofatravel.main.main.mine.MineFragment;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -39,6 +41,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+
         switch (v.getId()) {
             case R.id.home_tab:
 

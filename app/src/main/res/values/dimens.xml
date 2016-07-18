@@ -2,4 +2,15 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fragment_mine_login_or_signup_text_margin">10dp</dimen>
+    <dimen name="fragment_mine_user_image_margintop">60dp</dimen>
+    <dimen name="fragment_ming_user_image_width">60dp</dimen>
+    <dimen name="fragment_ming_user_image_height">60dp</dimen>
+    <dimen name="fragment_mine_relative_marginleft">10dp</dimen>
+    <dimen name="fragment_mine_relative_marginright">10dp</dimen>
+    <dimen name="fragment_mine_layout_thread_height">1dp</dimen>
+    <dimen name="fragment_mine_layout_right_icon_width">20dp</dimen>
+    <dimen name="fragment_mine_layout_right_icon_height">20dp</dimen>
+    <dimen name="fragment_mine_layout_thread_margin_top">10dp</dimen>
+    <dimen name="fragment_mine_layout_padding">5dp</dimen>
 </resources>
