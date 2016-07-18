@@ -12,7 +12,7 @@
     <dimen name="fifty">50dp</dimen>
 
     <dimen name="home_banner_twoHundred">200dp</dimen>
-    
+
     <dimen name="fragment_mine_login_or_signup_text_margin">10dp</dimen>
     <dimen name="fragment_mine_user_image_margintop">60dp</dimen>
     <dimen name="fragment_ming_user_image_width">60dp</dimen>

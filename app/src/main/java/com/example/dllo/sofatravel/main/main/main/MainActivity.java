@@ -7,12 +7,15 @@ import android.widget.RadioButton;
 
 import com.example.dllo.sofatravel.R;
 import com.example.dllo.sofatravel.main.main.base.BaseActivity;
-<<<<<<< HEAD
+
+import com.example.dllo.sofatravel.main.main.discover.DiscoverFragment;
 import com.example.dllo.sofatravel.main.main.home.HomeFragment;
-=======
 import com.example.dllo.sofatravel.main.main.mine.MineContract;
 import com.example.dllo.sofatravel.main.main.mine.MineFragment;
->>>>>>> feature/mine
+import com.example.dllo.sofatravel.main.main.mine.MineModel;
+import com.example.dllo.sofatravel.main.main.mine.MinePresenter;
+import com.example.dllo.sofatravel.main.main.order.OrderFragment;
+import com.example.dllo.sofatravel.main.main.search.SearchFragment;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -36,32 +39,44 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         discover.setOnClickListener(this);
         order.setOnClickListener(this);
         mine.setOnClickListener(this);
+
     }
 
     @Override
     public void initData() {
+        FragmentManager managerOne = getSupportFragmentManager();
+        FragmentTransaction transactionOne = managerOne.beginTransaction();
+        transactionOne.replace(R.id.show_fragment_fl, new HomeFragment());
+        transactionOne.commit();
 
+        MineFragment mineFragment = new MineFragment();
+        MineContract.Model model = new MineModel();
+        MineContract.Presenter presenter = new MinePresenter(mineFragment, model);
+        model.setPresenter(presenter);
+        mineFragment.setPresenter(presenter);
     }
 
     @Override
     public void onClick(View v) {
-<<<<<<< HEAD
+
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-=======
 
->>>>>>> feature/mine
         switch (v.getId()) {
             case R.id.home_tab:
                 transaction.replace(R.id.show_fragment_fl, new HomeFragment());
                 break;
             case R.id.discover_tab:
+                transaction.replace(R.id.show_fragment_fl, new DiscoverFragment());
                 break;
             case R.id.search_tab:
+                transaction.replace(R.id.show_fragment_fl, new SearchFragment());
                 break;
             case R.id.order_tab:
+                transaction.replace(R.id.show_fragment_fl, new OrderFragment());
                 break;
             case R.id.mine_tab:
+                transaction.replace(R.id.show_fragment_fl, new MineFragment());
                 break;
         }
         transaction.commit();

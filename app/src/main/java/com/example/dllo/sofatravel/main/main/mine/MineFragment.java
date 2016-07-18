@@ -39,8 +39,6 @@ public class MineFragment extends BaseFragment implements MineContract.View {
                 presenter.isLogin();
             }
         });
-
-
     }
 
     @Override
