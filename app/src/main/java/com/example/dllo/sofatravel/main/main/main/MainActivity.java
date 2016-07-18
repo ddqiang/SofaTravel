@@ -1,6 +1,5 @@
 package com.example.dllo.sofatravel.main.main.main;
 
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -12,7 +11,6 @@ import com.example.dllo.sofatravel.main.main.base.BaseActivity;
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private RadioButton home, discover, order, mine;
-
 
     @Override
     public int getLayout() {
