@@ -7,7 +7,12 @@ import android.widget.RadioButton;
 
 import com.example.dllo.sofatravel.R;
 import com.example.dllo.sofatravel.main.main.base.BaseActivity;
+<<<<<<< HEAD
 import com.example.dllo.sofatravel.main.main.home.HomeFragment;
+=======
+import com.example.dllo.sofatravel.main.main.mine.MineContract;
+import com.example.dllo.sofatravel.main.main.mine.MineFragment;
+>>>>>>> feature/mine
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -40,8 +45,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+<<<<<<< HEAD
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
+=======
+
+>>>>>>> feature/mine
         switch (v.getId()) {
             case R.id.home_tab:
                 transaction.replace(R.id.show_fragment_fl, new HomeFragment());

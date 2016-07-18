@@ -1,8 +1,16 @@
 <resources>
     <string name="app_name">SofaTravel</string>
+
     <string name="discover_title">发现</string>
     <string name="check_in">入住</string>
     <string name="check_out">离开</string>
     <string name="more_filter">更多筛选条件</string>
     <string name="discover_content">青旅名/著名地标搜索</string>
+
+    <string name="fragment_mine_login_or_signup_text_content">注册登录</string>
+    <string name="fragment_mine_release_text_content">做房主赚房租</string>
+    <string name="fragment_mine_setup_text_content">设置</string>
+    <string name="fragment_mine_telnumber_text_content">400 821 3795</string>
+    <string name="fragment_mine_suggestion_text_content">意见反馈</string>
+    <string name="fragment_mine_share_text_content">分享给好友</string>
 </resources>
