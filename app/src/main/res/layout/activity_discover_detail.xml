@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_margin="@dimen/five"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/discover_detail_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/ten"
+            android:src="@mipmap/topbar_back" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/discover_detail_back">
+
+            <TextView
+                android:id="@+id/discover_detail_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/ten"
+                android:layout_toRightOf="@id/discover_detail_back"
+                android:text="大连" />
+
+            <ImageView
+                android:id="@+id/discover_detail_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/ten"
+                android:layout_toRightOf="@id/discover_detail_location"
+                android:src="@mipmap/icon_qinglv_list_arrow_down_gray" />
+
+            <View
+                android:layout_width="@dimen/one"
+                android:layout_height="match_parent"
+                android:background="@color/discover_gray" />
+
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/ten"
+                android:layout_toRightOf="@id/discover_detail_down"
+                android:background="@null"
+                android:gravity="center"
+                android:hint="@string/discover_content"
+                android:textSize="@dimen/fifteen" />
+        </LinearLayout>
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/ten"
+            android:layout_weight="1"
+            android:src="@mipmap/icon_to_map" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/one"
+        android:background="@color/discover_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_margin="@dimen/five"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/check_in"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="check_in_time"
+                android:gravity="center"
+                android:textColor="@color/green"/>
+        </LinearLayout>
+
+        <Button
+            android:layout_margin="@dimen/ten"
+            android:layout_width="@dimen/fifty"
+            android:layout_height="@dimen/twenty"
+            android:background="@drawable/round"
+            android:text="共4晚"
+            android:textColor="@color/green" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_margin="@dimen/five"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/check_out"
+                android:gravity="center"/>
+
+            <TextView
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="check_out_time"
+                android:textColor="@color/green"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/one"
+        android:background="@color/discover_gray"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/more_filter"
+        android:textColor="@color/green"
+        android:layout_margin="@dimen/ten"
+        android:textSize="@dimen/fifteen"/>
+
+    <ListView
+        android:id="@+id/discover_detail_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></ListView>
+
+</LinearLayout>

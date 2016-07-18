@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">SofaTravel</string>
+    <string name="discover_title">发现</string>
+    <string name="check_in">入住</string>
+    <string name="check_out">离开</string>
+    <string name="more_filter">更多筛选条件</string>
+    <string name="discover_content">青旅名/著名地标搜索</string>
 </resources>
