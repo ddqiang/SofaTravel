@@ -6,51 +6,105 @@
     android:orientation="vertical">
 
     <FrameLayout
+        android:id="@+id/show_fragment_fl"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-
-    <RelativeLayout
+    <RadioGroup
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <ImageView
+        <!-- 首页-->
+        <LinearLayout
+            style="@style/main_aty_tab_margin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:background="@mipmap/bg_search_blue" />
+            android:orientation="vertical">
 
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <!-- 首页-->
             <RadioButton
                 android:id="@+id/home_tab"
                 style="@style/main_aty_tab"
-                android:background="@mipmap/icon_home" />
+                android:background="@drawable/radiobutton_home" />
 
-            <!-- 发现-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="首页" />
+        </LinearLayout>
+
+        <!-- 发现-->
+        <LinearLayout
+            style="@style/main_aty_tab_margin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
             <RadioButton
                 android:id="@+id/discover_tab"
                 style="@style/main_aty_tab"
-                android:background="@mipmap/icon_discorvery" />
+                android:background="@drawable/radiobutton_discover" />
 
-            <!-- 搜索-->
-            <RadioButton style="@style/main_aty_tab" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="发现" />
+        </LinearLayout>
+        <!-- 搜索-->
+        <LinearLayout
+            style="@style/main_aty_tab_margin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-            <!-- 订单-->
+            <RadioButton
+                android:id="@+id/search_tab"
+                style="@style/main_aty_tab"
+                android:background="@drawable/radiobutton_search" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="搜索" />
+        </LinearLayout>
+        <!-- 订单-->
+        <LinearLayout
+            style="@style/main_aty_tab_margin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
             <RadioButton
                 android:id="@+id/order_tab"
                 style="@style/main_aty_tab"
-                android:background="@mipmap/icon_order" />
+                android:background="@drawable/radiobutton_order" />
 
-            <!-- 我的-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="订单" />
+        </LinearLayout>
+        <!-- 我的-->
+        <LinearLayout
+            style="@style/main_aty_tab_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
             <RadioButton
                 android:id="@+id/mine_tab"
                 style="@style/main_aty_tab"
-                android:background="@mipmap/icon_user" />
-        </RadioGroup>
-    </RelativeLayout>
+                android:background="@drawable/radiobutton_mine" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我的" />
+        </LinearLayout>
+    </RadioGroup>
+
 </LinearLayout>
