@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+    <ImageView
+        android:id="@+id/home_gridView_item_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/ic_launcher_one"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/home_gridView_item_cityName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/home_gridView_item_cityNameEnglish"
+        android:paddingLeft="@dimen/textsize_ten"
+        android:text="@string/item_city"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/textsize_twenty" />
+
+    <TextView
+        android:id="@+id/home_gridView_item_cityNameEnglish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/home_gridView_item_image"
+        android:padding="@dimen/ten"
+        android:text="@string/chengshi"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/ten" />
+</RelativeLayout>

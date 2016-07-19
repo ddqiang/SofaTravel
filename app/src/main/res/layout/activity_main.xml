@@ -6,7 +6,6 @@
     android:orientation="vertical">
 
     <FrameLayout
-
         android:id="@+id/show_fragment_fl"
         android:layout_width="match_parent"
         android:layout_height="0dp"
