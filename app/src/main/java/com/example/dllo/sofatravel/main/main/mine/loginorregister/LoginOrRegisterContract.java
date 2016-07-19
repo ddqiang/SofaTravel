@@ -8,7 +8,7 @@ import com.example.dllo.sofatravel.main.main.mine.MineContract;
 /**
  * Created by dllo on 16/7/18.
  */
-public class LoginOrRegisterContract {
+public interface LoginOrRegisterContract {
 
     interface LoginOrRegisterView extends BaseView<LoginOrRegisterPresenter> {
         void loginSuccess();

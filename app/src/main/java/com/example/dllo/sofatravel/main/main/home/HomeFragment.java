@@ -1,6 +1,7 @@
 package com.example.dllo.sofatravel.main.main.home;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -42,6 +43,7 @@ public class HomeFragment extends BaseFragment {
         OkSingle.getInstance().getRequestAsync(homeUrl, HomeBean.class, new OkSingle.OnTrue<HomeBean>() {
             @Override
             public void hasData(HomeBean data) {
+                Log.d("HomeFragment", "data:" + data);
                 homeGrViewAdapter.setHomeBean(data);
                 homeGv.setAdapter(homeGrViewAdapter);
             }
