@@ -26,6 +26,17 @@ public class MineModel implements MineContract.Model {
     }
 
     @Override
+    public void checkHasLogin() {
+        SharedPreferences sharedPreferences = MyApplication.context.getSharedPreferences("isLogin", Context.MODE_PRIVATE);
+        boolean hasLogin = sharedPreferences.getBoolean("hasLogin", false);
+        if (hasLogin) {
+            presenter.hadLogin();
+        } else {
+            presenter.notLogin();
+        }
+    }
+
+    @Override
     public void setPresenter(MineContract.Presenter presenter) {
         this.presenter = presenter;
     }

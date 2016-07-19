@@ -13,4 +13,18 @@
     <string name="fragment_mine_telnumber_text_content">400 821 3795</string>
     <string name="fragment_mine_suggestion_text_content">意见反馈</string>
     <string name="fragment_mine_share_text_content">分享给好友</string>
+    <string name="activity_login_or_register_user_name_hint">请输入用户名</string>
+    <string name="activity_login_or_register_password_et">请输入密码</string>
+    <string name="activity_login_or_register_register_text">注册</string>
+    <string name="activity_login_or_register_login_text">登录</string>
+    <string name="fragment_mine_money_layout_text">我的钱包</string>
+    <string name="fragment_mine_collection_layout_text">我的收藏</string>
+    <string name="fragment_mine_house_layout_text">发布房源</string>
+    <string name="fragment_login_or_register_head_text">注册或登录</string>
+    <string name="fragment_mine_house_text">发布房源</string>
+    <string name="fragment_mine_share_other_text">分享给好友</string>
+    <string name="fragment_mine_money_text">我的钱包</string>
+    <string name="fragment_mine_collection_text">我的收藏</string>
+    <string name="dialog_setup_text">无论多少,期待您的支持</string>
+    <string name="dialog_setup_button_text">退出登录</string>
 </resources>

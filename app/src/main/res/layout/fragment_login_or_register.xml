@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/addddd">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/activity_login_or_register_stroke" />
+
+    <ImageView
+        android:id="@+id/activity_login_or_register_head"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true" />
+
+    <RelativeLayout
+        android:id="@+id/activity_login_or_register_user_name_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_login_or_register_head"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/fragment_login_or_register_et_background"
+        android:padding="5dp">
+
+        <EditText
+            android:id="@+id/activity_login_or_register_user_name_et"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/activity_login_or_register_user_name_hint"
+            android:textSize="20sp" />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/user_icon" />
+
+        <ImageView
+            android:id="@+id/activity_login_or_register_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/star" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/activity_login_or_register_password_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_login_or_register_user_name_layout"
+        android:layout_margin="20dp"
+        android:background="@drawable/fragment_login_or_register_et_background"
+        android:padding="5dp">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:src="@mipmap/password_iocn" />
+
+        <EditText
+            android:id="@+id/activity_login_or_register_password_et"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/activity_login_or_register_password_et"
+            android:textSize="20sp" />
+
+
+        <ImageView
+            android:id="@+id/activity_login_or_register_image_other"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/star" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/activity_login_or_register_login_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_login_or_register_password_layout"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/fragment_login_or_register_et_background"
+        android:text="@string/activity_login_or_register_login_text"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/activity_login_or_register_register_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_login_or_register_password_layout"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/activity_login_or_register_login_btn"
+        android:background="@drawable/fragment_login_or_register_et_background"
+        android:text="@string/activity_login_or_register_register_text"
+        android:textSize="20sp" />
+
+</RelativeLayout>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -9,7 +9,7 @@
         android:id="@+id/fragment_mine_user_image"
         android:layout_width="@dimen/fragment_ming_user_image_width"
         android:layout_height="@dimen/fragment_ming_user_image_height"
-        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/fragment_mine_user_image_margintop"
         android:scaleType="fitXY"
         android:src="@mipmap/icon_center_head" />
@@ -18,188 +18,403 @@
         android:id="@+id/fragment_mine_login_or_signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_below="@id/fragment_mine_user_image"
+        android:layout_centerHorizontal="true"
         android:layout_margin="@dimen/fragment_mine_login_or_signup_text_margin"
         android:text="@string/fragment_mine_login_or_signup_text_content" />
 
     <RelativeLayout
-        android:id="@+id/fragment_mine_release_layout"
-        android:layout_width="match_parent"
+        android:id="@+id/fragment_mine_not_login"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/fragment_mine_relative_marginleft"
-        android:layout_marginRight="@dimen/fragment_mine_relative_marginright"
-        android:padding="@dimen/fragment_mine_layout_padding">
+        android:layout_below="@id/fragment_mine_login_or_signup"
+        android:layout_marginTop="10dp">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/icon_center_space" />
-
-        <ImageView
-            android:id="@+id/fragment_mine_release_right_icon"
-            android:layout_width="@dimen/fragment_mine_layout_right_icon_width"
-            android:layout_height="@dimen/fragment_mine_layout_right_icon_height"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/right_arrow" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_toLeftOf="@id/fragment_mine_release_right_icon"
-            android:text="@string/fragment_mine_release_text_content" />
-
-        <TextView
+        <RelativeLayout
+            android:id="@+id/fragment_mine_release_layout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/fragment_mine_layout_thread_height"
-            android:layout_below="@id/fragment_mine_release_right_icon"
-            android:layout_marginTop="@dimen/fragment_mine_layout_thread_margin_top"
-            android:background="#e2e2e2" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/fragment_mine_relative_marginleft"
+            android:layout_marginRight="@dimen/fragment_mine_relative_marginright"
+            android:padding="@dimen/fragment_mine_layout_padding">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_center_space" />
+
+            <ImageView
+                android:id="@+id/fragment_mine_release_right_icon"
+                android:layout_width="@dimen/fragment_mine_layout_right_icon_width"
+                android:layout_height="@dimen/fragment_mine_layout_right_icon_height"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/right_arrow" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toLeftOf="@id/fragment_mine_release_right_icon"
+                android:text="@string/fragment_mine_release_text_content" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragment_mine_layout_thread_height"
+                android:layout_below="@id/fragment_mine_release_right_icon"
+                android:layout_marginTop="@dimen/fragment_mine_layout_thread_margin_top"
+                android:background="#e2e2e2" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/fragment_mine_share_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fragment_mine_release_layout"
+            android:layout_marginLeft="@dimen/fragment_mine_relative_marginleft"
+            android:layout_marginRight="@dimen/fragment_mine_relative_marginright"
+            android:padding="@dimen/fragment_mine_layout_padding">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_center_share" />
+
+            <ImageView
+                android:id="@+id/fragment_mine_share_right_icon"
+                android:layout_width="@dimen/fragment_mine_layout_right_icon_width"
+                android:layout_height="@dimen/fragment_mine_layout_right_icon_height"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/right_arrow" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toLeftOf="@id/fragment_mine_share_right_icon"
+                android:text="@string/fragment_mine_share_text_content" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragment_mine_layout_thread_height"
+                android:layout_below="@id/fragment_mine_share_right_icon"
+                android:layout_marginTop="@dimen/fragment_mine_layout_thread_margin_top"
+                android:background="#e2e2e2" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/fragment_mine_suggestion_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fragment_mine_share_layout"
+            android:layout_marginLeft="@dimen/fragment_mine_relative_marginleft"
+            android:layout_marginRight="@dimen/fragment_mine_relative_marginright"
+            android:padding="@dimen/fragment_mine_layout_padding">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_setting_feedback" />
+
+            <ImageView
+                android:id="@+id/fragment_mine_suggestion_right_icon"
+                android:layout_width="@dimen/fragment_mine_layout_right_icon_width"
+                android:layout_height="@dimen/fragment_mine_layout_right_icon_height"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/right_arrow" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toLeftOf="@id/fragment_mine_suggestion_right_icon"
+                android:text="@string/fragment_mine_suggestion_text_content" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragment_mine_layout_thread_height"
+                android:layout_below="@id/fragment_mine_suggestion_right_icon"
+                android:layout_marginTop="@dimen/fragment_mine_layout_thread_margin_top"
+                android:background="#e2e2e2" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/fragment_mine_telnumber_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fragment_mine_suggestion_layout"
+            android:layout_marginLeft="@dimen/fragment_mine_relative_marginleft"
+            android:layout_marginRight="@dimen/fragment_mine_relative_marginright"
+            android:padding="@dimen/fragment_mine_layout_padding">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_user_center_phone" />
+
+            <ImageView
+                android:id="@+id/fragment_mine_telnumber_right_icon"
+                android:layout_width="@dimen/fragment_mine_layout_right_icon_width"
+                android:layout_height="@dimen/fragment_mine_layout_right_icon_height"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/right_arrow" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toLeftOf="@id/fragment_mine_telnumber_right_icon"
+                android:text="@string/fragment_mine_telnumber_text_content" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragment_mine_layout_thread_height"
+                android:layout_below="@id/fragment_mine_telnumber_right_icon"
+                android:layout_marginTop="@dimen/fragment_mine_layout_thread_margin_top"
+                android:background="#e2e2e2" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/fragment_mine_setup_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fragment_mine_telnumber_layout"
+            android:layout_marginLeft="@dimen/fragment_mine_relative_marginleft"
+            android:layout_marginRight="@dimen/fragment_mine_relative_marginright"
+            android:padding="@dimen/fragment_mine_layout_padding">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_center_setting" />
+
+            <ImageView
+                android:id="@+id/fragment_mine_setup_right_icon"
+                android:layout_width="@dimen/fragment_mine_layout_right_icon_width"
+                android:layout_height="@dimen/fragment_mine_layout_right_icon_height"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/right_arrow" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toLeftOf="@id/fragment_mine_setup_right_icon"
+                android:text="@string/fragment_mine_setup_text_content" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragment_mine_layout_thread_height"
+                android:layout_below="@id/fragment_mine_setup_right_icon"
+                android:layout_marginTop="@dimen/fragment_mine_layout_thread_margin_top"
+                android:background="#e2e2e2" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/fragment_mine_share_layout"
-        android:layout_width="match_parent"
+        android:id="@+id/fragment_mine_has_login"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/fragment_mine_relative_marginleft"
-        android:layout_marginRight="@dimen/fragment_mine_relative_marginright"
-        android:padding="@dimen/fragment_mine_layout_padding">
+        android:layout_below="@id/fragment_mine_login_or_signup"
+        android:layout_marginTop="10dp"
+        android:visibility="gone">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/icon_center_share" />
-
-        <ImageView
-            android:id="@+id/fragment_mine_share_right_icon"
-            android:layout_width="@dimen/fragment_mine_layout_right_icon_width"
-            android:layout_height="@dimen/fragment_mine_layout_right_icon_height"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/right_arrow" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_toLeftOf="@id/fragment_mine_share_right_icon"
-            android:text="@string/fragment_mine_share_text_content" />
-
-        <TextView
+        <RelativeLayout
+            android:id="@+id/fragment_mine_money_layout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/fragment_mine_layout_thread_height"
-            android:layout_below="@id/fragment_mine_share_right_icon"
-            android:layout_marginTop="@dimen/fragment_mine_layout_thread_margin_top"
-            android:background="#e2e2e2" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/fragment_mine_suggestion_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/fragment_mine_relative_marginleft"
-        android:layout_marginRight="@dimen/fragment_mine_relative_marginright"
-        android:padding="@dimen/fragment_mine_layout_padding">
-
-        <ImageView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/icon_setting_feedback" />
+            android:layout_marginLeft="@dimen/fragment_mine_relative_marginleft"
+            android:layout_marginRight="@dimen/fragment_mine_relative_marginright"
+            android:padding="@dimen/fragment_mine_layout_padding">
 
-        <ImageView
-            android:id="@+id/fragment_mine_suggestion_right_icon"
-            android:layout_width="@dimen/fragment_mine_layout_right_icon_width"
-            android:layout_height="@dimen/fragment_mine_layout_right_icon_height"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/right_arrow" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_center_space" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_toLeftOf="@id/fragment_mine_suggestion_right_icon"
-            android:text="@string/fragment_mine_suggestion_text_content" />
+            <ImageView
+                android:id="@+id/fragment_mine_money_right_icon"
+                android:layout_width="@dimen/fragment_mine_layout_right_icon_width"
+                android:layout_height="@dimen/fragment_mine_layout_right_icon_height"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/right_arrow" />
 
-        <TextView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toLeftOf="@id/fragment_mine_money_right_icon"
+                android:text="@string/fragment_mine_money_text" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragment_mine_layout_thread_height"
+                android:layout_below="@id/fragment_mine_money_right_icon"
+                android:layout_marginTop="@dimen/fragment_mine_layout_thread_margin_top"
+                android:background="#e2e2e2" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/fragment_mine_house_layout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/fragment_mine_layout_thread_height"
-            android:layout_below="@id/fragment_mine_suggestion_right_icon"
-            android:layout_marginTop="@dimen/fragment_mine_layout_thread_margin_top"
-            android:background="#e2e2e2" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/fragment_mine_telnumber_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/fragment_mine_relative_marginleft"
-        android:layout_marginRight="@dimen/fragment_mine_relative_marginright"
-        android:padding="@dimen/fragment_mine_layout_padding">
-
-        <ImageView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/icon_user_center_phone" />
+            android:layout_below="@id/fragment_mine_money_layout"
+            android:layout_marginLeft="@dimen/fragment_mine_relative_marginleft"
+            android:layout_marginRight="@dimen/fragment_mine_relative_marginright"
+            android:padding="@dimen/fragment_mine_layout_padding">
 
-        <ImageView
-            android:id="@+id/fragment_mine_telnumber_right_icon"
-            android:layout_width="@dimen/fragment_mine_layout_right_icon_width"
-            android:layout_height="@dimen/fragment_mine_layout_right_icon_height"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/right_arrow" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_center_share" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_toLeftOf="@id/fragment_mine_telnumber_right_icon"
-            android:text="@string/fragment_mine_telnumber_text_content" />
+            <ImageView
+                android:id="@+id/fragment_mine_house_right_icon"
+                android:layout_width="@dimen/fragment_mine_layout_right_icon_width"
+                android:layout_height="@dimen/fragment_mine_layout_right_icon_height"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/right_arrow" />
 
-        <TextView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toLeftOf="@id/fragment_mine_house_right_icon"
+                android:text="@string/fragment_mine_house_text" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragment_mine_layout_thread_height"
+                android:layout_below="@id/fragment_mine_house_right_icon"
+                android:layout_marginTop="@dimen/fragment_mine_layout_thread_margin_top"
+                android:background="#e2e2e2" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/fragment_mine_collection_layout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/fragment_mine_layout_thread_height"
-            android:layout_below="@id/fragment_mine_telnumber_right_icon"
-            android:layout_marginTop="@dimen/fragment_mine_layout_thread_margin_top"
-            android:background="#e2e2e2" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/fragment_mine_setup_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/fragment_mine_relative_marginleft"
-        android:layout_marginRight="@dimen/fragment_mine_relative_marginright"
-        android:padding="@dimen/fragment_mine_layout_padding">
-
-        <ImageView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/icon_center_setting" />
+            android:layout_below="@id/fragment_mine_house_layout"
+            android:layout_marginLeft="@dimen/fragment_mine_relative_marginleft"
+            android:layout_marginRight="@dimen/fragment_mine_relative_marginright"
+            android:padding="@dimen/fragment_mine_layout_padding">
 
-        <ImageView
-            android:id="@+id/fragment_mine_setup_right_icon"
-            android:layout_width="@dimen/fragment_mine_layout_right_icon_width"
-            android:layout_height="@dimen/fragment_mine_layout_right_icon_height"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/right_arrow" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_setting_feedback" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_toLeftOf="@id/fragment_mine_setup_right_icon"
-            android:text="@string/fragment_mine_setup_text_content" />
+            <ImageView
+                android:id="@+id/fragment_mine_collection_right_icon"
+                android:layout_width="@dimen/fragment_mine_layout_right_icon_width"
+                android:layout_height="@dimen/fragment_mine_layout_right_icon_height"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/right_arrow" />
 
-        <TextView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toLeftOf="@id/fragment_mine_collection_right_icon"
+                android:text="@string/fragment_mine_collection_text" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragment_mine_layout_thread_height"
+                android:layout_below="@id/fragment_mine_collection_right_icon"
+                android:layout_marginTop="@dimen/fragment_mine_layout_thread_margin_top"
+                android:background="#e2e2e2" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/fragment_mine_share_layout_other"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/fragment_mine_layout_thread_height"
-            android:layout_below="@id/fragment_mine_setup_right_icon"
-            android:layout_marginTop="@dimen/fragment_mine_layout_thread_margin_top"
-            android:background="#e2e2e2" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fragment_mine_collection_layout"
+            android:layout_marginLeft="@dimen/fragment_mine_relative_marginleft"
+            android:layout_marginRight="@dimen/fragment_mine_relative_marginright"
+            android:padding="@dimen/fragment_mine_layout_padding">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_user_center_phone" />
+
+            <ImageView
+                android:id="@+id/fragment_mine_share_right_icon_other"
+                android:layout_width="@dimen/fragment_mine_layout_right_icon_width"
+                android:layout_height="@dimen/fragment_mine_layout_right_icon_height"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/right_arrow" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toLeftOf="@id/fragment_mine_share_right_icon_other"
+                android:text="@string/fragment_mine_share_other_text" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragment_mine_layout_thread_height"
+                android:layout_below="@id/fragment_mine_share_right_icon_other"
+                android:layout_marginTop="@dimen/fragment_mine_layout_thread_margin_top"
+                android:background="#e2e2e2" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/fragment_mine_setup_layout_other"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fragment_mine_share_layout_other"
+            android:layout_marginLeft="@dimen/fragment_mine_relative_marginleft"
+            android:layout_marginRight="@dimen/fragment_mine_relative_marginright"
+            android:padding="@dimen/fragment_mine_layout_padding">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_center_setting" />
+
+            <ImageView
+                android:id="@+id/fragment_mine_setup_right_icon_other"
+                android:layout_width="@dimen/fragment_mine_layout_right_icon_width"
+                android:layout_height="@dimen/fragment_mine_layout_right_icon_height"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/right_arrow" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toLeftOf="@id/fragment_mine_setup_right_icon_other"
+                android:text="@string/fragment_mine_setup_text_content" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragment_mine_layout_thread_height"
+                android:layout_below="@id/fragment_mine_setup_right_icon_other"
+                android:layout_marginTop="@dimen/fragment_mine_layout_thread_margin_top"
+                android:background="#e2e2e2" />
+        </RelativeLayout>
     </RelativeLayout>
-</LinearLayout>
+</RelativeLayout>
