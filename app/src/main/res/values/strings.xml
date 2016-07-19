@@ -13,4 +13,5 @@
     <string name="fragment_mine_telnumber_text_content">400 821 3795</string>
     <string name="fragment_mine_suggestion_text_content">意见反馈</string>
     <string name="fragment_mine_share_text_content">分享给好友</string>
+    <string name="select_city">选择城市</string>
 </resources>
