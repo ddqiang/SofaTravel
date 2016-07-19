@@ -17,9 +17,12 @@ import com.example.dllo.sofatravel.main.main.mine.MinePresenter;
 import com.example.dllo.sofatravel.main.main.order.OrderFragment;
 import com.example.dllo.sofatravel.main.main.search.SearchFragment;
 
+
+
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private RadioButton home, discover, search, order, mine;
+    private MineFragment mineFragment;
 
     @Override
     public int getLayout() {
@@ -28,6 +31,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void initView() {
+
         home = (RadioButton) findViewById(R.id.home_tab);
         discover = (RadioButton) findViewById(R.id.discover_tab);
         order = (RadioButton) findViewById(R.id.order_tab);
@@ -49,11 +53,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         transactionOne.replace(R.id.show_fragment_fl, new HomeFragment());
         transactionOne.commit();
 
-        MineFragment mineFragment = new MineFragment();
+        mineFragment = new MineFragment();
         MineContract.Model model = new MineModel();
         MineContract.Presenter presenter = new MinePresenter(mineFragment, model);
-        model.setPresenter(presenter);
         mineFragment.setPresenter(presenter);
+        model.setPresenter(presenter);
     }
 
     @Override
@@ -76,7 +80,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 transaction.replace(R.id.show_fragment_fl, new OrderFragment());
                 break;
             case R.id.mine_tab:
-                transaction.replace(R.id.show_fragment_fl, new MineFragment());
+                transaction.replace(R.id.show_fragment_fl, mineFragment);
                 break;
         }
         transaction.commit();

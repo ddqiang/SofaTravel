@@ -13,6 +13,11 @@ public class MinePresenter implements MineContract.Presenter {
     }
 
     @Override
+    public void whetherLogin() {
+        model.checkHasLogin();
+    }
+
+    @Override
     public void isLogin() {
         model.checkIsLogin();
     }
@@ -23,12 +28,23 @@ public class MinePresenter implements MineContract.Presenter {
     }
 
     @Override
+    public void hadLogin() {
+        view.whetherLogin(true);
+    }
+
+    @Override
     public void noLogin() {
         view.isLogin(false);
     }
 
     @Override
-    public void start() {
+    public void notLogin() {
+        view.whetherLogin(false);
+    }
 
+    @Override
+    public void start() {
+        model.setPresenter(this);
+        view.setPresenter(this);
     }
 }
