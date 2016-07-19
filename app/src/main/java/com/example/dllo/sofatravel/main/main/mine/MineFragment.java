@@ -12,12 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-<<<<<<< HEAD
-=======
 import android.widget.TextView;
 import android.widget.Toast;
-
->>>>>>> feature/mineOne
 import com.example.dllo.sofatravel.R;
 import com.example.dllo.sofatravel.main.main.base.BaseFragment;
 import com.example.dllo.sofatravel.main.main.mine.loginorregister.LoginOrRegisterActivity;

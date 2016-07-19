@@ -1,6 +1,5 @@
 package com.example.dllo.sofatravel.main.main.mine;
 
-import cn.bmob.v3.BmobObject;
 
 /**
  * Created by dllo on 16/7/19.
