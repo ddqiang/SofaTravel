@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dllo.sofatravel">
-<<<<<<< HEAD
+
 <uses-permission android:name="android.permission.INTERNET"/>
-=======
+
     <!--允许联网 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!--获取GSM（2g）、WCDMA（联通3g）等网络状态的信息  -->
@@ -19,7 +19,6 @@
     <!--允许拨打电话-->
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
->>>>>>> feature/mineOne
     <application
         android:name=".main.main.base.MyApplication"
         android:allowBackup="true"
@@ -34,14 +33,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
+
         <activity android:name=".main.main.discover.youthdetails.YouthDetailsActivity"/>
         <activity android:name=".main.main.discover.youthdetails.SearchDetailActivity"/>
         <activity android:name=".main.main.discover.youthdetails.selectcity.SelectCityActivity"/>
-=======
-        <activity android:name=".main.main.discover.youthdetails.YouthDetailsActivity" />
+
         <activity android:name=".main.main.mine.loginorregister.LoginOrRegisterActivity" />
->>>>>>> feature/mineOne
+
     </application>
 
 
