@@ -2,12 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_margin="@dimen/five"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/five">
 
         <ImageView
             android:id="@+id/discover_detail_back"
@@ -19,39 +20,60 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/discover_detail_back">
+            android:layout_toRightOf="@id/discover_detail_back"
+            android:background="@drawable/round">
 
-            <TextView
-                android:id="@+id/discover_detail_location"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/ten"
-                android:layout_toRightOf="@id/discover_detail_back"
-                android:text="大连" />
+                android:orientation="horizontal"
+                android:id="@+id/dis_detail_location">
 
-            <ImageView
-                android:id="@+id/discover_detail_down"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/ten"
-                android:layout_toRightOf="@id/discover_detail_location"
-                android:src="@mipmap/icon_qinglv_list_arrow_down_gray" />
+                <TextView
+                    android:id="@+id/discover_detail_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/ten"
+                    android:layout_toRightOf="@id/discover_detail_back"
+                    android:text="大连" />
+
+                <ImageView
+                    android:id="@+id/discover_detail_down"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/ten"
+                    android:layout_toRightOf="@id/discover_detail_location"
+                    android:src="@mipmap/icon_qinglv_list_arrow_down_gray" />
+            </LinearLayout>
 
             <View
                 android:layout_width="@dimen/one"
                 android:layout_height="match_parent"
                 android:background="@color/discover_gray" />
 
-
-            <EditText
+            <LinearLayout
+                android:id="@+id/discover_detail_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/ten"
-                android:layout_toRightOf="@id/discover_detail_down"
-                android:background="@null"
-                android:gravity="center"
-                android:hint="@string/discover_content"
-                android:textSize="@dimen/fifteen" />
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/ten"
+                    android:src="@mipmap/icon_qinglv_search_small" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/ten"
+                    android:layout_toRightOf="@id/discover_detail_down"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:text="@string/discover_content"
+                    android:textColor="@color/discover_gray"
+                    android:textSize="@dimen/ten" />
+            </LinearLayout>
         </LinearLayout>
 
 
@@ -76,68 +98,78 @@
         android:weightSum="2">
 
         <LinearLayout
+            android:id="@+id/dis_check_in_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="@dimen/five"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/check_in"
-                android:gravity="center"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="check_in_time"
                 android:gravity="center"
-                android:textColor="@color/green"/>
+                android:text="@string/check_in" />
+
+            <TextView
+                android:id="@+id/dis_in_time_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="check_in_time"
+                android:textColor="@color/green" />
         </LinearLayout>
 
-        <Button
-            android:layout_margin="@dimen/ten"
+        <TextView
+            android:id="@+id/dis_sum"
             android:layout_width="@dimen/fifty"
             android:layout_height="@dimen/twenty"
+            android:layout_margin="@dimen/ten"
             android:background="@drawable/round"
             android:text="共4晚"
             android:textColor="@color/green" />
 
         <LinearLayout
+            android:id="@+id/dis_check_out_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
-                android:layout_margin="@dimen/five"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/check_out"
-                android:gravity="center"/>
+                android:layout_margin="@dimen/five"
+                android:gravity="center"
+                android:text="@string/check_out" />
 
             <TextView
-                android:gravity="center"
+                android:id="@+id/dis_out_time_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="check_out_time"
-                android:textColor="@color/green"/>
+                android:textColor="@color/green" />
         </LinearLayout>
 
     </LinearLayout>
+
     <View
         android:layout_width="wrap_content"
         android:layout_height="@dimen/one"
-        android:background="@color/discover_gray"
-        />
+        android:background="@color/discover_gray" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/ten"
         android:gravity="center"
         android:text="@string/more_filter"
         android:textColor="@color/green"
-        android:layout_margin="@dimen/ten"
-        android:textSize="@dimen/fifteen"/>
+        android:textSize="@dimen/fifteen" />
+
+
+    +
 
     <ListView
         android:id="@+id/discover_detail_list"

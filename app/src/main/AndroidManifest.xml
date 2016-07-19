@@ -17,6 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".main.main.discover.youthdetails.YouthDetailsActivity"/>
+        <activity android:name=".main.main.discover.youthdetails.SearchDetailActivity"/>
+        <activity android:name=".main.main.discover.youthdetails.selectcity.SelectCityActivity"/>
     </application>
 
 
