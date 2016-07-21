@@ -1,18 +1,16 @@
 <resources>
 
-<<<<<<< HEAD
-     Base application theme.
+    Base application theme.
+
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar"></style>
 
     <!--<style name="main_aty_tab">-->
-        <!--<item name="android:layout_width">wrap_content</item>-->
-        <!--<item name="android:layout_height">wrap_content</item>-->
-        <!--<item name="android:button">@null</item>-->
+    <!--<item name="android:layout_width">wrap_content</item>-->
+    <!--<item name="android:layout_height">wrap_content</item>-->
+    <!--<item name="android:button">@null</item>-->
     <!--</style>-->
 
-=======
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar"></style>
 
     <style name="main_aty_tab">
         <item name="android:layout_width">wrap_content</item>
@@ -21,26 +19,21 @@
     </style>
 
 
->>>>>>> feature/discoverTwo
     <style name="main_aty_tab_margin">
         <item name="android:layout_marginLeft">24dp</item>
         <item name="android:layout_marginRight">25dp</item>
     </style>
 
-<<<<<<< HEAD
     <style name="main_aty_tab_relayout">
 
     </style>
 
-=======
     <style name="RatingBar" parent="@android:style/Widget.RatingBar">
 
-       <item name="android:progressDrawable">@drawable/ratingbar_drawable</item>
+        <item name="android:progressDrawable">@drawable/ratingbar_drawable</item>
         <item name="android:maxHeight">30dp</item>
         <item name="android:minHeight">30dp</item>
     </style>
 
     <!--</style>-->
-
->>>>>>> feature/discoverTwo
 </resources>
