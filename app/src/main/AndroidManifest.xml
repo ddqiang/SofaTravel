@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dllo.sofatravel">
 
-<uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <!--允许联网 -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -34,12 +34,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".main.main.discover.youthdetails.YouthDetailsActivity"/>
-        <activity android:name=".main.main.discover.youthdetails.SearchDetailActivity"/>
-        <activity android:name=".main.main.discover.youthdetails.selectcity.SelectCityActivity"/>
-
+        <activity android:name=".main.main.discover.youthdetails.YouthDetailsActivity" />
+        <activity android:name=".main.main.discover.youthdetails.SearchDetailActivity" />
+        <activity android:name=".main.main.discover.youthdetails.selectcity.SelectCityActivity" />
         <activity android:name=".main.main.mine.loginorregister.LoginOrRegisterActivity" />
-
+        <activity android:name=".main.main.home.bannerdetails.BannerDetailActivity" />
+        <activity android:name=".main.main.home.messagedetails.MessageDetailsActivity" />
     </application>
 
 

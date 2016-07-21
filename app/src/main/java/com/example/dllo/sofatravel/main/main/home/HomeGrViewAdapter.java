@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.dllo.sofatravel.R;
+import com.example.dllo.sofatravel.main.main.base.MyOnClick;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,11 @@ public class HomeGrViewAdapter extends BaseAdapter {
 
     private HomeBean homeBean;
     private Context context;
+    private MyOnClick myOnClick;
+
+    public void setMyOnClick(MyOnClick myOnClick) {
+        this.myOnClick = myOnClick;
+    }
 
     public HomeGrViewAdapter(Context context) {
         this.context = context;
@@ -48,7 +54,7 @@ public class HomeGrViewAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         MyGrViewViewHolder holder;
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.home_grideview_item, parent, false);
@@ -60,6 +66,12 @@ public class HomeGrViewAdapter extends BaseAdapter {
         holder.cityTv.setText(homeBean.getData().getHomePageInfo().getRecommendCity().get(position).getCityNameCh());
         holder.cityEnglishTv.setText(homeBean.getData().getHomePageInfo().getRecommendCity().get(position).getCityNameEn());
         Glide.with(context).load(homeBean.getData().getHomePageInfo().getRecommendCity().get(position).getMainPic()).into(holder.imageView);
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myOnClick.onClick(position);
+            }
+        });
         return convertView;
     }
 

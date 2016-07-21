@@ -26,5 +26,6 @@
     <dimen name="fragment_mine_layout_padding">5dp</dimen>
     <dimen name="textsize_ten">10dp</dimen>
     <dimen name="textsize_twenty">20sp</dimen>
+    <dimen name="textSize_fifteen">15dp</dimen>
 
 </resources>
