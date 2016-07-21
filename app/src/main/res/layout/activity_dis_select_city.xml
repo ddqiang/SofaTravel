@@ -19,20 +19,16 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/select_city"
+            android:layout_margin="@dimen/ten"
             android:gravity="center"
-            android:layout_margin="@dimen/ten"/>
+            android:text="@string/select_city" />
     </LinearLayout>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="热门城市"
-            android:layout_margin="@dimen/ten"/>
 
-    </ScrollView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/ten"
+        android:text="热门城市" />
 
 
 </LinearLayout>

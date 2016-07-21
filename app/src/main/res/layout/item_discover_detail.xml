@@ -1,33 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <ImageView
+        android:id="@+id/item_dis_detail_thumbnail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/item_dis_detail_img"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@mipmap/ic_launcher" />
+
     <TextView
+        android:id="@+id/dis_detail_hotel_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="名称"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:text="名称" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/dis_detail_district"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="district"
+            android:textSize="@dimen/ten"
+            android:textColor="@color/discover_gray"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="." />
+
+        <TextView
+            android:textColor="@color/discover_gray"
+            android:textSize="@dimen/ten"
+            android:id="@+id/dis_detail_business_zone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="businessZone" />
+
+    </LinearLayout>
+
     <TextView
+        android:textColor="@color/discover_gray"
+        android:id="@+id/dis_detail_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="location"
-        android:gravity="center"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="location"
-        android:gravity="center"/>
-    <RatingBar
+        android:gravity="center"
+        android:maxEms="10"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:text="address"
+        android:textSize="@dimen/ten"/>
+
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="@dimen/ten">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¥"
+                    android:textColor="@color/green"
+                    android:textSize="@dimen/twenty" />
+
+                <TextView
+                    android:id="@+id/dis_detail_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="money"
+                    android:textColor="@color/green"
+                    android:textSize="@dimen/fifteen" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="起"
+                    android:textSize="@dimen/fifteen"
+                    android:textColor="@color/green"/>
+            </LinearLayout>
+
+            <RatingBar
+                style="@style/RatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:rating="2" />
+        </RelativeLayout>
 
 
-      />
-
-
+    </LinearLayout>
 </LinearLayout>

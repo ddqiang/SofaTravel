@@ -34,12 +34,20 @@
             </intent-filter>
         </activity>
 
+
         <activity android:name=".main.main.discover.youthdetails.YouthDetailsActivity" />
         <activity android:name=".main.main.discover.youthdetails.SearchDetailActivity" />
         <activity android:name=".main.main.discover.youthdetails.selectcity.SelectCityActivity" />
         <activity android:name=".main.main.mine.loginorregister.LoginOrRegisterActivity" />
         <activity android:name=".main.main.home.bannerdetails.BannerDetailActivity" />
         <activity android:name=".main.main.home.messagedetails.MessageDetailsActivity" />
+        <activity android:name=".main.main.discover.youthdetails.selectcity.MapActivity"/>
+        <activity android:name=".main.main.discover.youthdetails.DetailInfoActivity"/>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
     </application>
 
 
