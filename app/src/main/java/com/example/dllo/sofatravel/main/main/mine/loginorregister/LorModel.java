@@ -1,15 +1,10 @@
 package com.example.dllo.sofatravel.main.main.mine.loginorregister;
 
 
-import android.util.Log;
-import android.widget.Toast;
-
 import com.example.dllo.sofatravel.main.main.base.MyApplication;
-import com.example.dllo.sofatravel.main.main.mine.UserBean;
+import com.example.dllo.sofatravel.main.main.mine.UserInfoBean;
 
-import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
 /**
@@ -56,6 +51,24 @@ public class LorModel implements LoginOrRegisterContract.LoginOrRegisterModel {
             }
         });
 
+    }
+
+    @Override
+    public void setDefaultUserName(String accountName) {
+        UserInfoBean bean = new UserInfoBean();
+        bean.setAccountName(accountName);
+        bean.setUserName("未设置");
+        bean.save(MyApplication.context, new SaveListener() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+
+            }
+        });
     }
 
     @Override

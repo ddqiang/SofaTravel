@@ -14,21 +14,21 @@
         android:scaleType="fitXY"
         android:src="@mipmap/icon_center_head" />
 
-    <TextView
-        android:id="@+id/fragment_mine_login_or_signup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/fragment_mine_user_image"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/fragment_mine_login_or_signup_text_margin"
-        android:text="@string/fragment_mine_login_or_signup_text_content" />
 
     <RelativeLayout
         android:id="@+id/fragment_mine_not_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/fragment_mine_login_or_signup"
+        android:layout_below="@id/fragment_mine_user_image"
         android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/fragment_mine_login_or_signup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/fragment_mine_login_or_signup_text_margin"
+            android:text="@string/fragment_mine_login_or_signup_text_content" />
 
         <RelativeLayout
             android:id="@+id/fragment_mine_release_layout"
@@ -36,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/fragment_mine_relative_marginleft"
             android:layout_marginRight="@dimen/fragment_mine_relative_marginright"
+            android:layout_marginTop="50dp"
             android:padding="@dimen/fragment_mine_layout_padding">
 
             <ImageView
@@ -224,22 +225,31 @@
         android:id="@+id/fragment_mine_has_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/fragment_mine_login_or_signup"
+        android:layout_below="@id/fragment_mine_user_image"
         android:layout_marginTop="10dp"
         android:visibility="gone">
+
+        <TextView
+            android:id="@+id/fragment_mine_login_or_signup_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/fragment_mine_login_or_signup_text_margin" />
 
         <RelativeLayout
             android:id="@+id/fragment_mine_money_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/fragment_mine_login_or_signup_username"
             android:layout_marginLeft="@dimen/fragment_mine_relative_marginleft"
             android:layout_marginRight="@dimen/fragment_mine_relative_marginright"
+            android:layout_marginTop="14dp"
             android:padding="@dimen/fragment_mine_layout_padding">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/icon_center_space" />
+                 android:src="@mipmap/icon_center_space" />
 
             <ImageView
                 android:id="@+id/fragment_mine_money_right_icon"

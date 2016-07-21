@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fragment_login_or_register_et_background"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/mine_message_camera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/white_background_corners"
+        android:gravity="center_horizontal"
+        android:padding="10dp"
+        android:text="相机"
+        android:textSize="20sp" />
+
+    <TextView
+
+        android:id="@+id/mine_message_localImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/white_background_corners"
+        android:gravity="center_horizontal"
+        android:padding="10dp"
+        android:text="相册"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/mine_message_close"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/white_background_corners"
+        android:gravity="center_horizontal"
+        android:padding="10dp"
+        android:text="取消"
+        android:textSize="20sp" />
+
+</LinearLayout>

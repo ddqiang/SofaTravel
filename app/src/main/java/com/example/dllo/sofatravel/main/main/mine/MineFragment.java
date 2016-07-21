@@ -1,22 +1,40 @@
 package com.example.dllo.sofatravel.main.main.mine;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.dllo.sofatravel.R;
 import com.example.dllo.sofatravel.main.main.base.BaseFragment;
 import com.example.dllo.sofatravel.main.main.mine.loginorregister.LoginOrRegisterActivity;
+import com.example.dllo.sofatravel.main.main.values.TheValues;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 
 
 /**
@@ -26,9 +44,14 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
     private MineContract.Presenter presenter;
     private ImageView userImage;
     private RelativeLayout space, share, feedBack, telNumber, setUp, house, money, collection, setupOther, shareOther, notLoginRelativeLayout, hasLoginRelativeLayout;
-    private TextView loginOrRegisterTv;
+    private TextView loginOrRegisterTv, setUserName;
     private ChangePageReceiver receiver;
     private LoginOutReceiver outReceiver;
+    private Bitmap currentUserImage;
+    private PopupWindow popupWindow;
+    private UserInfoBean currentUserInfo;
+    private String currentUserName, currentAccountName;
+    private ProgressDialog getUserInfoDialog;
 
     @Override
     public int setLayout() {
@@ -47,6 +70,7 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
         filter1.addAction("outPut");
         context.registerReceiver(outReceiver, filter1);
         loginOrRegisterTv = (TextView) view.findViewById(R.id.fragment_mine_login_or_signup);
+        setUserName = (TextView) view.findViewById(R.id.fragment_mine_login_or_signup_username);
         userImage = (ImageView) view.findViewById(R.id.fragment_mine_user_image);
         space = (RelativeLayout) view.findViewById(R.id.fragment_mine_release_layout);
         share = (RelativeLayout) view.findViewById(R.id.fragment_mine_share_layout);
@@ -65,6 +89,13 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
 
     @Override
     public void initData() {
+        SharedPreferences isLogin = context.getSharedPreferences("isLogin", Context.MODE_PRIVATE);
+        boolean hasLogin = isLogin.getBoolean("hasLogin", false);
+        if (hasLogin) {
+            queryUserName();
+            queryUserImage();
+            getUserInfoDialog();
+        }
         userImage.setOnClickListener(this);
         space.setOnClickListener(this);
         share.setOnClickListener(this);
@@ -77,8 +108,22 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
         setupOther.setOnClickListener(this);
         shareOther.setOnClickListener(this);
         loginOrRegisterTv.setOnClickListener(this);
+        setUserName.setOnClickListener(this);
 
 
+    }
+
+    private void queryUserImage() {
+        SharedPreferences account = context.getSharedPreferences("saveAccountName", Context.MODE_PRIVATE);
+        String accountName = account.getString("accountName", "null");
+        presenter.queryUserImage(accountName);
+
+    }
+
+    private void queryUserName() {
+        SharedPreferences account = context.getSharedPreferences("saveAccountName", Context.MODE_PRIVATE);
+        String accountName = account.getString("accountName", "null");
+        presenter.getUserBean(accountName);
     }
 
     @Override
@@ -90,6 +135,7 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
     public void isLogin(boolean hasLogin) {
         //点击用户头像和第一个布局的登录状态判断
         if (hasLogin) {
+            showPopu();
         } else {
             Intent intent = new Intent(context, LoginOrRegisterActivity.class);
             context.startActivity(intent);
@@ -107,6 +153,41 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
             hasLoginRelativeLayout.setVisibility(View.GONE);
             notLoginRelativeLayout.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public void saveUserBeanSuccess() {
+        //Toast.makeText(context, "设置用户名成功", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void getUserBeanSuccess(String userName) {
+        setUserName.setText(userName);
+    }
+
+    @Override
+    public void saveUserInfoSuccess() {
+        Toast.makeText(context, "设置照片成功", Toast.LENGTH_SHORT).show();
+        if (popupWindow != null) {
+            popupWindow.dismiss();
+        }
+    }
+
+    @Override
+    public void getUserImageSuccess(Bitmap bitmap) {
+        currentUserImage = bitmap;
+        currentUserInfo = new UserInfoBean();
+        currentUserInfo.setImage(currentUserImage);
+        currentUserInfo.setUserName(currentUserName);
+        currentUserInfo.setAccountName(currentAccountName);
+        presenter.saveUserInfo(currentUserInfo);//将用户名和账号保存
+        Toast.makeText(context, "设置用户名成功", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void readUserImageSuccess(Bitmap bitmap) {
+        userImage.setImageBitmap(bitmap);
+        getUserInfoDialog.dismiss();
     }
 
     @Override
@@ -141,10 +222,59 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
                 break;
             case R.id.fragment_mine_house_layout:
                 break;
+            case R.id.fragment_mine_login_or_signup_username:
+                getUserName();
+                break;
+            case R.id.mine_message_camera:
+                Toast.makeText(context, "没有照相机怎么办", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.mine_message_close:
+                if (popupWindow != null) {
+                    popupWindow.dismiss();
+                }
+                break;
+            case R.id.mine_message_localImage:
+                Intent localImage = new Intent(Intent.ACTION_PICK, null);
+                localImage.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, TheValues.IMAGE_UNSPECIFIED);
+                startActivityForResult(localImage, TheValues.ALBUM_REQUEST_CODE);
+                break;
 
         }
     }
 
+
+    //设置用户昵称dialog
+    private void getUserName() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_get_user_name, null);
+        final EditText getUserNameEt = (EditText) view.findViewById(R.id.dialog_get_user_name_et);
+        builder.setView(view);
+        builder.setTitle("更改昵称");
+        builder.setPositiveButton("确认更改", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (getUserNameEt.getText().length() == 0) {
+                    Toast.makeText(context, "请填写用户名", Toast.LENGTH_SHORT).show();
+                } else {
+                    currentUserName = getUserNameEt.getText().toString();//获取用户输入的名字
+                    SharedPreferences account = context.getSharedPreferences("saveAccountName", Context.MODE_PRIVATE);//获取保存的用户账号
+                    currentAccountName = account.getString("accountName", "未设置");
+                    SharedPreferences sharedPreferences = context.getSharedPreferences("saveUserName", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("userName", currentUserName);//将用户设置的名字保存本地
+                    editor.commit();
+                    presenter.getUserImage(currentAccountName);
+                    setUserName.setText(currentUserName);
+
+                }
+            }
+        });
+        builder.create().show();
+    }
+
+
+    //未登录时 设置 dialog
     private void aboutUs() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_setup, null);
@@ -152,6 +282,7 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
         builder.create().show();
     }
 
+    //拨打电话dialog
     private void telNumberDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage("确认拨打400-821-3795?");
@@ -175,6 +306,8 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
         builder.create().show();
     }
 
+
+    //登录后 设置 dialog
     private void setUpDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_setup, null);
@@ -186,6 +319,11 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.clear();
                 editor.commit();
+                SharedPreferences outAccount = context.getSharedPreferences("saveAccountName", Context.MODE_PRIVATE);
+                SharedPreferences.Editor accountEditor = outAccount.edit();
+                accountEditor.clear();
+                accountEditor.commit();
+                userImage.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher_one));
                 Intent intent = new Intent("outPut");
                 context.sendBroadcast(intent);
                 dialog.dismiss();
@@ -194,15 +332,19 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
         builder.create().show();
     }
 
-
+    //登录后接受的广播
     class ChangePageReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             hasLoginRelativeLayout.setVisibility(View.VISIBLE);
             notLoginRelativeLayout.setVisibility(View.GONE);
+            queryUserName();
+            queryUserImage();
         }
     }
 
+
+    //退出登录接受的广播
     class LoginOutReceiver extends BroadcastReceiver {
 
         @Override
@@ -212,10 +354,108 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
         }
     }
 
+
+    private void showPopu() {
+
+        View view = LayoutInflater.from(context).inflate(R.layout.mine_message_image, null);
+        TextView camear = (TextView) view.findViewById(R.id.mine_message_camera);
+        TextView locrdImage = (TextView) view.findViewById(R.id.mine_message_localImage);
+        TextView close = (TextView) view.findViewById(R.id.mine_message_close);
+
+        camear.setOnClickListener(this);
+        locrdImage.setOnClickListener(this);
+        close.setOnClickListener(this);
+        popupWindow = new PopupWindow(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindow.setFocusable(true);
+        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+        popupWindow.setContentView(view);
+        popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+    }
+
+    /**
+     * 开始裁剪
+     *
+     * @param uri
+     */
+    private void startCrop(Uri uri) {
+        Intent intent = new Intent("com.android.camera.action.CROP");// 调用Android系统自带的一个图片剪裁页面,
+        intent.setDataAndType(uri, TheValues.IMAGE_UNSPECIFIED);
+        intent.putExtra("crop", "true");// 进行修剪
+        // aspectX aspectY 是宽高的比例
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        // outputX outputY 是裁剪图片宽高
+        intent.putExtra("outputX", 300);
+        intent.putExtra("outputY", 300);
+        intent.putExtra("return-data", true);
+        startActivityForResult(intent, TheValues.CROP_REQUEST_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case TheValues.ALBUM_REQUEST_CODE:
+                // Log.i(TAG, "相册，开始裁剪");
+                // Log.i(TAG, "相册 [ " + data + " ]");
+                if (data == null) {
+                    return;
+                }
+                startCrop(data.getData());
+                break;
+            case TheValues.CAMERA_REQUEST_CODE:
+                // Log.i(TAG, "相机, 开始裁剪");
+                File picture = new File(Environment.getExternalStorageDirectory() + "/temp.jpg");
+                startCrop(Uri.fromFile(picture));
+                break;
+            case TheValues.CROP_REQUEST_CODE:
+                // Log.i(TAG, "相册裁剪成功");
+                // Log.i(TAG, "裁剪以后 [ " + data + " ]");
+                if (data == null) {
+                    // TODO 如果之前以后有设置过显示之前设置的图片 否则显示默认的图片
+                    return;
+                }
+                Bundle extras = data.getExtras();
+                if (extras != null) {
+                    Bitmap photo = extras.getParcelable("data");
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    photo.compress(Bitmap.CompressFormat.JPEG, 75, stream);// (0-100)压缩文件
+                    // 此处可以把Bitmap保存到sd卡中
+                    userImage.setImageBitmap(photo); // 把图片显示在ImageView控件上
+                    SharedPreferences accountName = context.getSharedPreferences("saveAccountName", Context.MODE_PRIVATE);
+                    String account = accountName.getString("accountName", "未设置");//账号
+                    SharedPreferences userName = context.getSharedPreferences("saveUserName", Context.MODE_PRIVATE);
+                    String name = userName.getString("userName", "hehe");//用户名
+                    UserInfoBean bean = new UserInfoBean();
+                    bean.setAccountName(account);//设置账号
+                    bean.setUserName(name);//设置用户名
+                    bean.setImage(photo);//设置图片
+                    presenter.saveUserInfo(bean);//存入网络数据库
+                    try {
+                        stream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+        }
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         context.unregisterReceiver(receiver);
         context.unregisterReceiver(outReceiver);
     }
+
+    private void getUserInfoDialog() {
+        if (getUserInfoDialog == null) {
+            getUserInfoDialog = ProgressDialog.show(context, "请等待", "加载数据中", true, false);
+        } else {
+            getUserInfoDialog.show();
+        }
+    }
+
+
 }
