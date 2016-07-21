@@ -18,12 +18,16 @@ public interface LoginOrRegisterContract {
         void registerSuccess();
 
         void registerError(String s);
+
+
     }
 
     interface LoginOrRegisterModel extends BaseModel<LoginOrRegisterPresenter> {
         void login(String userName, String password);
 
         void register(String userName, String password);
+
+        void setDefaultUserName(String accountName);
 
     }
 
@@ -41,6 +45,9 @@ public interface LoginOrRegisterContract {
         void registerSuccess();
 
         void registerError(String s);
+
+        void setDefaultUserName(String accountName);
+
     }
 
 

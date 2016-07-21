@@ -65,7 +65,11 @@ public class LoginOrRegisterFragment extends BaseFragment implements LoginOrRegi
         SharedPreferences sharedPreferences = context.getSharedPreferences("isLogin", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("hasLogin", true);
-        editor.commit();
+        editor.commit();//存取当前登录状态
+        SharedPreferences accountName = context.getSharedPreferences("saveAccountName", Context.MODE_PRIVATE);
+        SharedPreferences.Editor account = accountName.edit();
+        account.putString("accountName", userNameEt.getText().toString());
+        account.commit();//存取当前登录账号
         Intent intent = new Intent("changePage");
         context.sendBroadcast(intent);
         getActivity().finish();
@@ -85,10 +89,14 @@ public class LoginOrRegisterFragment extends BaseFragment implements LoginOrRegi
         SharedPreferences sharedPreferences = context.getSharedPreferences("isLogin", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("hasLogin", true);
-        editor.commit();
-
+        editor.commit();//存储登录状态
+        SharedPreferences accountName = context.getSharedPreferences("saveAccountName", Context.MODE_PRIVATE);
+        SharedPreferences.Editor account = accountName.edit();
+        account.putString("accountName", userNameEt.getText().toString());
+        account.commit();//存储当前登录账号
         Intent intent = new Intent("changePage");
         context.sendBroadcast(intent);
+        presenter.setDefaultUserName(userNameEt.getText().toString());//注册成功设置初始用户名
         getActivity().finish();
     }
 
@@ -106,16 +114,24 @@ public class LoginOrRegisterFragment extends BaseFragment implements LoginOrRegi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.activity_login_or_register_login_btn:
-                showLoginDialog();
                 userName = userNameEt.getText().toString();
                 password = passwordEt.getText().toString();
-                presenter.login(userName, password);
+                if (userName == null || password == null || userName.length() * password.length() == 0) {
+                    Toast.makeText(context, "请输入用户名或密码", Toast.LENGTH_SHORT).show();
+                } else {
+                    showLoginDialog();
+                    presenter.login(userName, password);
+                }
                 break;
             case R.id.activity_login_or_register_register_btn:
-                showRegisterDialog();
                 userName = userNameEt.getText().toString();
                 password = passwordEt.getText().toString();
-                presenter.register(userName, password);
+                if (userName == null || password == null || userName.length() * password.length() == 0) {
+                    Toast.makeText(context, "请输入用户名或密码", Toast.LENGTH_SHORT).show();
+                } else {
+                    showRegisterDialog();
+                    presenter.register(userName, password);
+                }
                 break;
 
         }

@@ -43,6 +43,11 @@ public class LorPresenter implements LoginOrRegisterContract.LoginOrRegisterPres
     }
 
     @Override
+    public void setDefaultUserName(String accountName) {
+        model.setDefaultUserName(accountName);
+    }
+
+    @Override
     public void start() {
         view.setPresenter(this);
         model.setPresenter(this);
