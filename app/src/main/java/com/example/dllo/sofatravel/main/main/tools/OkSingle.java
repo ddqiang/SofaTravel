@@ -3,12 +3,16 @@ package com.example.dllo.sofatravel.main.main.tools;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.os.SystemClock;
+import android.provider.Settings;
 import android.util.Log;
 
 import com.example.dllo.sofatravel.main.main.values.TheValues;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -116,8 +120,10 @@ public class OkSingle {
         getRequestAsync(url, t, onTrue, onError);
     }
    public <T> void getYouthDeatil(String id,Class<T>t,OnTrue<T>onTrue,OnError onError){
-        String url = " http://www.shafalvxing.com/hotel/getHotelListByCity.do?bizParams=" +
-              " %7B%22startTime%22%3A1469148387184%2C%22endPrice%22%3A0%2C%22endTime%22%3A1469234787184%2C%22district%22%3A%22%22%2C%22" +
+        Long startTime = System.currentTimeMillis();
+        Long endTime = startTime + 24 * 60 * 60 * 1000;
+        String url = "http://www.shafalvxing.com/hotel/getHotelListByCity.do?bizParams=" +
+              " %7B%22startTime%22%3A"+startTime+"%2C%22endPrice%22%3A0%2C%22endTime%22%3A"+endTime+"%2C%22district%22%3A%22%22%2C%22" +
                 "startPrice%22%3A0%2C%22page%22%3A1%2C%22cityName%22%3A%22"+id+"%e5%B8%82%22%7D";
         getRequestAsync(url, t, onTrue, onError);
     }
@@ -125,6 +131,12 @@ public class OkSingle {
         String url = " http://www.shafalvxing.com/hotel/queryHotelDetail.do?bizParams=" +
                 "%7B%22endTime%22%3A1469158423376%2C%22hotelId%22%3A%22"+id+"%22%2C%22startTime%22%3A1469072023376%7D";
         getRequestAsync(url, t, onTrue, onError);
+    }
+    public <T> void getInfoBed(Class<T>t,OnTrue<T>onTrue,OnError onError){
+        String url="http://www.shafalvxing.com/hotel/queryHotelDetailRmList.do?bizParams=" +
+                "%7B%22startTime%22%3A1469240945303%2C%22endTime%22%3A1469327345303%2C%22hotelId%22%3A%22573166854%22%7D";
+        getRequestAsync(url, t, onTrue, onError);
+
     }
 
 }
