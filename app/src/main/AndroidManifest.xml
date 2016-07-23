@@ -26,7 +26,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.main.main.MainActivity">
+        <activity
+            android:name=".main.main.main.MainActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,13 +44,15 @@
         <activity android:name=".main.main.mine.loginorregister.LoginOrRegisterActivity" />
         <activity android:name=".main.main.home.bannerdetails.BannerDetailActivity" />
         <activity android:name=".main.main.home.messagedetails.MessageDetailsActivity" />
+
         <activity android:name=".main.main.discover.youthdetails.selectcity.MapActivity"/>
         <activity android:name=".main.main.discover.youthdetails.detailinfo.DetailInfoActivity"/>
+        <activity android:name=".main.main.home.imessageconcreteness.MessageConcreActivity" />
+
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
     </application>
 
 

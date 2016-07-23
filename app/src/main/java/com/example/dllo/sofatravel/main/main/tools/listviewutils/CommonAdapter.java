@@ -5,12 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+
+import com.example.dllo.sofatravel.main.main.base.MyOnClick;
+
 import java.util.List;
 
 /**
  * Created by dllo on 16/7/18.
  */
-public abstract class CommonAdapter<T>extends BaseAdapter {
+public abstract class CommonAdapter<T> extends BaseAdapter {
     protected Context mContext;
     protected List<T> mDatas;
     protected LayoutInflater inflater;
@@ -39,10 +42,12 @@ public abstract class CommonAdapter<T>extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         MyViewHolder holder = MyViewHolder.get(mContext, convertView, parent, itemLayoutId, position);
         convert(holder, getItem(position));
+
+
         return holder.getmConvertView();
     }
 

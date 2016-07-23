@@ -18,7 +18,6 @@
         <item name="android:button">@null</item>
     </style>
 
-
     <style name="main_aty_tab_margin">
         <item name="android:layout_marginLeft">24dp</item>
         <item name="android:layout_marginRight">25dp</item>

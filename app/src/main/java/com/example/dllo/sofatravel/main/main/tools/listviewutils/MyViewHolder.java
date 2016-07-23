@@ -8,14 +8,21 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.example.dllo.sofatravel.main.main.base.MyOnClick;
+
 /**
  * Created by dllo on 16/7/18.
  */
 public class MyViewHolder {
     private SparseArray<View> mViews;
-    private int mPosition;
+    public int mPosition;
     private View mConvertView;
+    public static MyOnClick myOnClick;
 
+    public void setMyOnClick(MyOnClick myOnClick) {
+        this.myOnClick = myOnClick;
+    }
 
     public MyViewHolder(Context context, ViewGroup viewGroup, int layoutId, int position) {
         mPosition = position;
@@ -24,15 +31,24 @@ public class MyViewHolder {
         mConvertView.setTag(this);
     }
 
-    public static MyViewHolder get(Context context, View convertView, ViewGroup viewGroup, int layoutId, int position) {
+    public static MyViewHolder get(Context context, View convertView, ViewGroup viewGroup, int layoutId, final int position) {
         if (convertView == null) {
             return new MyViewHolder(context, viewGroup, layoutId, position);
         } else {
             MyViewHolder holder = (MyViewHolder) convertView.getTag();
             holder.mPosition = position;
+
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    myOnClick.onClick(position);
+                }
+            });
             return holder;
         }
+
     }
+
 
     /**
      * 通过viewId获取控件
@@ -69,4 +85,60 @@ public class MyViewHolder {
         return this;
     }
 
+    //设置网络展示图片
+    public MyViewHolder setShowImage(int viewId, String imaId) {
+        ImageView imageView = getView(viewId);
+        Glide.with(imageView.getContext()).load(imaId).into(imageView);
+        return this;
+    }
+
+    //设置头像
+    public MyViewHolder setHeadImage(int viewId, String imaHeadId) {
+        ImageView imageView = getView(viewId);
+        Glide.with(imageView.getContext()).load(imaHeadId).into(imageView);
+        return this;
+    }
+
+    //设置年龄
+    public MyViewHolder setAgeText(int viewId, String text) {
+        TextView tv = getView(viewId);
+        tv.setText(text);
+        return this;
+    }
+
+    //设置性别
+    public MyViewHolder setSexText(int viewId, String text) {
+        TextView tv = getView(viewId);
+        tv.setText(text);
+
+        return this;
+    }
+
+    //设置租主的职业
+    public MyViewHolder setJobText(int viewId, String text) {
+        TextView tv = getView(viewId);
+        tv.setText(text);
+        return this;
+    }
+
+    //设置价格
+    public MyViewHolder setPriceText(int viewId, String text) {
+        TextView tv = getView(viewId);
+        tv.setText(text);
+        return this;
+    }
+
+    //设置回复率
+    public MyViewHolder setresponseRateText(int viewId, String text) {
+        TextView tv = getView(viewId);
+        tv.setText(text);
+        return this;
+    }
+
+    //设置标题
+    public MyViewHolder setTitleText(int viewId, String text) {
+        TextView tv = getView(viewId);
+        tv.setText(text);
+        return this;
+    }
 }

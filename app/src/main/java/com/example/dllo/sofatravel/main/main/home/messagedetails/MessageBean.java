@@ -142,7 +142,7 @@ public class MessageBean {
             private String profession;
             private int replyRate;
             private int reviewAmount;
-            private int reviewScore;
+            private float reviewScore;
             private int sex;
             private int sexLimit;
             private int sortNum;
@@ -380,11 +380,11 @@ public class MessageBean {
                 this.reviewAmount = reviewAmount;
             }
 
-            public int getReviewScore() {
+            public float getReviewScore() {
                 return reviewScore;
             }
 
-            public void setReviewScore(int reviewScore) {
+            public void setReviewScore(float reviewScore) {
                 this.reviewScore = reviewScore;
             }
 
