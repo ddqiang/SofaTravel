@@ -11,7 +11,6 @@ import java.util.ArrayList;
  */
 public interface CollectionContract {
 
-
     interface View extends BaseView<Presenter> {
         void onCollectionSuccess(ArrayList<CollectionBean> arrayList);
 
