@@ -106,4 +106,20 @@ public class OkSingle {
         void noHasData();
     }
 
+    //首页详情页的数据解析
+
+    public <T> void getMessgeDetail(){
+
+
+    }
+    //首页 户主详情页的数据解析
+    public <T> void getMessageConcre(int id, Class<T> t, OnTrue<T> onTrue, OnError onError) {
+
+        String url = " http://www.shafalvxing.com/space/getSharedSpaceInfo.do?bizParams=%7B%22spaceId%22%3A"
+                + id + "%7D";
+        getRequestAsync(url, t, onTrue, onError);
+
+    }
+
+
 }
