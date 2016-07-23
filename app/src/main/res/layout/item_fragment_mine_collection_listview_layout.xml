@@ -2,22 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
     android:orientation="vertical">
+
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/message_showIv"
+            android:id="@+id/item_fragment_mine_collection_listview_layout_message_showIv"
             android:layout_width="match_parent"
             android:layout_height="@dimen/home_banner_twoHundred"
             android:scaleType="fitXY"
             android:src="@mipmap/ic_launcher_one" />
 
         <CheckBox
-            android:id="@+id/item_message_detail_collection_image"
+            android:id="@+id/item_fragment_mine_collection_listview_layout_collection_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -27,16 +27,16 @@
             android:button="@null" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/message_head"
+            android:id="@+id/item_fragment_mine_collection_listview_layout_message_head"
             android:layout_width="@dimen/fifty"
             android:layout_height="@dimen/fifty"
-            android:layout_below="@+id/message_showIv"
+            android:layout_below="@+id/item_fragment_mine_collection_listview_layout_message_showIv"
             android:layout_centerHorizontal="true"
             android:src="@mipmap/ic_launcher_one" />
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/message_name"
+        android:id="@+id/item_fragment_mine_collection_listview_layout_message_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
@@ -52,7 +52,7 @@
         android:padding="@dimen/ten">
 
         <TextView
-            android:id="@+id/message_age"
+            android:id="@+id/item_fragment_mine_collection_listview_layout_message_age"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/five"
@@ -60,7 +60,7 @@
             android:text="@string/age" />
 
         <TextView
-            android:id="@+id/message_age_age"
+            android:id="@+id/item_fragment_mine_collection_listview_layout_message_age_age"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/five"
@@ -73,7 +73,7 @@
             android:text="·" />
 
         <TextView
-            android:id="@+id/message_sex"
+            android:id="@+id/item_fragment_mine_collection_listview_layout_message_sex"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/five"
@@ -86,7 +86,7 @@
             android:text="·" />
 
         <TextView
-            android:id="@+id/message_job"
+            android:id="@+id/item_fragment_mine_collection_listview_layout_message_job"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/five"
@@ -95,7 +95,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/message_title"
+        android:id="@+id/item_fragment_mine_collection_listview_layout_message_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
@@ -111,7 +111,7 @@
         android:padding="@dimen/ten">
 
         <TextView
-            android:id="@+id/message_region"
+            android:id="@+id/item_fragment_mine_collection_listview_layout_message_region"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/five"
@@ -124,7 +124,7 @@
             android:text="·" />
 
         <TextView
-            android:id="@+id/message_room"
+            android:id="@+id/item_fragment_mine_collection_listview_layout_message_room"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/five"
@@ -137,7 +137,7 @@
             android:text="·" />
 
         <TextView
-            android:id="@+id/message_bed"
+            android:id="@+id/item_fragment_mine_collection_listview_layout_message_bed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/five"
@@ -151,40 +151,42 @@
         android:padding="@dimen/ten">
 
         <TextView
-            android:id="@+id/message_symbol"
+            android:id="@+id/item_fragment_mine_collection_listview_layout_message_symbol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="¥"
             android:textColor="@color/green" />
 
         <TextView
-            android:id="@+id/message_price"
+            android:id="@+id/item_fragment_mine_collection_listview_layout_message_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/message_symbol"
+            android:layout_toRightOf="@+id/item_fragment_mine_collection_listview_layout_message_symbol"
             android:text="@string/price"
             android:textColor="@color/green" />
 
         <TextView
-            android:id="@+id/message_response"
+            android:id="@+id/item_fragment_mine_collection_listview_layout_message_response"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="@string/response" />
 
         <TextView
-            android:id="@+id/message_response_rate"
+            android:id="@+id/item_fragment_mine_collection_listview_layout_message_response_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/five"
-            android:layout_toRightOf="@id/message_response"
+            android:layout_toRightOf="@id/item_fragment_mine_collection_listview_layout_message_response"
             android:text="@string/_100" />
 
         <TextView
-            android:id="@+id/message_percentage"
+            android:id="@+id/item_fragment_mine_collection_listview_layout_message_percentage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/message_response_rate"
+            android:layout_toRightOf="@id/item_fragment_mine_collection_listview_layout_message_response_rate"
             android:text="%" />
     </RelativeLayout>
+
+
 </LinearLayout>

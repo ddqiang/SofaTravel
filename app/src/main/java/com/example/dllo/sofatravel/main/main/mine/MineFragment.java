@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.example.dllo.sofatravel.R;
 import com.example.dllo.sofatravel.main.main.base.BaseFragment;
+import com.example.dllo.sofatravel.main.main.mine.collection.CollectionActivity;
 import com.example.dllo.sofatravel.main.main.mine.loginorregister.LoginOrRegisterActivity;
 import com.example.dllo.sofatravel.main.main.values.TheValues;
 
@@ -532,6 +533,8 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
                 aboutUs();
                 break;
             case R.id.fragment_mine_collection_layout:
+                Intent intent1 = new Intent(context, CollectionActivity.class);
+                context.startActivity(intent1);
                 break;
             case R.id.fragment_mine_money_layout:
                 break;
