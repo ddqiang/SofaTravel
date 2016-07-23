@@ -1,24 +1,33 @@
 package com.example.dllo.sofatravel.main.main.tools.listviewutils;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.dllo.sofatravel.main.main.base.MyApplication;
 import com.example.dllo.sofatravel.main.main.base.MyOnClick;
+import com.example.dllo.sofatravel.main.main.mine.collection.CollectionBean;
+import com.example.dllo.sofatravel.main.main.mine.collection.CollectionContract;
+
+import java.util.ArrayList;
 
 /**
  * Created by dllo on 16/7/18.
  */
-public class MyViewHolder {
+public class MyViewHolder implements CollectionContract.View {
     private SparseArray<View> mViews;
     public int mPosition;
     private View mConvertView;
     public static MyOnClick myOnClick;
+    private CollectionContract.Presenter presenter;
 
     public void setMyOnClick(MyOnClick myOnClick) {
         this.myOnClick = myOnClick;
@@ -92,6 +101,20 @@ public class MyViewHolder {
         return this;
     }
 
+    public MyViewHolder collectionImage(final int viewId, final CollectionBean bean) {
+        CheckBox imageView = getView(viewId);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferences = MyApplication.context.getSharedPreferences("saveAccountName", Context.MODE_PRIVATE);
+                String accountName = sharedPreferences.getString("accountName", "null");
+                presenter.setCollectionBean(bean, accountName);
+
+            }
+        });
+        return this;
+    }
+
     //设置头像
     public MyViewHolder setHeadImage(int viewId, String imaHeadId) {
         ImageView imageView = getView(viewId);
@@ -140,5 +163,15 @@ public class MyViewHolder {
         TextView tv = getView(viewId);
         tv.setText(text);
         return this;
+    }
+
+    @Override
+    public void onCollectionSuccess(ArrayList<CollectionBean> arrayList) {
+
+    }
+
+    @Override
+    public void setPresenter(CollectionContract.Presenter Presenter) {
+        this.presenter = Presenter;
     }
 }

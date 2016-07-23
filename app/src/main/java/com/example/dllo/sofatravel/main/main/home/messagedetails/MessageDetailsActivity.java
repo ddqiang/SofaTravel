@@ -14,6 +14,7 @@ import com.example.dllo.sofatravel.R;
 import com.example.dllo.sofatravel.main.main.base.BaseActivity;
 import com.example.dllo.sofatravel.main.main.base.MyOnClick;
 import com.example.dllo.sofatravel.main.main.home.imessageconcreteness.MessageConcreActivity;
+import com.example.dllo.sofatravel.main.main.mine.collection.CollectionBean;
 import com.example.dllo.sofatravel.main.main.tools.OkSingle;
 import com.example.dllo.sofatravel.main.main.tools.listviewutils.CommonAdapter;
 import com.example.dllo.sofatravel.main.main.tools.listviewutils.MyViewHolder;
@@ -66,15 +67,36 @@ public class MessageDetailsActivity extends BaseActivity implements View.OnClick
                                 holder.setText(R.id.message_name, resultBean.getOwnerName());
                                 holder.setHeadImage(R.id.message_head, resultBean.getOwnerPic());
                                 holder.setAgeText(R.id.message_age, String.valueOf(resultBean.getAge()));
+
+
                                 if (resultBean.getSex() == 1) {
                                     holder.setSexText(R.id.message_sex, "男");
                                 } else {
                                     holder.setSexText(R.id.message_sex, "女");
                                 }
+                                CollectionBean bean = new CollectionBean();
+                                bean.setOwnerAge(resultBean.getAge());
+                                bean.setOwnerHead(resultBean.getOwnerPic());
+                                bean.setOwnerJob(resultBean.getProfession());
+                                bean.setOwnerName(resultBean.getOwnerName());
+                                String sex;
+                                if (resultBean.getSex() == 1) {
+                                    sex = "男";
+                                } else {
+                                    sex = "女";
+                                }
+                                bean.setOwnerSex(sex);
+                                bean.setPrice(resultBean.getPrice());
+                                bean.setResponseRate(resultBean.getReplyRate());
+                                bean.setSpaceId(resultBean.getSpaceId());
+                                bean.setSpaceImage(resultBean.getPictureList().get(0));
+                                bean.setTitle(resultBean.getTitle());
+                                holder.collectionImage(R.id.item_message_detail_collection_image, bean);
                                 holder.setTitleText(R.id.message_title, resultBean.getTitle());
                                 holder.setJobText(R.id.message_job, resultBean.getProfession());
                                 holder.setPriceText(R.id.message_price, String.valueOf(resultBean.getPrice()));
                                 holder.setresponseRateText(R.id.message_response_rate, String.valueOf(resultBean.getReplyRate()));
+
 
                                 holder.setMyOnClick(new MyOnClick() {
                                     @Override
