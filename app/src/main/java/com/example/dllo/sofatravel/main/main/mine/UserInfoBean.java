@@ -3,6 +3,9 @@ package com.example.dllo.sofatravel.main.main.mine;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import com.litesuits.orm.db.annotation.PrimaryKey;
+import com.litesuits.orm.db.enums.AssignType;
+
 import java.io.ByteArrayOutputStream;
 
 import cn.bmob.v3.BmobObject;
@@ -11,6 +14,17 @@ import cn.bmob.v3.BmobObject;
  * Created by dllo on 16/7/20.
  */
 public class UserInfoBean extends BmobObject {
+//    @PrimaryKey(AssignType.AUTO_INCREMENT)
+//    private int id;
+
+//    public int getId() {
+//        return id;
+//    }
+//
+//    public void setId(int id) {
+//        this.id = id;
+//    }
+
     private String userName;
     private String accountName;
     private byte[] photoImage;

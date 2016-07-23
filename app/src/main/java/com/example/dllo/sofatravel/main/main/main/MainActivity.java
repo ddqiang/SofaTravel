@@ -17,6 +17,7 @@ import com.example.dllo.sofatravel.main.main.mine.MineModel;
 import com.example.dllo.sofatravel.main.main.mine.MinePresenter;
 import com.example.dllo.sofatravel.main.main.order.OrderFragment;
 import com.example.dllo.sofatravel.main.main.search.SearchFragment;
+import com.litesuits.orm.LiteOrm;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -32,6 +33,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void initView() {
+
 
         home = (RadioButton) findViewById(R.id.home_tab);
         discover = (RadioButton) findViewById(R.id.discover_tab);
