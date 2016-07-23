@@ -1,15 +1,12 @@
-package com.example.dllo.sofatravel.main.main.discover.youthdetails;
+package com.example.dllo.sofatravel.main.main.discover.youthdetails.detail;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,36 +16,38 @@ import android.widget.Toast;
 
 import com.example.dllo.sofatravel.R;
 import com.example.dllo.sofatravel.main.main.base.BaseActivity;
+import com.example.dllo.sofatravel.main.main.discover.youthdetails.detailinfo.DetailInfoActivity;
+import com.example.dllo.sofatravel.main.main.discover.youthdetails.detailinfo.DetailInfoAdpter;
+import com.example.dllo.sofatravel.main.main.discover.youthdetails.search.SearchDetailActivity;
 import com.example.dllo.sofatravel.main.main.discover.youthdetails.selectcity.MapActivity;
 import com.example.dllo.sofatravel.main.main.discover.youthdetails.selectcity.SelectCityActivity;
-import com.example.dllo.sofatravel.main.main.home.HomeBean;
-import com.example.dllo.sofatravel.main.main.home.HomeGrViewAdapter;
 import com.example.dllo.sofatravel.main.main.tools.OkSingle;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import org.w3c.dom.Text;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Date;
 
 /**
  * Created by dllo on 16/7/18.
  */
-public class YouthDetailsActivity extends BaseActivity implements View.OnClickListener, YouthClickListener {
+public class YouthDetailsActivity extends BaseActivity implements View.OnClickListener {
     private LinearLayout checkInTime, checkOutTime, search, location;//入住,离开,搜索,选择城市
     private ImageView back;//返回
+    private TextView cityTv;
     private TextView inTimeTv, outTimeTv;//入住日期,离开日期
     private boolean isIn = true;
     private int in, out;
     private TextView sum;//共~晚
     private ImageView map;//地图
+    private DetailBean bean;
+    private String city = "%e5%a4%a7%e8%bf%9e";
 
-    private final String youthUrl = "http://www.shafalvxing.com/hotel/getHotelListByCity.do?bizParams=%7B%22" +
-            "cityName%22%3A%22%E5%A4%A7%E8%BF%9E%E5%B8%82%22%2C%22district%22%3A%22%22%2C%22endPrice%22%3A0%2C%22" +
-            "endTime%22%3A1469101257160%2C%22page%22%3A1%2C%22startPrice%22%3A0%2C%22startTime%22%3A1469014857160%7D";
+
     private DetailAdapter adapter;
     private ListView detailList;
+
 
     @Override
     public int getLayout() {
@@ -71,9 +70,12 @@ public class YouthDetailsActivity extends BaseActivity implements View.OnClickLi
         outTimeTv = (TextView) findViewById(R.id.dis_out_time_tv);
         sum = (TextView) findViewById(R.id.dis_sum);
         map = (ImageView) findViewById(R.id.discover_detail_map);//地图
+        cityTv = (TextView) findViewById(R.id.discover_detail_location);
         map.setOnClickListener(this);
 
         detailList = (ListView) findViewById(R.id.discover_detail_list);
+
+
 
     }
 
@@ -86,19 +88,32 @@ public class YouthDetailsActivity extends BaseActivity implements View.OnClickLi
         inTimeTv.setText(year + "年" + month + "月" + day + "日");
         outTimeTv.setText(year + "年" + month + "月" + (day + 1) + "日");
         getRequest();
-        adapter.setYouthClickListener(this);
+
+        //行点击事件
+        detailList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent detailInfo = new Intent(YouthDetailsActivity.this, DetailInfoActivity.class);
+                detailInfo.putExtra("hotelId",bean.getData().getResult().get(position).getHotelId());
+                Log.d("YouthDetailsActivity", bean.getData().getResult().get(position).getHotelId());
+                startActivity(detailInfo);
+            }
+        });
     }
 
     //解析数据
     public void getRequest() {
+        String youthUrl = "http://www.shafalvxing.com/hotel/getHotelListByCity.do?bizParams=" +
+                "%7B%22startTime%22%3A1469148387184%2C%22endPrice%22%3A0%2C%22endTime%22%3A1469234787184%2C%22district%22%3A%22%22%2C%22" +
+                "startPrice%22%3A0%2C%22page%22%3A1%2C%22cityName%22%3A%22"+city+"%e5%B8%82%22%7D";
         adapter = new DetailAdapter(this);
         OkSingle.getInstance().getRequestAsync(youthUrl, DetailBean.class, new OkSingle.OnTrue<DetailBean>() {
             @Override
             public void hasData(DetailBean data) {
-                Log.d("YouthDetailsActivity", "data:" + data);
-                Log.d("YouthDetailsActivity", "data.getData().getResult().size():" + data.getData().getCurPage());
+                bean = data;
                 adapter.setBean(data);
                 detailList.setAdapter(adapter);
+
             }
         }, new OkSingle.OnError() {
             @Override
@@ -121,7 +136,7 @@ public class YouthDetailsActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.dis_detail_location://选择城市
                 Intent locationDetail = new Intent(this, SelectCityActivity.class);
-                startActivity(locationDetail);
+                startActivityForResult(locationDetail, 101);
                 break;
             case R.id.discover_detail_map://地图
                 Intent mapIntent = new Intent(YouthDetailsActivity.this, MapActivity.class);
@@ -134,6 +149,21 @@ public class YouthDetailsActivity extends BaseActivity implements View.OnClickLi
             case R.id.dis_check_out_time://离开
                 showCalendarDialog();
                 isIn = false;
+                break;
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 101:
+                if (data != null) {
+                    cityTv.setText(data.getStringExtra("city"));
+                    city = encoder(data.getStringExtra("city"));
+                    getRequest();
+                }
                 break;
         }
 
@@ -159,7 +189,7 @@ public class YouthDetailsActivity extends BaseActivity implements View.OnClickLi
                     isIn = true;
                     out = dayOfMonth;
                 }
-                Toast.makeText(YouthDetailsActivity.this, "onSelectedDayChange" + dayOfMonth, Toast.LENGTH_LONG).show();
+                Toast.makeText(YouthDetailsActivity.this, "选择日期" + dayOfMonth, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -176,10 +206,17 @@ public class YouthDetailsActivity extends BaseActivity implements View.OnClickLi
         builder.show();
     }
 
-    //行点击事件
-    @Override
-    public void onYouthClick(int pos) {
-        Intent detailInfo=new Intent(this,DetailInfoActivity.class);
-        startActivity(detailInfo);
+    // 转码
+    public String encoder(String city){
+        String s = "";
+        try {
+            s = URLEncoder.encode(city,"UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return s;
     }
+
+
+
 }

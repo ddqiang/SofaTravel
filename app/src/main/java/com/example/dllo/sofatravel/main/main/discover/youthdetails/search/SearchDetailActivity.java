@@ -1,4 +1,4 @@
-package com.example.dllo.sofatravel.main.main.discover.youthdetails;
+package com.example.dllo.sofatravel.main.main.discover.youthdetails.search;
 
 import android.view.View;
 import android.widget.TextView;

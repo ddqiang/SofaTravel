@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="热门城市"
+        android:layout_margin="@dimen/five"/>
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:numColumns="3"
+        android:verticalSpacing="10dp"
+        android:layout_margin="@dimen/five"
+        android:id="@+id/dis_hot_city_gv"/>
+
+
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/dis_select_hot_city_rv"-->
+        <!--/>-->
+
+</LinearLayout>

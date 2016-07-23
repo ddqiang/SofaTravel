@@ -5,9 +5,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.dllo.sofatravel.R;
-import com.example.dllo.sofatravel.main.main.base.BaseActivity;
 import com.example.dllo.sofatravel.main.main.base.BaseFragment;
-import com.example.dllo.sofatravel.main.main.discover.youthdetails.YouthDetailsActivity;
+import com.example.dllo.sofatravel.main.main.discover.youthdetails.detail.YouthDetailsActivity;
 
 
 /**

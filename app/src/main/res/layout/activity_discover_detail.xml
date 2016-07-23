@@ -127,7 +127,7 @@
             android:layout_height="@dimen/twenty"
             android:layout_margin="@dimen/ten"
             android:background="@drawable/round"
-            android:text="共4晚"
+            android:text="共1晚"
             android:textColor="@color/green" />
 
         <LinearLayout
@@ -170,11 +170,9 @@
         android:textSize="@dimen/fifteen" />
 
 
-
-
     <ListView
         android:id="@+id/discover_detail_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_height="match_parent"></ListView>
 
 </LinearLayout>
