@@ -32,7 +32,6 @@ public class OkSingle {
         client = new OkHttpClient();
         gson = new Gson();
 
-
     }
 
 
@@ -120,6 +119,15 @@ public class OkSingle {
         getRequestAsync(url, t, onTrue, onError);
 
     }
-
-
+    public <T> void getYouthDeatil(String id,Class<T>t,OnTrue<T>onTrue,OnError onError){
+        String url = " http://www.shafalvxing.com/hotel/getHotelListByCity.do?bizParams=" +
+              " %7B%22startTime%22%3A1469148387184%2C%22endPrice%22%3A0%2C%22endTime%22%3A1469234787184%2C%22district%22%3A%22%22%2C%22" +
+                "startPrice%22%3A0%2C%22page%22%3A1%2C%22cityName%22%3A%22"+id+"%e5%B8%82%22%7D";
+        getRequestAsync(url, t, onTrue, onError);
+    }
+    public <T> void getHotelDeatil(String id,Class<T>t,OnTrue<T>onTrue,OnError onError) {
+        String url = " http://www.shafalvxing.com/hotel/queryHotelDetail.do?bizParams=" +
+                "%7B%22endTime%22%3A1469158423376%2C%22hotelId%22%3A%22"+id+"%22%2C%22startTime%22%3A1469072023376%7D";
+        getRequestAsync(url, t, onTrue, onError);
+    }
 }
