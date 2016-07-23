@@ -96,7 +96,9 @@ public class LoginOrRegisterFragment extends BaseFragment implements LoginOrRegi
         account.commit();//存储当前登录账号
         Intent intent = new Intent("changePage");
         context.sendBroadcast(intent);
-        presenter.setDefaultUserName(userNameEt.getText().toString());//注册成功设置初始用户名
+        Intent setDefault = new Intent("setDefault");
+        context.sendBroadcast(setDefault);
+        //presenter.setDefaultUserName(userNameEt.getText().toString());//注册成功设置初始用户名
         getActivity().finish();
     }
 

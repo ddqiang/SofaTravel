@@ -18,11 +18,9 @@ android {
         }
     }
 
-        sourceSets {
-            main.jniLibs.srcDirs = ['libs']
-        }
-
-
+    sourceSets {
+        main.jniLibs.srcDirs = ['libs']
+    }
 }
 
 
@@ -31,7 +29,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23+'
     compile 'com.youth.banner:banner:+'
-    //    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    //compile 'com.squareup.okhttp3:okhttp:3.4.1'
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.github.bumptech.glide:glide:3.5.2'
     compile files('libs/Bmob_Push_V0.9beta_20160520.jar')
@@ -41,5 +39,8 @@ dependencies {
     compile 'com.jakewharton:butterknife:6.1.0'
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
     compile 'com.android.support:recyclerview-v7:23+'
+    compile files('libs/lite-orm-1.9.2.jar')
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile files('libs/BmobPay_v3.0.3_160621.jar')
+
 }

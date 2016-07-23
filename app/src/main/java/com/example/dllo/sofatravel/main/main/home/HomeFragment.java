@@ -85,12 +85,12 @@ public class HomeFragment extends BaseFragment {
 
                         startActivity(intent);
                     }
-                });
+        });
             }
         }, new OkSingle.OnError() {
             @Override
             public void noHasData() {
-                Toast.makeText(context, "请求失败", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "请求失败", Toast.LENGTH_SHORT).show();
             }
         });
     }

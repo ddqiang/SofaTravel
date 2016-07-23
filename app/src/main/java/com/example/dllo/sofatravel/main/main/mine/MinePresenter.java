@@ -1,12 +1,13 @@
 package com.example.dllo.sofatravel.main.main.mine;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import com.example.dllo.sofatravel.R;
 import com.example.dllo.sofatravel.main.main.base.MyApplication;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,19 +33,37 @@ public class MinePresenter implements MineContract.Presenter {
     }
 
     @Override
-    public void getUserImageSuccess(Bitmap bitmap) {
-        view.getUserImageSuccess(bitmap);
+    public void getUserImageSuccess(List<UserInfoBean> list) {
+        if (list.size() == 0) {
+            Bitmap bitmap = BitmapFactory.decodeResource(MyApplication.context.getResources(), R.mipmap.ic_launcher_one);
+            view.getUserImageSuccess(bitmap);
+        } else {
+            if (list.get(list.size() - 1).getImage() == null) {
+                Bitmap bitmap = BitmapFactory.decodeResource(MyApplication.context.getResources(), R.mipmap.ic_launcher_one);
+                view.getUserImageSuccess(bitmap);
+            } else {
+                Bitmap bitmap = list.get(list.size() - 1).getImage();
+                view.getUserImageSuccess(bitmap);
+            }
+        }
     }
 
     @Override
-    public void readUserImageSuccess(Bitmap bitmap) {
-        view.readUserImageSuccess(bitmap);
+    public void readUserImageSuccess(List<UserInfoBean> list) {
+        if (list.size() == 0) {
+            Bitmap bitmap = BitmapFactory.decodeResource(MyApplication.context.getResources(), R.mipmap.ic_launcher_one);
+            view.readUserImageSuccess(bitmap);
+        } else {
+            if (list.get(list.size() - 1).getImage() == null) {
+                Bitmap bitmap = BitmapFactory.decodeResource(MyApplication.context.getResources(), R.mipmap.ic_launcher_one);
+                view.readUserImageSuccess(bitmap);
+            } else {
+                Bitmap bitmap = list.get(list.size() - 1).getImage();
+                view.readUserImageSuccess(bitmap);
+            }
+        }
     }
 
-    @Override
-    public void saveUserBean(String account, String userName) {
-        // model.saveUserBean(account, userName);
-    }
 
     @Override
     public void getUserBean(String account) {
@@ -66,6 +85,7 @@ public class MinePresenter implements MineContract.Presenter {
         view.whetherLogin(true);
     }
 
+
     @Override
     public void noLogin() {
         view.isLogin(false);
@@ -76,10 +96,6 @@ public class MinePresenter implements MineContract.Presenter {
         view.whetherLogin(false);
     }
 
-    @Override
-    public void saveUserBeanSuccess() {
-        // view.saveUserBeanSuccess();
-    }
 
     @Override
     public void saveUserInfo(UserInfoBean bean) {
@@ -104,6 +120,60 @@ public class MinePresenter implements MineContract.Presenter {
     @Override
     public void getUserImage(String account) {
         model.getUserImage(account);
+    }
+
+    @Override
+    public void loginOrRegisterSaveDefaultUserBeanToLiteOrm(String account, String userName) {
+        Bitmap bitmap = BitmapFactory.decodeResource(MyApplication.context.getResources(), R.mipmap.ic_launcher_one);
+        UserBeanForLiteOrm beanForLiteOrm = new UserBeanForLiteOrm();
+        beanForLiteOrm.setImage(bitmap);
+        beanForLiteOrm.setAccount(account);
+        beanForLiteOrm.setUserName(userName);
+        model.loginOrRegisterSaveDefaultUserBeanToLiteOrm(beanForLiteOrm);
+    }
+
+    @Override
+    public void loginOrRegisterSaveDefaultUserBeanToLiteOrmSuccess(UserBeanForLiteOrm beanForLiteOrm) {
+        view.loginOrRegisterSaveDefaultUserBeanToLiteOrmSuccess(beanForLiteOrm);
+    }
+
+    @Override
+    public void changeUserNameForLiteOrm(UserBeanForLiteOrm beanForLiteOrm) {
+        model.changeUserNameForLiteOrm(beanForLiteOrm);
+    }
+
+    @Override
+    public void changeUserNameForLiteOrmSuccess() {
+        view.changeUserNameForLiteOrmSuccess();
+    }
+
+    @Override
+    public void setUserImageForLiteOrm(UserBeanForLiteOrm beanForLiteOrm) {
+        model.setUserImageForLiteOrm(beanForLiteOrm);
+    }
+
+    @Override
+    public void setUserImageForLiteOrmSuccess() {
+        view.setUserImageForLiteOrmSuccess();
+    }
+
+    @Override
+    public void queryUserInfoFromLiteOrm(String account) {
+        model.queryUserInfoFromLiteOrm(account);
+    }
+
+    @Override
+    public void queryUserInfoFromLiteOrmSuccess(ArrayList<UserBeanForLiteOrm> datas) {
+        if (datas.size() == 0) {
+            UserBeanForLiteOrm beanForLiteOrm = new UserBeanForLiteOrm();
+            beanForLiteOrm.setUserName("未设置");
+            Bitmap bitmap = BitmapFactory.decodeResource(MyApplication.context.getResources(), R.mipmap.ic_launcher_one);
+            beanForLiteOrm.setImage(bitmap);
+            view.queryUserInfoFromLiteOrmSuccess(beanForLiteOrm);
+        } else {
+            view.queryUserInfoFromLiteOrmSuccess(datas.get(datas.size() - 1));
+        }
+
     }
 
     @Override

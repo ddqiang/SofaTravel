@@ -8,7 +8,10 @@ import android.util.Log;
 
 import com.example.dllo.sofatravel.R;
 import com.example.dllo.sofatravel.main.main.base.MyApplication;
+import com.example.dllo.sofatravel.main.main.tools.MyLiteOrm;
+import com.litesuits.orm.db.assit.QueryBuilder;
 
+import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
 
@@ -46,22 +49,6 @@ public class MineModel implements MineContract.Model {
         }
     }
 
-    @Override
-    public void saveUserBean(String account, String userName) {
-//        UserInfoBean userNameBean = new UserInfoBean();
-//        userNameBean.setAccountName(account);
-//        userNameBean.setUserName(userName);
-//        userNameBean.save(MyApplication.context, new SaveListener() {
-//            @Override
-//            public void onSuccess() {
-//                presenter.saveUserBeanSuccess();
-//            }
-//
-//            @Override
-//            public void onFailure(int i, String s) {
-//            }
-//        });
-    }
 
     @Override
     public void getUserBean(String account) {
@@ -88,18 +75,7 @@ public class MineModel implements MineContract.Model {
         beanBmobQuery.findObjects(MyApplication.context, new FindListener<UserInfoBean>() {
             @Override
             public void onSuccess(List<UserInfoBean> list) {
-                if (list.size() == 0) {
-                    Bitmap bitmap = BitmapFactory.decodeResource(MyApplication.context.getResources(), R.mipmap.ic_launcher_one);
-                    presenter.getUserImageSuccess(bitmap);
-                } else {
-                    if (list.get(list.size() - 1).getImage() == null) {
-                        Bitmap bitmap = BitmapFactory.decodeResource(MyApplication.context.getResources(), R.mipmap.ic_launcher_one);
-                        presenter.getUserImageSuccess(bitmap);
-                    } else {
-                        Bitmap bitmap = list.get(list.size() - 1).getImage();
-                        presenter.getUserImageSuccess(bitmap);
-                    }
-                }
+                presenter.getUserImageSuccess(list);
             }
 
             @Override
@@ -130,18 +106,7 @@ public class MineModel implements MineContract.Model {
         beanBmobQuery.findObjects(MyApplication.context, new FindListener<UserInfoBean>() {
             @Override
             public void onSuccess(List<UserInfoBean> list) {
-                if (list.size() == 0) {
-                    Bitmap bitmap = BitmapFactory.decodeResource(MyApplication.context.getResources(), R.mipmap.ic_launcher_one);
-                    presenter.readUserImageSuccess(bitmap);
-                } else {
-                    if (list.get(list.size() - 1).getImage() == null) {
-                        Bitmap bitmap = BitmapFactory.decodeResource(MyApplication.context.getResources(), R.mipmap.ic_launcher_one);
-                        presenter.readUserImageSuccess(bitmap);
-                    } else {
-                        Bitmap bitmap = list.get(list.size() - 1).getImage();
-                        presenter.readUserImageSuccess(bitmap);
-                    }
-                }
+                presenter.readUserImageSuccess(list);
             }
 
             @Override
@@ -149,6 +114,32 @@ public class MineModel implements MineContract.Model {
 
             }
         });
+    }
+
+    @Override
+    public void loginOrRegisterSaveDefaultUserBeanToLiteOrm(UserBeanForLiteOrm beanForLiteOrm) {
+        MyLiteOrm.getSingleLiteOrm().getLiteOrm().insert(beanForLiteOrm);
+        presenter.loginOrRegisterSaveDefaultUserBeanToLiteOrmSuccess(beanForLiteOrm);
+    }
+
+    @Override
+    public void setUserImageForLiteOrm(UserBeanForLiteOrm beanForLiteOrm) {
+        MyLiteOrm.getSingleLiteOrm().getLiteOrm().insert(beanForLiteOrm);
+        presenter.setUserImageForLiteOrmSuccess();
+    }
+
+    @Override
+    public void changeUserNameForLiteOrm(UserBeanForLiteOrm beanForLiteOrm) {
+        MyLiteOrm.getSingleLiteOrm().getLiteOrm().insert(beanForLiteOrm);
+        Log.d("lanou", "存");
+        presenter.changeUserNameForLiteOrmSuccess();
+    }
+
+    @Override
+    public void queryUserInfoFromLiteOrm(String account) {
+        //ArrayList<UserBeanForLiteOrm> datas = MyLiteOrm.getSingleLiteOrm().getLiteOrm().query(new QueryBuilder<UserBeanForLiteOrm>(UserBeanForLiteOrm.class).where("account" + " LIKE ?", new String[]{account}));
+        ArrayList<UserBeanForLiteOrm> datas = MyLiteOrm.getSingleLiteOrm().getUserInfoDatasFromLiteOrm("account", account);
+        presenter.queryUserInfoFromLiteOrmSuccess(datas);
     }
 
 

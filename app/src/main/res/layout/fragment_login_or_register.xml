@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@mipmap/addddd">
+    android:layout_height="match_parent">
+
+    <com.example.dllo.sofatravel.main.main.mine.MySurfaceView
+        android:layout_width="match_parent"
+        android:scaleY="1"
+        android:layout_height="match_parent" />
 
     <ImageView
         android:layout_width="match_parent"

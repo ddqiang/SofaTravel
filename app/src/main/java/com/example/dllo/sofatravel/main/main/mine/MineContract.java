@@ -6,6 +6,7 @@ import com.example.dllo.sofatravel.main.main.base.BaseModel;
 import com.example.dllo.sofatravel.main.main.base.BasePresenter;
 import com.example.dllo.sofatravel.main.main.base.BaseView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,8 +19,6 @@ public interface MineContract {
 
         void whetherLogin(boolean whetherLogin);
 
-        void saveUserBeanSuccess();
-
         void getUserBeanSuccess(String userName);
 
         void saveUserInfoSuccess();
@@ -27,6 +26,14 @@ public interface MineContract {
         void getUserImageSuccess(Bitmap bitmap);
 
         void readUserImageSuccess(Bitmap bitmap);
+
+        void setUserImageForLiteOrmSuccess();
+
+        void loginOrRegisterSaveDefaultUserBeanToLiteOrmSuccess(UserBeanForLiteOrm beanForLiteOrm);
+
+        void changeUserNameForLiteOrmSuccess();
+
+        void queryUserInfoFromLiteOrmSuccess(UserBeanForLiteOrm beanForLiteOrm);
     }
 
 
@@ -35,11 +42,9 @@ public interface MineContract {
 
         void isLogin();
 
-        void getUserImageSuccess(Bitmap bitmap);
+        void getUserImageSuccess(List<UserInfoBean> list);
 
-        void readUserImageSuccess(Bitmap bitmap);
-
-        void saveUserBean(String account, String userName);
+        void readUserImageSuccess(List<UserInfoBean> list);
 
         void getUserBean(String account);
 
@@ -53,8 +58,6 @@ public interface MineContract {
 
         void notLogin();
 
-        void saveUserBeanSuccess();
-
         void saveUserInfo(UserInfoBean bean);
 
         void deleteUserOldName(List<UserInfoBean> list);
@@ -62,6 +65,22 @@ public interface MineContract {
         void queryUserImage(String account);
 
         void getUserImage(String account);
+
+        void loginOrRegisterSaveDefaultUserBeanToLiteOrm(String account, String userName);
+
+        void loginOrRegisterSaveDefaultUserBeanToLiteOrmSuccess(UserBeanForLiteOrm beanForLiteOrm);
+
+        void changeUserNameForLiteOrm(UserBeanForLiteOrm beanForLiteOrm);
+
+        void changeUserNameForLiteOrmSuccess();
+
+        void setUserImageForLiteOrm(UserBeanForLiteOrm beanForLiteOrm);
+
+        void setUserImageForLiteOrmSuccess();
+
+        void queryUserInfoFromLiteOrm(String account);
+
+        void queryUserInfoFromLiteOrmSuccess(ArrayList<UserBeanForLiteOrm> datas);
     }
 
 
@@ -70,8 +89,6 @@ public interface MineContract {
 
         void checkHasLogin();//判断是否处于登录状态
 
-        void saveUserBean(String account, String userName);
-
         void getUserBean(String account);
 
         void getUserImage(String account);
@@ -79,6 +96,14 @@ public interface MineContract {
         void saveUserInfoBean(UserInfoBean bean);
 
         void queryUserImage(String account);
+
+        void loginOrRegisterSaveDefaultUserBeanToLiteOrm(UserBeanForLiteOrm beanForLiteOrm);
+
+        void setUserImageForLiteOrm(UserBeanForLiteOrm beanForLiteOrm);
+
+        void changeUserNameForLiteOrm(UserBeanForLiteOrm beanForLiteOrm);
+
+        void queryUserInfoFromLiteOrm(String account);
     }
 
 
