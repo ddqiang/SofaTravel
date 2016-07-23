@@ -99,25 +99,39 @@ public class YouthDetailsActivity extends BaseActivity implements View.OnClickLi
 
     //解析数据
     public void getRequest() {
-        String youthUrl = "http://www.shafalvxing.com/hotel/getHotelListByCity.do?bizParams=" +
-                "%7B%22startTime%22%3A1469148387184%2C%22endPrice%22%3A0%2C%22endTime%22%3A1469234787184%2C%22district%22%3A%22%22%2C%22" +
-                "startPrice%22%3A0%2C%22page%22%3A1%2C%22cityName%22%3A%22"+city+"%e5%B8%82%22%7D";
+//        String youthUrl = "http://www.shafalvxing.com/hotel/getHotelListByCity.do?bizParams=" +
+//                "%7B%22startTime%22%3A1469148387184%2C%22endPrice%22%3A0%2C%22endTime%22%3A1469234787184%2C%22district%22%3A%22%22%2C%22" +
+//                "startPrice%22%3A0%2C%22page%22%3A1%2C%22cityName%22%3A%22"+city+"%e5%B8%82%22%7D";
         adapter = new DetailAdapter(this);
-        OkSingle.getInstance().getRequestAsync(youthUrl, DetailBean.class, new OkSingle.OnTrue<DetailBean>() {
+        OkSingle.getInstance().getYouthDeatil(city, DetailBean.class, new OkSingle.OnTrue<DetailBean>() {
             @Override
             public void hasData(DetailBean data) {
+                Log.d("YouthDetailsActivity", "data:" + data);
                 bean = data;
                 adapter.setBean(data);
                 detailList.setAdapter(adapter);
-
             }
         }, new OkSingle.OnError() {
             @Override
             public void noHasData() {
-                Toast.makeText(YouthDetailsActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
             }
         });
+//        OkSingle.getInstance().getRequestAsync(youthUrl, DetailBean.class, new OkSingle.OnTrue<DetailBean>() {
+//            @Override
+//            public void hasData(DetailBean data) {
+//                bean = data;
+//                adapter.setBean(data);
+//                detailList.setAdapter(adapter);
+//
+//            }
+//        }, new OkSingle.OnError() {
+//            @Override
+//            public void noHasData() {
+//                Toast.makeText(YouthDetailsActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
+
 
 
     @Override

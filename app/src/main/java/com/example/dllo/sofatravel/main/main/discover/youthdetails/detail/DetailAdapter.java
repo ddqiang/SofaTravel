@@ -47,7 +47,7 @@ public class DetailAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         MyViewHolder myViewHolder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_discover_detail, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_dis_detail, parent, false);
             myViewHolder = new MyViewHolder(convertView);
             convertView.setTag(myViewHolder);
 

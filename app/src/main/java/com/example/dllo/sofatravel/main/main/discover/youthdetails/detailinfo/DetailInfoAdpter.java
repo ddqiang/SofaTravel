@@ -5,60 +5,113 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.BaseExpandableListAdapter;
+import android.widget.ExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.dllo.sofatravel.R;
 
 /**
  * Created by dllo on 16/7/21.
  */
-public class DetailInfoAdpter extends BaseAdapter {
-    private DetailInfoBean bean;
+public class DetailInfoAdpter extends BaseExpandableListAdapter {
+    private Context context;
+    private DetailBedBean bean;
 
-    public void setBean(DetailInfoBean bean) {
+    public void setBean(DetailBedBean bean) {
         this.bean = bean;
         notifyDataSetChanged();
     }
-    private Context context;
 
     public DetailInfoAdpter(Context context) {
         this.context = context;
     }
 
     @Override
-    public int getCount() {
-        return bean==null?0:bean.getData().getAmenities().size();
+    public int getGroupCount() {
+        return bean==null?0:bean.getData().getRmlist().size();
     }
 
     @Override
-    public Object getItem(int position) {
-        return bean.getData().getAmenities().get(position);
+    public int getChildrenCount(int groupPosition) {
+        return bean==null?0:bean.getData().getRmlist().get(groupPosition).getAmenities().size();
     }
 
     @Override
-    public long getItemId(int position) {
-        return position;
+    public Object getGroup(int groupPosition) {
+        return bean==null?0:bean.getData().getRmlist().get(groupPosition);
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        MyViewHolder myViewHolder;
+    public Object getChild(int groupPosition, int childPosition) {
+        return bean==null?0:bean.getData().getRmlist().get(groupPosition).getAmenities().get(childPosition);
+    }
+
+    @Override
+    public long getGroupId(int groupPosition) {
+        return groupPosition;
+    }
+
+    @Override
+    public long getChildId(int groupPosition, int childPosition) {
+        return childPosition;
+    }
+
+    @Override
+    public boolean hasStableIds() {
+        return true;
+    }
+
+    @Override
+    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+        GroupHolder groupHolder;
         if (convertView==null){
-            convertView=LayoutInflater.from(context).inflate(R.layout.activity_dis_detail_info,parent,false);
-            myViewHolder=new MyViewHolder(convertView);
-            convertView.setTag(myViewHolder);
+            convertView=LayoutInflater.from(context).inflate(R.layout.item_dis_detail_info,parent,false);
+            groupHolder=new GroupHolder(convertView);
+            convertView.setTag(groupHolder);
         }else {
-            myViewHolder= (MyViewHolder) convertView.getTag();
+            groupHolder= (GroupHolder) convertView.getTag();
         }
-        myViewHolder.shareTitle.setText(bean.getData().getActivityDto().getShareTitle());
+//        Glide.with(context).load(bean.getData().getRmlist().get(groupPosition).getPictureList());
+        groupHolder.price.setText(bean.getData().getRmlist().get(groupPosition).getPrice());
         return convertView;
     }
-    class  MyViewHolder{
-        TextView shareTitle;
-        public MyViewHolder(View view) {
-            shareTitle= (TextView) view.findViewById(R.id.dis_detail_info_share_title);
 
+    @Override
+    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+        ChildHolder childHolder;
+        if (convertView==null){
+            convertView=LayoutInflater.from(context).inflate(R.layout.item_dis_detail_info,parent,false);
+           childHolder=new ChildHolder(convertView);
+            convertView.setTag(childHolder);
+        }else {
+            childHolder= (ChildHolder) convertView.getTag();
         }
+        childHolder.breakfast.setText(bean.getData().getRmlist().get(childPosition).getLstRatePlanDto().get(childPosition).getBreakfast());
+
+        return convertView;
     }
 
+    @Override
+    public boolean isChildSelectable(int groupPosition, int childPosition) {
+        return false;
+    }
+    class GroupHolder{
+        ImageView picture;
+        TextView price;
+
+        public GroupHolder(View view) {
+            picture= (ImageView) view.findViewById(R.id.dis_detail_info_picture);
+            price= (TextView) view.findViewById(R.id.dis_detail_info_price);
+        }
+    }
+    class ChildHolder{
+        TextView breakfast;
+
+        public ChildHolder(View view) {
+            breakfast= (TextView) view.findViewById(R.id.dis_detail_breakfast);
+        }
+    }
 }
