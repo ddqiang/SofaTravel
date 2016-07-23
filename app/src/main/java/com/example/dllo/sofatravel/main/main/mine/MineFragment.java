@@ -35,9 +35,17 @@ import com.example.dllo.sofatravel.main.main.values.TheValues;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import c.b.BP;
 import c.b.PListener;
+import cn.bmob.newim.BmobIM;
+import cn.bmob.newim.bean.BmobIMConversation;
+import cn.bmob.newim.bean.BmobIMUserInfo;
+import cn.bmob.newim.listener.ConnectListener;
+import cn.bmob.newim.listener.ConversationListener;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
 
 
 /**
@@ -90,8 +98,8 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
         SharedPreferences isLogin = context.getSharedPreferences("isLogin", Context.MODE_PRIVATE);
         boolean hasLogin = isLogin.getBoolean("hasLogin", false);
         if (hasLogin) {
-            //queryUserName();
-            //queryUserImage();
+            // queryUserName();
+            queryUserImage();
             SharedPreferences sharedPreferences = context.getSharedPreferences("saveAccountName", Context.MODE_PRIVATE);
             currentAccountName = sharedPreferences.getString("accountName", "");
             SharedPreferences preferences = context.getSharedPreferences("saveUserName", Context.MODE_PRIVATE);
@@ -109,7 +117,6 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
         String accountName = account.getString("accountName", "null");
         presenter.queryUserImage(accountName);
         //presenter.queryUserImageFromLiteOrm(accountName);
-
     }
 
     private void queryUserName() {
@@ -206,7 +213,6 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
 
     @Override
     public void queryUserInfoFromLiteOrmSuccess(UserBeanForLiteOrm beanForLiteOrm) {
-
         userImage.setImageBitmap(beanForLiteOrm.getImage());
         setUserName.setText(beanForLiteOrm.getUserName());
         currentUserImage = beanForLiteOrm.getImage();
@@ -533,27 +539,38 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
                 setUpDialog();
                 break;
             case R.id.fragment_mine_share_layout_other:
-//                BP.pay("哈哈 快拿钱", "傻帽", 0.01, false, new PListener() {
-//                    @Override
-//                    public void orderId(String s) {
-//
-//                    }
-//
-//                    @Override
-//                    public void succeed() {
-//                        Toast.makeText(context, "???", Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    @Override
-//                    public void fail(int i, String s) {
-//                        Log.d("MineFragment", i + " !! " + s + "  ");
-//                    }
-//
-//                    @Override
-//                    public void unknow() {
-//
-//                    }
-//                });
+
+                BmobIM.connect(currentAccountName, new ConnectListener() {
+                    @Override
+                    public void done(String uid, BmobException e) {
+                        if (e == null) {
+                            BmobIMUserInfo conversation = new BmobIMUserInfo();
+                            conversation.setName(currentUserName);
+                            conversation.setUserId(currentAccountName);
+                            BmobIM.getInstance().startPrivateConversation(conversation, new ConversationListener() {
+                                @Override
+                                public void done(BmobIMConversation c, BmobException e) {
+                                    if (e == null) {
+                                        //在此跳转到聊天页面
+                                        Intent intent1 = new Intent(context, ChatActivity.class);
+                                        Bundle bundle = new Bundle();
+                                        bundle.putSerializable("c", c);
+                                        intent1.putExtras(bundle);
+                                        context.startActivity(intent1);
+                                    } else {
+                                        Toast.makeText(context, (e.getMessage() + "(" + e.getErrorCode() + ")"), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+
+
+                        } else {
+                            Log.e("error", e.getErrorCode() + " / " + e.getMessage());
+                        }
+                    }
+                });
+
+
                 break;
             case R.id.fragment_mine_house_layout:
 

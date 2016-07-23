@@ -12,9 +12,9 @@ import android.view.SurfaceView;
 import android.view.SurfaceHolder.Callback;
 
 import com.example.dllo.sofatravel.R;
-import com.example.dllo.sofatravel.main.main.base.MyApplication;
 
 public class MySurfaceView extends SurfaceView implements Callback, Runnable {
+    private Context mContext;
     private SurfaceHolder surfaceHolder;
     private boolean flag = false;// 线程标识
     private Bitmap bitmap_bg;// 背景图
@@ -40,6 +40,7 @@ public class MySurfaceView extends SurfaceView implements Callback, Runnable {
     public MySurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
         flag = true;
+        this.mContext = context;
         setFocusable(true);
         setFocusableInTouchMode(true);
         surfaceHolder = getHolder();
@@ -108,7 +109,12 @@ public class MySurfaceView extends SurfaceView implements Callback, Runnable {
 
         mSurfaceWindth = getWidth();
         mSurfaceHeight = getHeight();
-        bitmap_bg = BitmapFactory.decodeResource(MyApplication.context.getResources(), R.mipmap.water);
+        int mWindth = (int) (mSurfaceWindth * 3 / 2);
+        /***
+         * 将图片缩放到屏幕的3/2倍.
+         */
+        Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.water);
+        bitmap_bg = Bitmap.createScaledBitmap(bitmap, mWindth, (int) mSurfaceHeight, true);
         thread = new Thread(this);
         thread.start();
 

@@ -7,13 +7,14 @@ import com.litesuits.orm.db.annotation.PrimaryKey;
 import com.litesuits.orm.db.enums.AssignType;
 
 import java.io.ByteArrayOutputStream;
+import java.io.Serializable;
 
 import cn.bmob.v3.BmobObject;
 
 /**
  * Created by dllo on 16/7/20.
  */
-public class UserInfoBean extends BmobObject {
+public class UserInfoBean extends BmobObject implements Serializable {
 //    @PrimaryKey(AssignType.AUTO_INCREMENT)
 //    private int id;
 
