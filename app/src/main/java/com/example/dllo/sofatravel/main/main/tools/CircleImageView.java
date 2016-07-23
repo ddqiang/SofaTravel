@@ -1,10 +1,8 @@
-<<<<<<< HEAD
-package com.example.dllo.sofatravel.main.main.tools;
 
+package com.example.dllo.sofatravel.main.main.tools;
 /**
  * Created by dllo on 16/7/22.
  */
-=======
 /*
  * Copyright 2014 - 2016 Henning Dodenhof
  *
@@ -20,8 +18,6 @@ package com.example.dllo.sofatravel.main.main.tools;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.dllo.sofatravel.main.main.tools;
->>>>>>> feature/mineThree
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -43,7 +39,6 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
 import android.widget.ImageView;
-
 import com.example.dllo.sofatravel.R;
 
 public class CircleImageView extends ImageView {
