@@ -18,7 +18,24 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!--允许拨打电话-->
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!--网络权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 监听网络的变化 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <!-- 设备休眠 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- sd卡存储-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!--摄像头-->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!--录音-->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!--通知震动-->
+    <uses-permission android:name="android.permission.VIBRATE" />
     <application
         android:name=".main.main.base.MyApplication"
         android:allowBackup="true"
@@ -26,6 +43,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="Bmob_APP_KEY"
+            android:value="31c187fb6686bad6d933ff8e565b53a2" />
+
         <activity
             android:name=".main.main.main.MainActivity"
             android:launchMode="singleTask">
@@ -37,23 +58,40 @@
         </activity>
 
 
-        <activity android:name=".main.main.discover.youthdetails.detail.YouthDetailsActivity"
-           android:launchMode="singleTask"/>
+        <activity
+            android:name=".main.main.discover.youthdetails.detail.YouthDetailsActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".main.main.discover.youthdetails.search.SearchDetailActivity" />
         <activity android:name=".main.main.discover.youthdetails.selectcity.SelectCityActivity" />
         <activity android:name=".main.main.mine.loginorregister.LoginOrRegisterActivity" />
         <activity android:name=".main.main.home.bannerdetails.BannerDetailActivity" />
         <activity android:name=".main.main.home.messagedetails.MessageDetailsActivity" />
 
-        <activity android:name=".main.main.discover.youthdetails.selectcity.MapActivity"/>
-        <activity android:name=".main.main.discover.youthdetails.detailinfo.DetailInfoActivity"/>
+        <activity android:name=".main.main.discover.youthdetails.selectcity.MapActivity" />
+        <activity android:name=".main.main.discover.youthdetails.detailinfo.DetailInfoActivity" />
         <activity android:name=".main.main.home.imessageconcreteness.MessageConcreActivity" />
-
+        <activity android:name=".main.main.mine.ChatActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
     </application>
+    <receiver android:name="cn.bmob.newim.core.ConnectChangeReceiver">
+        <intent-filter>
+            <action android:name="cn.bmob.action.RECONNECT" />
+            <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            <action android:name="android.intent.action.BOOT_COMPLETED" />
+            <action android:name="android.intent.action.USER_PRESENT" />
+        </intent-filter>
+    </receiver>
 
+    <service
+        android:name="cn.bmob.newim.core.service.BmobIMService"
+        android:process=":bmobcore" />
+    <service
+        android:name="cn.bmob.newim.core.service.NotifyService"
+        android:process=":bmobcore" />
+    <service android:name="cn.bmob.newim.core.service.ReConnectService" />
+    <service android:name="cn.bmob.newim.core.service.HeartBeatService" />
 
 </manifest>

@@ -137,8 +137,8 @@ public class MineModel implements MineContract.Model {
 
     @Override
     public void queryUserInfoFromLiteOrm(String account) {
-        //ArrayList<UserBeanForLiteOrm> datas = MyLiteOrm.getSingleLiteOrm().getLiteOrm().query(new QueryBuilder<UserBeanForLiteOrm>(UserBeanForLiteOrm.class).where("account" + " LIKE ?", new String[]{account}));
-        ArrayList<UserBeanForLiteOrm> datas = MyLiteOrm.getSingleLiteOrm().getUserInfoDatasFromLiteOrm("account", account);
+        ArrayList<UserBeanForLiteOrm> datas = MyLiteOrm.getSingleLiteOrm().getLiteOrm().query(new QueryBuilder<UserBeanForLiteOrm>(UserBeanForLiteOrm.class).where("account" + " LIKE ?", new String[]{account}));
+       // ArrayList<UserBeanForLiteOrm> datas = MyLiteOrm.getSingleLiteOrm().getUserInfoDatasFromLiteOrm("account", account);
         presenter.queryUserInfoFromLiteOrmSuccess(datas);
     }
 
