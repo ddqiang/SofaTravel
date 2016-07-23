@@ -3,6 +3,7 @@ package com.example.dllo.sofatravel.main.main.main;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -29,6 +30,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public int getLayout() {
         return R.layout.activity_main;
+
+
     }
 
     @Override
@@ -52,11 +55,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         discover.setOnClickListener(this);
         order.setOnClickListener(this);
         mine.setOnClickListener(this);
-
     }
 
     @Override
     public void initData() {
+
+        //透明状态栏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        //透明导航栏
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 
         FragmentManager managerOne = getSupportFragmentManager();
         FragmentTransaction transactionOne = managerOne.beginTransaction();

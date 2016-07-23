@@ -20,8 +20,6 @@ public class HomeFragment extends BaseFragment {
 
     private HeaderGridView headerGridView;
     private HomeGrViewAdapter homeGrViewAdapter;
-    private final String homeUrl = "http://www.shafalvxing.com/index/indexLoadInfo.do?" +
-            "bizParams=%7B%22userToken%22%3A%22%22%2C%22deviceToken%22%3A%22d794b9867629fd3c09e63c478be29a4b%22%7D";
     private Banner banner;
 
     @Override
@@ -41,20 +39,16 @@ public class HomeFragment extends BaseFragment {
 
         //首页数据解析 and 轮播图
         showHomeOk();
-        //跳转详情
-        messageDetail();
         headerGridView.setAdapter(homeGrViewAdapter);
     }
 
-    private void messageDetail() {
 
-    }
 
     private void showHomeOk() {
         View view1 = LayoutInflater.from(context).inflate(R.layout.home_banner, null);
         banner = (Banner) view1.findViewById(R.id.fragment_home_banner);
         headerGridView.addHeaderView(view1);
-        OkSingle.getInstance().getRequestAsync(homeUrl, HomeBean.class, new OkSingle.OnTrue<HomeBean>() {
+        OkSingle.getInstance().getMessgeDetail(HomeBean.class, new OkSingle.OnTrue<HomeBean>() {
             @Override
             public void hasData(final HomeBean data) {
                 homeGrViewAdapter.setHomeBean(data);
@@ -90,7 +84,7 @@ public class HomeFragment extends BaseFragment {
         }, new OkSingle.OnError() {
             @Override
             public void noHasData() {
-                //Toast.makeText(context, "请求失败", Toast.LENGTH_SHORT).show();
+
             }
         });
     }

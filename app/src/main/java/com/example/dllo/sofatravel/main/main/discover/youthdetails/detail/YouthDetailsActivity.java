@@ -72,11 +72,7 @@ public class YouthDetailsActivity extends BaseActivity implements View.OnClickLi
         map = (ImageView) findViewById(R.id.discover_detail_map);//地图
         cityTv = (TextView) findViewById(R.id.discover_detail_location);
         map.setOnClickListener(this);
-
         detailList = (ListView) findViewById(R.id.discover_detail_list);
-
-
-
     }
 
     @Override

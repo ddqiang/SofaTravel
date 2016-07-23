@@ -5,6 +5,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 
+import com.example.dllo.sofatravel.main.main.values.TheValues;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -31,8 +32,6 @@ public class OkSingle {
     private OkSingle() {
         client = new OkHttpClient();
         gson = new Gson();
-
-
     }
 
 
@@ -43,7 +42,6 @@ public class OkSingle {
                     myOkHttp = new OkSingle();
                 }
             }
-
         }
         return myOkHttp;
     }
@@ -63,7 +61,6 @@ public class OkSingle {
                         break;
                     case ERROR:
                         onError.noHasData();
-
                         break;
                 }
             }
@@ -82,8 +79,6 @@ public class OkSingle {
                 try {
                     result = response.body().string();
                     t = gson.fromJson(result, clazz);
-                    Log.d("MyOkHttp", Thread.currentThread().getName());
-                    // onTrue.hasData(t);
                     Message message = handler.obtainMessage();
                     message.what = SUCCESS;
                     message.obj = t;
@@ -91,7 +86,6 @@ public class OkSingle {
 
                 } catch (IOException e) {
                     e.printStackTrace();
-//                    onError.noHasData();
                     handler.sendEmptyMessage(ERROR);
                 }
             }
@@ -108,18 +102,18 @@ public class OkSingle {
 
     //首页详情页的数据解析
 
-    public <T> void getMessgeDetail(){
+    public <T> void getMessgeDetail(Class<T> t, OnTrue<T> onTrue, OnError onError) {
 
+        getRequestAsync(TheValues.HOME_URL, t, onTrue, onError);
 
     }
+
     //首页 户主详情页的数据解析
     public <T> void getMessageConcre(int id, Class<T> t, OnTrue<T> onTrue, OnError onError) {
 
         String url = " http://www.shafalvxing.com/space/getSharedSpaceInfo.do?bizParams=%7B%22spaceId%22%3A"
                 + id + "%7D";
         getRequestAsync(url, t, onTrue, onError);
-
     }
-
 
 }

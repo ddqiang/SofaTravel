@@ -24,7 +24,7 @@ public class MessageConcreActivity extends BaseActivity implements View.OnClickL
     private ImageView back;
     private TextView price;
     private Banner banner;
-    private TextView title, room, bed, azonic, name, context, posOne, posTwo, posThree;
+    private TextView title, room, bed, azonic, name, context, posOne, posTwo, posThree, description;
     private ImageView head;
     private LinearLayout linearLayout;
 
@@ -46,6 +46,7 @@ public class MessageConcreActivity extends BaseActivity implements View.OnClickL
         posOne = (TextView) findViewById(R.id.message_concre_posOne);
         posTwo = (TextView) findViewById(R.id.message_concre_posTwo);
         posThree = (TextView) findViewById(R.id.message_concre_posThree);
+        description = (TextView) findViewById(R.id.message_concre_description);
         linearLayout = (LinearLayout) findViewById(R.id.message_concre_linearLayout);
         back.setOnClickListener(this);
 
@@ -72,7 +73,6 @@ public class MessageConcreActivity extends BaseActivity implements View.OnClickL
                 for (int i = 0; i < data.getData().getPictureList().size(); i++) {
                     imageURL[i] = data.getData().getPictureList().get(i);
                 }
-
                 banner.setDelayTime(Integer.MAX_VALUE);
                 banner.setImages(imageURL);
                 price.setText(String.valueOf(data.getData().getPrice()));
@@ -84,6 +84,7 @@ public class MessageConcreActivity extends BaseActivity implements View.OnClickL
                     posOne.setText(data.getData().getLabelList().get(0).getLabelName());
                     posTwo.setText(data.getData().getLabelList().get(1).getLabelName());
                     posThree.setText(data.getData().getLabelList().get(2).getLabelName());
+                    description.setText(data.getData().getDescription());
                 } else {
                     linearLayout.setVisibility(View.GONE);
                 }
@@ -94,37 +95,6 @@ public class MessageConcreActivity extends BaseActivity implements View.OnClickL
                 Toast.makeText(MessageConcreActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
             }
         });
-//        String url = " http://www.shafalvxing.com/space/getSharedSpaceInfo.do?bizParams=%7B%22spaceId%22%3A"
-//                + getIntent().getIntExtra("spaceId", 0) + "%7D";
-//        OkSingle.getInstance().getRequestAsync(url, MessageConBean.class, new OkSingle.OnTrue<MessageConBean>() {
-//            @Override
-//            public void hasData(MessageConBean data) {
-//                String[] imageURL = new String[data.getData().getPictureList().size()];
-//                for (int i = 0; i < data.getData().getPictureList().size(); i++) {
-//                    imageURL[i] = data.getData().getPictureList().get(i);
-//                }
-//
-//                banner.setDelayTime(Integer.MAX_VALUE);
-//                banner.setImages(imageURL);
-//                price.setText(String.valueOf(data.getData().getPrice()));
-//                title.setText(data.getData().getTitle());
-//                Glide.with(MessageConcreActivity.this).load(data.getData().getOwnerPic()).into(head);
-//                name.setText(data.getData().getOwnerName());
-//                context.setText(data.getData().getOwnerDescription());
-//                if (data.getData().getLabelList() != null) {
-//                    posOne.setText(data.getData().getLabelList().get(0).getLabelName());
-//                    posTwo.setText(data.getData().getLabelList().get(1).getLabelName());
-//                    posThree.setText(data.getData().getLabelList().get(2).getLabelName());
-//                } else {
-//                    linearLayout.setVisibility(View.GONE);
-//                }
-//            }
-//        }, new OkSingle.OnError() {
-//            @Override
-//            public void noHasData() {
-//                Toast.makeText(MessageConcreActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
-//            }
-//        });
     }
 
     @Override

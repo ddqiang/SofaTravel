@@ -2,7 +2,9 @@
 
     Base application theme.
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar"></style>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+    </style>
 
     <!--<style name="main_aty_tab">-->
     <!--<item name="android:layout_width">wrap_content</item>-->
