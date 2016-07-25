@@ -14,6 +14,7 @@ import com.example.dllo.sofatravel.main.main.discover.youthdetails.detail.Detail
 import com.example.dllo.sofatravel.main.main.discover.youthdetails.detail.DetailBean;
 import com.example.dllo.sofatravel.main.main.discover.youthdetails.detail.YouthDetailsActivity;
 import com.example.dllo.sofatravel.main.main.tools.OkSingle;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.youth.banner.Banner;
 
 import java.text.SimpleDateFormat;
