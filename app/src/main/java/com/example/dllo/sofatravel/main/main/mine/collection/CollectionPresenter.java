@@ -4,7 +4,6 @@ import android.widget.CheckBox;
 
 import com.example.dllo.sofatravel.main.main.tools.MyLiteOrm;
 import com.litesuits.orm.db.assit.QueryBuilder;
-import com.litesuits.orm.db.impl.SingleSQLiteImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +24,7 @@ public class CollectionPresenter implements CollectionContract.Presenter {
     @Override
     public void setCollectionBean(CollectionBean collectionBean, String account) {
         List<CollectionBean> collectionBeanList = MyLiteOrm.getSingleLiteOrm().getLiteOrm().query(new QueryBuilder<>(CollectionBean.class).
-                where("account" + " LIKE ?", new String[]{account}));
+                where("account" + " LIKE ?", new Object[]{account}));
         for (CollectionBean bean : collectionBeanList) {
             MyLiteOrm.getSingleLiteOrm().getLiteOrm().delete(bean);
         }
@@ -35,6 +34,41 @@ public class CollectionPresenter implements CollectionContract.Presenter {
     @Override
     public void onCollectionSuccess(ArrayList<CollectionBean> arrayList) {
         view.onCollectionSuccess(arrayList);
+    }
+
+    @Override
+    public void queryCollectLocalBean(String account) {
+
+    }
+
+    @Override
+    public void LocalBeanSuccess(ArrayList<CollectionBean> arrayList) {
+
+    }
+
+    @Override
+    public void queryCollectBmoBean(String account) {
+
+    }
+
+    @Override
+    public void BmobBeanSuccess(ArrayList<CollectionBean> arrayList) {
+
+    }
+
+    @Override
+    public void delletLocalBean(CollectionBean bean, String account) {
+
+    }
+
+    @Override
+    public void delletBmobBean(CollectionBean bean, String account) {
+
+    }
+
+    @Override
+    public void delletSuccess() {
+
     }
 
     @Override

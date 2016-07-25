@@ -1,17 +1,27 @@
-package com.example.dllo.sofatravel.main.main.mine;
-
+package com.example.dllo.sofatravel.main.main.mine.loginorregister;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import java.io.ByteArrayOutputStream;
 
-import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.BmobObject;
 
 /**
- * Created by dllo on 16/7/19.
+ * Created by dllo on 16/7/25.
  */
-public class UserBean extends BmobUser {
+public class UserInfoBean extends BmobObject {
+
+
+    private String account;
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
 
     private String userCustomName;
     private byte[] photoImage;

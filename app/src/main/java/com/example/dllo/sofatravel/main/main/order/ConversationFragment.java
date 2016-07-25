@@ -1,21 +1,19 @@
 package com.example.dllo.sofatravel.main.main.order;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.view.View;
 
 import com.example.dllo.sofatravel.R;
 import com.example.dllo.sofatravel.main.main.base.BaseFragment;
-import com.example.dllo.sofatravel.main.main.mine.loginorregister.LoginOrRegisterActivity;
 
 /**
- * Created by dllo on 16/7/18.
+ * Created by dllo on 16/7/25.
  */
-public class OrderFragment extends BaseFragment {
+public class ConversationFragment extends BaseFragment {
+    private ConversationAdapter adapter;
+
     @Override
     public int setLayout() {
-        return 0;
+        return R.layout.fragment_conversation;
     }
 
     @Override

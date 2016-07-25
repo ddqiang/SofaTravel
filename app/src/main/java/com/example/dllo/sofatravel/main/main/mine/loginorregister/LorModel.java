@@ -2,9 +2,8 @@ package com.example.dllo.sofatravel.main.main.mine.loginorregister;
 
 
 import com.example.dllo.sofatravel.main.main.base.MyApplication;
-import com.example.dllo.sofatravel.main.main.mine.UserInfoBean;
+import com.example.dllo.sofatravel.main.main.mine.UserBean;
 
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.SaveListener;
 
 /**
@@ -16,7 +15,7 @@ public class LorModel implements LoginOrRegisterContract.LoginOrRegisterModel {
     @Override
 
     public void login(String userName, String password) {
-        BmobUser user = new BmobUser();
+        UserBean user = new UserBean();
         user.setUsername(userName);
         user.setPassword(password);
         user.login(MyApplication.context, new SaveListener() {
@@ -30,18 +29,28 @@ public class LorModel implements LoginOrRegisterContract.LoginOrRegisterModel {
                 loginOrRegisterPresenter.loginError("登录 : " + s);
             }
         });
-
     }
 
     @Override
     public void register(String userName, String password) {
 
-        BmobUser user = new BmobUser();
+        final UserBean user = new UserBean();
         user.setUsername(userName);
         user.setPassword(password);
         user.signUp(MyApplication.context, new SaveListener() {
             @Override
             public void onSuccess() {
+//                user.login(MyApplication.context, new SaveListener() {
+//                    @Override
+//                    public void onSuccess() {
+//                        loginOrRegisterPresenter.registerSuccess();
+//                    }
+//
+//                    @Override
+//                    public void onFailure(int i, String s) {
+//
+//                    }
+//                });
                 loginOrRegisterPresenter.registerSuccess();
             }
 
@@ -51,24 +60,12 @@ public class LorModel implements LoginOrRegisterContract.LoginOrRegisterModel {
             }
         });
 
+
     }
 
     @Override
     public void setDefaultUserName(String accountName) {
-        UserInfoBean bean = new UserInfoBean();
-        bean.setAccountName(accountName);
-        bean.setUserName("未设置");
-        bean.save(MyApplication.context, new SaveListener() {
-            @Override
-            public void onSuccess() {
 
-            }
-
-            @Override
-            public void onFailure(int i, String s) {
-
-            }
-        });
     }
 
     @Override

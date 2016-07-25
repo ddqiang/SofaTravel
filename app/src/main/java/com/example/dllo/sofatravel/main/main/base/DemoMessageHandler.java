@@ -1,21 +1,16 @@
-package com.example.dllo.sofatravel.main.main.bmobim;
-
-import android.util.Log;
+package com.example.dllo.sofatravel.main.main.base;
 
 import cn.bmob.newim.event.MessageEvent;
 import cn.bmob.newim.event.OfflineMessageEvent;
 import cn.bmob.newim.listener.BmobIMMessageHandler;
 
 /**
- * Created by dllo on 16/7/23.
+ * Created by dllo on 16/7/25.
  */
 public class DemoMessageHandler extends BmobIMMessageHandler {
-
     @Override
     public void onMessageReceive(final MessageEvent event) {
         //当接收到服务器发来的消息时，此方法被调用
-        Log.d("lanou", "event.getMessage():" + event.getMessage());
-
     }
 
     @Override

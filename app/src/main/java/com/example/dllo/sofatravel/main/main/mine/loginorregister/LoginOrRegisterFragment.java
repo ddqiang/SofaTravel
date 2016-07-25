@@ -133,6 +133,9 @@ public class LoginOrRegisterFragment extends BaseFragment implements LoginOrRegi
                 } else {
                     showRegisterDialog();
                     presenter.register(userName, password);
+
+
+
                 }
                 break;
 

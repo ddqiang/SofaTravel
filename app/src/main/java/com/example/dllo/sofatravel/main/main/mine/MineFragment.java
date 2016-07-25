@@ -1,6 +1,5 @@
 package com.example.dllo.sofatravel.main.main.mine;
 
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,7 +14,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,22 +29,12 @@ import com.example.dllo.sofatravel.R;
 import com.example.dllo.sofatravel.main.main.base.BaseFragment;
 import com.example.dllo.sofatravel.main.main.mine.collection.CollectionActivity;
 import com.example.dllo.sofatravel.main.main.mine.loginorregister.LoginOrRegisterActivity;
+import com.example.dllo.sofatravel.main.main.mine.loginorregister.UserInfoBean;
 import com.example.dllo.sofatravel.main.main.values.TheValues;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Logger;
-
-import c.b.BP;
-import c.b.PListener;
-import cn.bmob.newim.BmobIM;
-import cn.bmob.newim.bean.BmobIMConversation;
-import cn.bmob.newim.bean.BmobIMUserInfo;
-import cn.bmob.newim.listener.ConnectListener;
-import cn.bmob.newim.listener.ConversationListener;
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.exception.BmobException;
 
 
 /**
@@ -63,7 +51,7 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
     private PopupWindow popupWindow;
     private UserInfoBean currentUserInfo;
     private String currentUserName, currentAccountName;
-    private ProgressDialog getUserInfoDialog;
+    //private ProgressDialog getUserInfoDialog;
     private SetDefaultReceiver setDefaultReceiver;
 
     @Override
@@ -100,7 +88,7 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
         boolean hasLogin = isLogin.getBoolean("hasLogin", false);
         if (hasLogin) {
             // queryUserName();
-            queryUserImage();
+            //queryUserImage();
             SharedPreferences sharedPreferences = context.getSharedPreferences("saveAccountName", Context.MODE_PRIVATE);
             currentAccountName = sharedPreferences.getString("accountName", "");
             SharedPreferences preferences = context.getSharedPreferences("saveUserName", Context.MODE_PRIVATE);
@@ -164,9 +152,7 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
 
     @Override
     public void saveUserInfoSuccess() {
-        if (popupWindow != null) {
-            popupWindow.dismiss();
-        }
+        Toast.makeText(context, "savesuccess", Toast.LENGTH_SHORT).show();
         //用户信息保存完毕
     }
 
@@ -175,8 +161,8 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
         currentUserImage = bitmap;
         currentUserInfo = new UserInfoBean();
         currentUserInfo.setImage(currentUserImage);
-        currentUserInfo.setUserName(currentUserName);
-        currentUserInfo.setAccountName(currentAccountName);
+        currentUserInfo.setUserCustomName(currentUserName);
+        currentUserInfo.setAccount(currentAccountName);
         presenter.saveUserInfo(currentUserInfo);//将用户名和账号保存
 //        UserBeanForLiteOrm beanForLiteOrm = new UserBeanForLiteOrm();
 //        beanForLiteOrm.setUserName(currentUserName);
@@ -191,9 +177,9 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
     @Override
     public void readUserImageSuccess(Bitmap bitmap) {
         userImage.setImageBitmap(bitmap);
-        if (getUserInfoDialog != null) {
-            getUserInfoDialog.dismiss();
-        }
+//        if (getUserInfoDialog != null) {
+//            getUserInfoDialog.dismiss();
+//        }
         //读取用户信息 成功后dialog dismiss
     }
 
@@ -217,9 +203,9 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
         userImage.setImageBitmap(beanForLiteOrm.getImage());
         setUserName.setText(beanForLiteOrm.getUserName());
         currentUserImage = beanForLiteOrm.getImage();
-        if (getUserInfoDialog != null) {
-            getUserInfoDialog.dismiss();
-        }
+//        if (getUserInfoDialog != null) {
+//            getUserInfoDialog.dismiss();
+//        }
     }
 
 
@@ -255,6 +241,18 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
                     }
                     presenter.changeUserNameForLiteOrm(beanForLiteOrm);
                     //设置新名字
+
+                    UserInfoBean userBean = new UserInfoBean();
+                    userBean.setUserCustomName(currentUserName);
+                    userBean.setAccount(currentAccountName);
+                    if (currentUserImage == null) {
+                        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher_one);
+                        userBean.setImage(bitmap);
+                    } else {
+                        userBean.setImage(currentUserImage);
+                    }
+                    presenter.saveUserInfo(userBean);
+                    //存入网络数据库
                     setUserName.setText(currentUserName);
 
                 }
@@ -422,8 +420,8 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
                     // 此处可以把Bitmap保存到sd卡中
                     userImage.setImageBitmap(photo); // 把图片显示在ImageView控件上
                     UserInfoBean bean = new UserInfoBean();
-                    bean.setAccountName(currentAccountName);//设置账号
-                    bean.setUserName(currentUserName);//设置用户名
+                    bean.setAccount(currentAccountName);//设置账号
+                    bean.setUserCustomName(currentUserName);//设置用户名
                     bean.setImage(photo);//设置图片
                     presenter.saveUserInfo(bean);//存入网络数据库
                     UserBeanForLiteOrm beanForLiteOrm = new UserBeanForLiteOrm();
@@ -452,11 +450,11 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
 
     //progressDialog
     private void getUserInfoDialog() {
-        if (getUserInfoDialog == null) {
-            getUserInfoDialog = ProgressDialog.show(context, "请等待", "加载数据中", true, false);
-        } else {
-            getUserInfoDialog.show();
-        }
+//        if (getUserInfoDialog == null) {
+//            getUserInfoDialog = ProgressDialog.show(context, "请等待", "加载数据中", true, false);
+//        } else {
+//            getUserInfoDialog.show();
+//        }
     }
 
     //设置popup
@@ -542,38 +540,6 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
                 setUpDialog();
                 break;
             case R.id.fragment_mine_share_layout_other:
-
-                BmobIM.connect(currentAccountName, new ConnectListener() {
-                    @Override
-                    public void done(String uid, BmobException e) {
-                        if (e == null) {
-                            BmobIMUserInfo conversation = new BmobIMUserInfo();
-                            conversation.setName(currentUserName);
-                            conversation.setUserId(currentAccountName);
-                            BmobIM.getInstance().startPrivateConversation(conversation, new ConversationListener() {
-                                @Override
-                                public void done(BmobIMConversation c, BmobException e) {
-                                    if (e == null) {
-                                        //在此跳转到聊天页面
-                                        Intent intent1 = new Intent(context, ChatActivity.class);
-                                        Bundle bundle = new Bundle();
-                                        bundle.putSerializable("c", c);
-                                        intent1.putExtras(bundle);
-                                        context.startActivity(intent1);
-                                    } else {
-                                        Toast.makeText(context, (e.getMessage() + "(" + e.getErrorCode() + ")"), Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-
-
-                        } else {
-                            Log.e("error", e.getErrorCode() + " / " + e.getMessage());
-                        }
-                    }
-                });
-
-
                 break;
             case R.id.fragment_mine_house_layout:
 
