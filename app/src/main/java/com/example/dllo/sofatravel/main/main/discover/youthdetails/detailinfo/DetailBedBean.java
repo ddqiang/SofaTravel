@@ -34,15 +34,15 @@ public class DetailBedBean {
 
     public static class DataBean {
         /**
-         * amenities : ["WIFI","无窗","1层","大床1.8m","公用卫浴"]
-         * hotelId : 572851019
+         * amenities : ["WIFI","有窗","1层","独立卫浴"]
+         * hotelId : 573293753
          * isAllCannotSale : 0
-         * lstRatePlanDto : [{"availableRooms":3,"bookingRuleIds":"BR-3011478","breakfast":"无早","canRefund":"不可取消","hotelId":"572851019","maxAmount":3,"minAmount":1,"price":75,"productName":"预付(不含早)","productRoomName":"标准大床房","ratePlanId":"3011478","roomTypeId":"5697185796","saleStatus":1,"saleUnit":1,"sellTimeQuantity":1},{"availableRooms":4,"bookingRuleIds":"BR-30045689","breakfast":"无早","canRefund":"不可取消","hotelId":"572851019","maxAmount":4,"minAmount":1,"price":102,"productName":"普通间-即时确认(大床)","productRoomName":"普通间-即时确认(大床)","ratePlanId":"30045689","roomTypeId":"5697185796","saleStatus":1,"saleUnit":1,"sellTimeQuantity":0}]
-         * pictureList : ["http://userimg.qunar.com/imgs/201509/09/66I5P25Kzzis0ff16i748.jpg","http://userimg.qunar.com/imgs/201509/09/66I5P25KzOr0swPK6i748.jpg","http://userimg.qunar.com/imgs/201604/27/JhS1_t5inF3OvGejJi748.jpg","http://userimg.qunar.com/imgs/201605/09/JhS1_t5_Oz9uPGV6Ji748.jpg","http://userimg.qunar.com/imgs/201605/09/JhS1_t5_O3CNOTsqJi748.jpg","http://userimg.qunar.com/imgs/201605/09/JhS1_t5_O3WttrdOJi748.jpg","http://userimg.qunar.com/imgs/201605/09/JhS1_t5_O3HctWbdJi748.jpg","http://userimg.qunar.com/imgs/201605/09/JhS1_t5_OzIWue44Ji748.jpg","http://userimg.qunar.com/imgs/201605/09/JhS1_t5_OF5mvsOUJi748.jpg","http://userimg.qunar.com/imgs/201604/27/JhS1_t5inF3OvGejJi748.jpg","http://userimg.qunar.com/imgs/201509/09/66I5P25KzOr0swPK6i748.jpg"]
-         * price : 75
-         * rmTypeImageUrl : http://userimg.qunar.com/imgs/201509/09/66I5P25Kzzis0ff16i748.jpg
-         * roomName : 标准大床房
-         * roomTypeId : 5697185796
+         * lstRatePlanDto : [{"availableRooms":2,"bookingRuleIds":"BR-35576189","breakfast":"无早","canRefund":"限时取消","hotelId":"573293753","maxAmount":2,"minAmount":1,"price":42,"productName":"床位-不含早-预付","productRoomName":"久别重逢女生八人间（床位）","ratePlanId":"35576189","refundRule":"2016-07-24 23:59之前，可免费取消；之后预订人不可变更/取消，否则将扣除全额预付款作为违约金。","roomTypeId":"6533880148","saleStatus":1,"saleUnit":2,"sellTimeQuantity":1},{"availableRooms":4,"bookingRuleIds":"BR-31202828","breakfast":"无早","canRefund":"不可取消","hotelId":"573293753","maxAmount":4,"minAmount":1,"price":42,"productName":"久别重逢女生八人间(床位)","productRoomName":"久别重逢女生八人间(床位)","ratePlanId":"31202828","refundRule":"订单确认后，不可变更、取消，预订人取消将扣除全额预付款作为违约金","roomTypeId":"6533880148","saleStatus":1,"saleUnit":1,"sellTimeQuantity":0}]
+         * pictureList : ["http://userimg.qunar.com/imgs/201606/30/66I5P2-PT8ccbYQH6i748.jpg","http://userimg.qunar.com/imgs/201606/30/JhS1_t5LCnp0GvCNJi748.jpg","http://userimg.qunar.com/imgs/201606/30/JhS1_t5LCrcVk3GVJi748.jpg","http://userimg.qunar.com/imgs/201606/30/66I5P2-PT8ccbYQH6i748.jpg","http://userimg.qunar.com/imgs/201606/30/JhS1_t5LC1OWP5xfJi748.jpg"]
+         * price : 42
+         * rmTypeImageUrl : http://userimg.qunar.com/imgs/201606/30/66I5P2-PT8ccbYQH6i748.jpg
+         * roomName : 久别重逢女生八人房(床位)
+         * roomTypeId : 6533880148
          */
 
         private List<RmlistBean> rmlist;
@@ -64,20 +64,21 @@ public class DetailBedBean {
             private String roomTypeId;
             private List<String> amenities;
             /**
-             * availableRooms : 3
-             * bookingRuleIds : BR-3011478
+             * availableRooms : 2
+             * bookingRuleIds : BR-35576189
              * breakfast : 无早
-             * canRefund : 不可取消
-             * hotelId : 572851019
-             * maxAmount : 3
+             * canRefund : 限时取消
+             * hotelId : 573293753
+             * maxAmount : 2
              * minAmount : 1
-             * price : 75
-             * productName : 预付(不含早)
-             * productRoomName : 标准大床房
-             * ratePlanId : 3011478
-             * roomTypeId : 5697185796
+             * price : 42
+             * productName : 床位-不含早-预付
+             * productRoomName : 久别重逢女生八人间（床位）
+             * ratePlanId : 35576189
+             * refundRule : 2016-07-24 23:59之前，可免费取消；之后预订人不可变更/取消，否则将扣除全额预付款作为违约金。
+             * roomTypeId : 6533880148
              * saleStatus : 1
-             * saleUnit : 1
+             * saleUnit : 2
              * sellTimeQuantity : 1
              */
 
@@ -168,6 +169,7 @@ public class DetailBedBean {
                 private String productName;
                 private String productRoomName;
                 private String ratePlanId;
+                private String refundRule;
                 private String roomTypeId;
                 private int saleStatus;
                 private int saleUnit;
@@ -259,6 +261,14 @@ public class DetailBedBean {
 
                 public void setRatePlanId(String ratePlanId) {
                     this.ratePlanId = ratePlanId;
+                }
+
+                public String getRefundRule() {
+                    return refundRule;
+                }
+
+                public void setRefundRule(String refundRule) {
+                    this.refundRule = refundRule;
                 }
 
                 public String getRoomTypeId() {

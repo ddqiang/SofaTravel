@@ -36,7 +36,7 @@ public class DetailInfoAdpter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return bean==null?0:bean.getData().getRmlist().get(groupPosition).getAmenities().size();
+        return bean==null?0:bean.getData().getRmlist().get(groupPosition).getLstRatePlanDto().size();
     }
 
     @Override
@@ -46,7 +46,7 @@ public class DetailInfoAdpter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return bean==null?0:bean.getData().getRmlist().get(groupPosition).getAmenities().get(childPosition);
+        return bean==null?0:bean.getData().getRmlist().get(groupPosition).getLstRatePlanDto().get(childPosition);
     }
 
     @Override
@@ -74,8 +74,9 @@ public class DetailInfoAdpter extends BaseExpandableListAdapter {
         }else {
             groupHolder= (GroupHolder) convertView.getTag();
         }
-//        Glide.with(context).load(bean.getData().getRmlist().get(groupPosition).getPictureList());
-        groupHolder.price.setText(bean.getData().getRmlist().get(groupPosition).getPrice());
+        Glide.with(context).load(bean.getData().getRmlist().get(groupPosition).getRmTypeImageUrl()).into(groupHolder.picture);
+        groupHolder.productRoomName.setText(bean.getData().getRmlist().get(groupPosition).getRoomName());
+
         return convertView;
     }
 
@@ -89,22 +90,23 @@ public class DetailInfoAdpter extends BaseExpandableListAdapter {
         }else {
             childHolder= (ChildHolder) convertView.getTag();
         }
-        childHolder.breakfast.setText(bean.getData().getRmlist().get(childPosition).getLstRatePlanDto().get(childPosition).getBreakfast());
-
+        childHolder.breakfast.setText(bean.getData().getRmlist().get(groupPosition).getLstRatePlanDto().get(childPosition).getBreakfast());
         return convertView;
     }
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return false;
+        return true;
     }
     class GroupHolder{
         ImageView picture;
         TextView price;
+        TextView productRoomName;
 
         public GroupHolder(View view) {
             picture= (ImageView) view.findViewById(R.id.dis_detail_info_picture);
             price= (TextView) view.findViewById(R.id.dis_detail_info_price);
+            productRoomName= (TextView) view.findViewById(R.id.dis_detail_product_roomName);
         }
     }
     class ChildHolder{

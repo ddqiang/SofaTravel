@@ -41,6 +41,21 @@ public class CollectionFragment extends BaseFragment implements CollectionContra
     }
 
     @Override
+    public void LocalBeanSuccess(ArrayList<CollectionBean> arrayList) {
+
+    }
+
+    @Override
+    public void BmobBeanSuccess(ArrayList<CollectionBean> arrayList) {
+
+    }
+
+    @Override
+    public void delletSuccess() {
+
+    }
+
+    @Override
     public void setPresenter(CollectionContract.Presenter Presenter) {
         this.presenter = Presenter;
     }
