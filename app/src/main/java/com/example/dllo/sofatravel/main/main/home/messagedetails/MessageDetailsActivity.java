@@ -1,15 +1,12 @@
 package com.example.dllo.sofatravel.main.main.home.messagedetails;
 
-import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.example.dllo.sofatravel.R;
 import com.example.dllo.sofatravel.main.main.base.BaseActivity;
 import com.example.dllo.sofatravel.main.main.base.MyOnClick;
@@ -52,14 +49,13 @@ public class MessageDetailsActivity extends BaseActivity implements View.OnClick
     private void MyOkHttp() {
 
         int messageId = getIntent().getIntExtra("messageId", 0);
-        String url = "http://www.shafalvxing.com/space/getSharedSpaceByCity." +
-                "do?bizParams=%7B%22cityId%22%3A%22" + messageId + "%22%2C%22endPrice%22%3A0%2C%22page%22%3A%221%22%2C%22startPrice%22%3" +
-                "A0%2C%22userToken%22%3A%22MzdlNGY1MzE2ZjI4MjZiNzNlNjRjNmRkMzFlOTM5YTczZGRhYzI1NmI1ZWExNzI4%22%7D";
-        OkSingle.getInstance().getRequestAsync(url,
-                MessageBean.class, new OkSingle.OnTrue<MessageBean>() {
-                    @Override
-                    public void hasData(final MessageBean data) {
-                        messageLv.setAdapter(new CommonAdapter<MessageBean.DataBean.ResultBean>
+//        String url = "http://www.shafalvxing.com/space/getSharedSpaceByCity." +
+//                "do?bizParams=%7B%22cityId%22%3A%22" + messageId + "%22%2C%22endPrice%22%3A0%2C%22page%22%3A%221%22%2C%22startPrice%22%3" +
+//                "A0%2C%22userToken%22%3A%22MzdlNGY1MzE2ZjI4MjZiNzNlNjRjNmRkMzFlOTM5YTczZGRhYzI1NmI1ZWExNzI4%22%7D";
+        OkSingle.getInstance().getOwnerMessageDetail(messageId, MessageBean.class, new OkSingle.OnTrue<MessageBean>() {
+            @Override
+            public void hasData(final MessageBean data) {
+                messageLv.setAdapter(new CommonAdapter<MessageBean.DataBean.ResultBean>
                                 (MessageDetailsActivity.this, data.getData().getResult(), R.layout.messagedetail_lv_item) {
                             @Override
                             public void convert(MyViewHolder holder, final MessageBean.DataBean.ResultBean resultBean) {
@@ -67,7 +63,6 @@ public class MessageDetailsActivity extends BaseActivity implements View.OnClick
                                 holder.setText(R.id.message_name, resultBean.getOwnerName());
                                 holder.setHeadImage(R.id.message_head, resultBean.getOwnerPic());
                                 holder.setAgeText(R.id.message_age, String.valueOf(resultBean.getAge()));
-
 
                                 if (resultBean.getSex() == 1) {
                                     holder.setSexText(R.id.message_sex, "男");
@@ -97,7 +92,6 @@ public class MessageDetailsActivity extends BaseActivity implements View.OnClick
                                 holder.setPriceText(R.id.message_price, String.valueOf(resultBean.getPrice()));
                                 holder.setresponseRateText(R.id.message_response_rate, String.valueOf(resultBean.getReplyRate()));
 
-
                                 holder.setMyOnClick(new MyOnClick() {
                                     @Override
                                     public void onClick(int pos) {
@@ -108,13 +102,14 @@ public class MessageDetailsActivity extends BaseActivity implements View.OnClick
                                 });
                             }
                         });
-                    }
-                }, new OkSingle.OnError() {
-                    @Override
-                    public void noHasData() {
-                        Toast.makeText(MessageDetailsActivity.this, "请求错误", Toast.LENGTH_SHORT).show();
-                    }
-                });
+            }
+
+        }, new OkSingle.OnError() {
+            @Override
+            public void noHasData() {
+                Toast.makeText(MessageDetailsActivity.this, "请求错误", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

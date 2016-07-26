@@ -22,7 +22,6 @@ import com.litesuits.orm.LiteOrm;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
-
     private RadioButton home, discover, search, order, mine;
     private TextView homeTv, discoverTv, searchTv, orderTv, mineTv;
     private MineFragment mineFragment;
@@ -30,13 +29,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public int getLayout() {
         return R.layout.activity_main;
-
-
     }
 
     @Override
     public void initView() {
-
 
         home = (RadioButton) findViewById(R.id.home_tab);
         discover = (RadioButton) findViewById(R.id.discover_tab);

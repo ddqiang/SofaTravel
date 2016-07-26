@@ -22,6 +22,10 @@ public class MyApplication extends android.app.Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //支付环节
+
+
+
         context = this;
         Bmob.initialize(this, "31c187fb6686bad6d933ff8e565b53a2");
 

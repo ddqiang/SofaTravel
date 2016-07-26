@@ -119,6 +119,16 @@ public class OkSingle {
                 + id + "%7D";
         getRequestAsync(url, t, onTrue, onError);
     }
+    //首页 户主租住地详情数据解析
+    public <T> void getOwnerMessageDetail(int messageId, Class<T> t, OnTrue<T> onTrue, OnError onError) {
+
+        String url = "http://www.shafalvxing.com/space/getSharedSpaceByCity." +
+                "do?bizParams=%7B%22cityId%22%3A%22" + messageId + "%22%2C%22endPrice%22%3A0%2C%22page%22%3A%221%22%2C%22startPrice%22%3" +
+                "A0%2C%22userToken%22%3A%22MzdlNGY1MzE2ZjI4MjZiNzNlNjRjNmRkMzFlOTM5YTczZGRhYzI1NmI1ZWExNzI4%22%7D";
+
+        getRequestAsync(url, t, onTrue, onError);
+    }
+
    public <T> void getYouthDeatil(String id,Class<T>t,OnTrue<T>onTrue,OnError onError){
         Long startTime = System.currentTimeMillis();
         Long endTime = startTime + 24 * 60 * 60 * 1000;
@@ -127,11 +137,13 @@ public class OkSingle {
                 "startPrice%22%3A0%2C%22page%22%3A1%2C%22cityName%22%3A%22"+id+"%e5%B8%82%22%7D";
         getRequestAsync(url, t, onTrue, onError);
     }
+
     public <T> void getHotelDeatil(String id,Class<T>t,OnTrue<T>onTrue,OnError onError) {
         String url = " http://www.shafalvxing.com/hotel/queryHotelDetail.do?bizParams=" +
                 "%7B%22endTime%22%3A1469158423376%2C%22hotelId%22%3A%22"+id+"%22%2C%22startTime%22%3A1469072023376%7D";
         getRequestAsync(url, t, onTrue, onError);
     }
+
     public <T> void getInfoBed(Class<T>t,OnTrue<T>onTrue,OnError onError){
         String url="http://www.shafalvxing.com/hotel/queryHotelDetailRmList.do?bizParams=" +
                 "%7B%22startTime%22%3A1469240945303%2C%22endTime%22%3A1469327345303%2C%22hotelId%22%3A%22573166854%22%7D";
