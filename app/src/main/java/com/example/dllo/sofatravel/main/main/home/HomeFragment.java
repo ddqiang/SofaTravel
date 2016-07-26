@@ -76,7 +76,6 @@ public class HomeFragment extends BaseFragment {
                         Intent intent = new Intent(context, MessageDetailsActivity.class);
                         intent.putExtra("messageId", data.getData().getHomePageInfo().getRecommendCity().get(pos).getId());
                         intent.putExtra("city", data.getData().getHomePageInfo().getRecommendCity().get(pos).getCityNameCh());
-
                         startActivity(intent);
                     }
         });

@@ -3,6 +3,7 @@ package com.example.dllo.sofatravel.main.main.base;
 import android.content.Context;
 
 import com.example.dllo.sofatravel.main.main.bmobim.DemoMessageHandler;
+import com.fuqianla.paysdk.FuQianLa;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -22,6 +23,9 @@ public class MyApplication extends android.app.Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //支付环节
+        FuQianLa.getInstance().init(getApplicationContext());
+
         context = this;
         Bmob.initialize(this, "31c187fb6686bad6d933ff8e565b53a2");
 
@@ -46,6 +50,7 @@ public class MyApplication extends android.app.Application {
      * @return
      */
     public static String getMyProcessName() {
+
         try {
             File file = new File("/proc/" + android.os.Process.myPid() + "/" + "cmdline");
             BufferedReader mBufferedReader = new BufferedReader(new FileReader(file));
@@ -56,6 +61,5 @@ public class MyApplication extends android.app.Application {
             e.printStackTrace();
             return null;
         }
-
     }
 }

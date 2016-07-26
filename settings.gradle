@@ -1,1 +1,5 @@
+
 include ':app', ':library'
+include ':app', ':Mylibrary'
+include ':library'
+

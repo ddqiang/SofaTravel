@@ -103,6 +103,26 @@ public class CollectionModel implements CollectionContract.Model {
     }
 
     @Override
+    public void queryCollectLocalBean(String account) {
+
+    }
+
+    @Override
+    public void queryCollectBmoBean(String account) {
+
+    }
+
+    @Override
+    public void delletLocalBean(CollectionBean bean, String account) {
+
+    }
+
+    @Override
+    public void delletBmobBean(CollectionBean bean, String account) {
+
+    }
+
+    @Override
     public void setPresenter(CollectionContract.Presenter presenter) {
         this.presenter = presenter;
     }
