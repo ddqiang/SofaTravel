@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dllo.sofatravel">
-<<<<<<< HEAD
+
     <!--BmobSDK所需的权限 -->
-=======
+
     <!-- 允许程序打开网络套接字权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 保持屏幕常亮所需权限 -->
@@ -38,7 +38,7 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <!-- 录制语音权限 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
->>>>>>> feature/mineSeven
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
