@@ -21,6 +21,25 @@ android {
     sourceSets {
         main.jniLibs.srcDirs = ['libs']
     }
+    signingConfigs {
+        release {
+            storeFile file("/Users/dllo/Desktop/key.jks")        //证书存放目录
+            storePassword "123456"                               //密码
+            keyAlias "mpp"                                                //别名
+            keyPassword "123456"                                //密码(就是设置证书那两个密码，建议都填一样的)
+        }
+    }
+
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.release
+        }
+
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
 
 
 
@@ -46,4 +65,7 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile files('libs/BmobPay_v3.0.3_160621.jar')
     compile files('libs/androidasync-2.1.6.jar')
+    compile files('libs/AMap_3DMap_V3.3.2_20160525.jar')
+    compile files('libs/AMap_Location_V2.4.1_20160414.jar')
+    compile project(path: ':library')
 }

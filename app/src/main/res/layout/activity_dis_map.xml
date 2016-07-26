@@ -109,6 +109,20 @@
         <!--android:layout_height="match_parent"-->
         <!--android:clickable="true"-->
          <!--/>-->
+    <!--<FrameLayout-->
+        <!--android:id="@+id/aty_dis_map_flay"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+        <!---->
+    <!--</FrameLayout>-->
+
+
+    <com.amap.api.maps.MapView
+        android:id="@+id/aty_dis_map_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </com.amap.api.maps.MapView>
+
 
 
 

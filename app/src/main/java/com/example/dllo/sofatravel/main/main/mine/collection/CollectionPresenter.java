@@ -38,6 +38,41 @@ public class CollectionPresenter implements CollectionContract.Presenter {
     }
 
     @Override
+    public void queryCollectLocalBean(String account) {
+
+    }
+
+    @Override
+    public void LocalBeanSuccess(ArrayList<CollectionBean> arrayList) {
+
+    }
+
+    @Override
+    public void queryCollectBmoBean(String account) {
+
+    }
+
+    @Override
+    public void BmobBeanSuccess(ArrayList<CollectionBean> arrayList) {
+
+    }
+
+    @Override
+    public void delletLocalBean(CollectionBean bean, String account) {
+
+    }
+
+    @Override
+    public void delletBmobBean(CollectionBean bean, String account) {
+
+    }
+
+    @Override
+    public void delletSuccess() {
+
+    }
+
+    @Override
     public void start() {
         modle.setPresenter(this);
     }

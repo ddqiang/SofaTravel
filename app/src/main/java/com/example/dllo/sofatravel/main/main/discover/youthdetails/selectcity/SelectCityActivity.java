@@ -41,9 +41,6 @@ public class SelectCityActivity extends BaseActivity implements View.OnClickList
         back.setOnClickListener(this);
         expandableListView = (ExpandableListView) findViewById(R.id.dis_dis_select_lv);
         expandableListView.setGroupIndicator(null); // 去掉箭头
-
-
-
        //城市 点击事件
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override

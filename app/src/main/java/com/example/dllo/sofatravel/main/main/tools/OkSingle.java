@@ -119,6 +119,7 @@ public class OkSingle {
                 + id + "%7D";
         getRequestAsync(url, t, onTrue, onError);
     }
+    //发现 详情 解析
    public <T> void getYouthDeatil(String id,Class<T>t,OnTrue<T>onTrue,OnError onError){
         Long startTime = System.currentTimeMillis();
         Long endTime = startTime + 24 * 60 * 60 * 1000;
@@ -127,14 +128,18 @@ public class OkSingle {
                 "startPrice%22%3A0%2C%22page%22%3A1%2C%22cityName%22%3A%22"+id+"%e5%B8%82%22%7D";
         getRequestAsync(url, t, onTrue, onError);
     }
+    // 发现 热门城市解析
     public <T> void getHotelDeatil(String id,Class<T>t,OnTrue<T>onTrue,OnError onError) {
         String url = " http://www.shafalvxing.com/hotel/queryHotelDetail.do?bizParams=" +
                 "%7B%22endTime%22%3A1469158423376%2C%22hotelId%22%3A%22"+id+"%22%2C%22startTime%22%3A1469072023376%7D";
         getRequestAsync(url, t, onTrue, onError);
     }
-    public <T> void getInfoBed(Class<T>t,OnTrue<T>onTrue,OnError onError){
+    // 发现 hotel详情解析
+    public <T> void getInfoBed(String id ,Class<T>t,OnTrue<T>onTrue,OnError onError){
+        Long startTime = System.currentTimeMillis();
+        Long endTime = startTime + 24 * 60 * 60 * 1000;
         String url="http://www.shafalvxing.com/hotel/queryHotelDetailRmList.do?bizParams=" +
-                "%7B%22startTime%22%3A1469240945303%2C%22endTime%22%3A1469327345303%2C%22hotelId%22%3A%22573166854%22%7D";
+                "%7B%22"+startTime+"%22%3A1469240945303%2C%22"+endTime+"%22%3A1469327345303%2C%22hotelId%22%3A%22573166854%22%7D";
         getRequestAsync(url, t, onTrue, onError);
 
     }

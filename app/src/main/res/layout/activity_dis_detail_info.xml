@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,71 +34,85 @@
             android:src="@mipmap/icon_spacedetail_share" />
     </RelativeLayout>
 
-    <ImageView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/dis_detail_info_share_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="大连14925" />
 
-    <RatingBar
-        style="@style/RatingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/ten"
-        android:background="@color/discover_gray" />
+            <com.youth.banner.Banner
+                android:id="@+id/dis_detail_info_banner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_banner_twoHundred">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/ten"
-        android:gravity="center"
-        android:text="青旅详情" />
+            </com.youth.banner.Banner>
 
-    <TextView
-        android:id="@+id/dis_detail_info_intro_editor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:ellipsize="end"
-        android:maxLines="3"
+            <TextView
+                android:id="@+id/dis_detail_info_share_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="大连14925" />
 
-        />
+            <RatingBar
+                style="@style/RatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/one"
-        android:background="@color/discover_gray" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ten"
+                android:background="@color/discover_gray" />
 
-    <LinearLayout
-        android:id="@+id/dis_detail_info_see_all"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/ten"
+                android:gravity="center"
+                android:text="青旅详情" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="查看全部信息"
-            android:textColor="@color/green" />
+            <TextView
+                android:id="@+id/dis_detail_info_intro_editor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="3"
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/icon_right_blue" />
-    </LinearLayout>
-    <ExpandableListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/dis_detail_info_expandable_lv"></ExpandableListView>
+                />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/one"
+                android:background="@color/discover_gray" />
+
+            <LinearLayout
+                android:id="@+id/dis_detail_info_see_all"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="查看全部信息"
+                    android:textColor="@color/green" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon_right_blue" />
+            </LinearLayout>
+
+            <ExpandableListView
+                android:id="@+id/dis_detail_info_expandable_lv"
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
