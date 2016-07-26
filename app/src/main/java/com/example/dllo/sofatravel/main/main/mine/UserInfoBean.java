@@ -3,47 +3,35 @@ package com.example.dllo.sofatravel.main.main.mine;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.litesuits.orm.db.annotation.PrimaryKey;
-import com.litesuits.orm.db.enums.AssignType;
-
 import java.io.ByteArrayOutputStream;
-import java.io.Serializable;
 
 import cn.bmob.v3.BmobObject;
 
 /**
- * Created by dllo on 16/7/20.
+ * Created by dllo on 16/7/25.
  */
-public class UserInfoBean extends BmobObject implements Serializable {
-//    @PrimaryKey(AssignType.AUTO_INCREMENT)
-//    private int id;
+public class UserInfoBean extends BmobObject {
 
-//    public int getId() {
-//        return id;
-//    }
-//
-//    public void setId(int id) {
-//        this.id = id;
-//    }
 
-    private String userName;
-    private String accountName;
+    private String account;
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    private String userCustomName;
     private byte[] photoImage;
 
-    public String getUserName() {
-        return userName;
+    public String getUserCustomName() {
+        return userCustomName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getAccountName() {
-        return accountName;
-    }
-
-    public void setAccountName(String accountName) {
-        this.accountName = accountName;
+    public void setUserCustomName(String userCustomName) {
+        this.userCustomName = userCustomName;
     }
 
     public Bitmap getImage() {
@@ -66,4 +54,5 @@ public class UserInfoBean extends BmobObject implements Serializable {
         }
 
     }
+
 }

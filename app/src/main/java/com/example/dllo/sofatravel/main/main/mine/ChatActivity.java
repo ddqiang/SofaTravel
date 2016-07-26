@@ -1,16 +1,5 @@
 package com.example.dllo.sofatravel.main.main.mine;
 
-import android.os.Bundle;
-import android.widget.TextView;
-
-import com.example.dllo.sofatravel.R;
-import com.example.dllo.sofatravel.main.main.base.BaseActivity;
-
-import java.io.Serializable;
-
-import butterknife.ButterKnife;
-import butterknife.InjectView;
-
 /**
  * Created by dllo on 16/7/23.
  */

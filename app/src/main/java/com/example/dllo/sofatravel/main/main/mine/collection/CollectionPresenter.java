@@ -3,6 +3,10 @@ package com.example.dllo.sofatravel.main.main.mine.collection;
 
 import com.example.dllo.sofatravel.main.main.tools.MyLiteOrm;
 import com.litesuits.orm.db.assit.QueryBuilder;
+<<<<<<< HEAD
+=======
+
+>>>>>>> feature/mineSeven
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +25,7 @@ public class CollectionPresenter implements CollectionContract.Presenter {
 
     @Override
     public void setCollectionBean(CollectionBean collectionBean, String account) {
+<<<<<<< HEAD
         if (account != null) {
             List<CollectionBean> collectionBeanList = MyLiteOrm.getSingleLiteOrm().getLiteOrm().query(new QueryBuilder<>(CollectionBean.class).
                     where("account" + " LIKE ?", new String[]{account}));
@@ -37,6 +42,12 @@ public class CollectionPresenter implements CollectionContract.Presenter {
             } else {
                 modle.setCollectionBean(collectionBean, account);
             }
+=======
+        List<CollectionBean> collectionBeanList = MyLiteOrm.getSingleLiteOrm().getLiteOrm().query(new QueryBuilder<>(CollectionBean.class).
+                where("account" + " LIKE ?", new Object[]{account}));
+        for (CollectionBean bean : collectionBeanList) {
+            MyLiteOrm.getSingleLiteOrm().getLiteOrm().delete(bean);
+>>>>>>> feature/mineSeven
         }
     }
 
@@ -47,26 +58,43 @@ public class CollectionPresenter implements CollectionContract.Presenter {
 
     @Override
     public void queryCollectLocalBean(String account) {
+<<<<<<< HEAD
         modle.queryCollectLocalBean(account);
+=======
+
+>>>>>>> feature/mineSeven
     }
 
     @Override
     public void LocalBeanSuccess(ArrayList<CollectionBean> arrayList) {
+<<<<<<< HEAD
         view.LocalBeanSuccess(arrayList);
+=======
+
+>>>>>>> feature/mineSeven
     }
 
     @Override
     public void queryCollectBmoBean(String account) {
+<<<<<<< HEAD
         modle.queryCollectLocalBean(account);
+=======
+
+>>>>>>> feature/mineSeven
     }
 
     @Override
     public void BmobBeanSuccess(ArrayList<CollectionBean> arrayList) {
+<<<<<<< HEAD
         view.BmobBeanSuccess(arrayList);
+=======
+
+>>>>>>> feature/mineSeven
     }
 
     @Override
     public void delletLocalBean(CollectionBean bean, String account) {
+<<<<<<< HEAD
         if (account != null) {
             List<CollectionBean> collectionBeanList = MyLiteOrm.getSingleLiteOrm().getLiteOrm().query(new QueryBuilder<>(CollectionBean.class).
                     where("account" + " LIKE ?", new String[]{account}));
@@ -81,10 +109,14 @@ public class CollectionPresenter implements CollectionContract.Presenter {
                 modle.delletLocalBean(bean, account);
             }
         }
+=======
+
+>>>>>>> feature/mineSeven
     }
 
     @Override
     public void delletBmobBean(CollectionBean bean, String account) {
+<<<<<<< HEAD
         if (account != null) {
             List<CollectionBean> collectionBeanList = MyLiteOrm.getSingleLiteOrm().getLiteOrm().query(new QueryBuilder<>(CollectionBean.class).
                     where("account" + " LIKE ?", new String[]{account}));
@@ -99,11 +131,18 @@ public class CollectionPresenter implements CollectionContract.Presenter {
                 modle.delletBmobBean(bean, account);
             }
         }
+=======
+
+>>>>>>> feature/mineSeven
     }
 
     @Override
     public void delletSuccess() {
+<<<<<<< HEAD
         view.delletSuccess();
+=======
+
+>>>>>>> feature/mineSeven
     }
 
     @Override

@@ -61,7 +61,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23+'
     compile files('libs/lite-orm-1.9.2.jar')
     compile 'de.hdodenhof:circleimageview:2.1.0'
-    compile files('libs/BmobPay_v3.0.3_160621.jar')
+    //    compile files('libs/BmobPay_v3.0.3_160621.jar')
     compile files('libs/androidasync-2.1.6.jar')
     compile files('libs/AMap_3DMap_V3.3.2_20160525.jar')
     compile files('libs/AMap_Location_V2.4.1_20160414.jar')

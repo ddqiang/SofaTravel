@@ -2,16 +2,18 @@ package com.example.dllo.sofatravel.main.main.base;
 
 import android.content.Context;
 
+<<<<<<< HEAD
 import com.example.dllo.sofatravel.main.main.bmobim.DemoMessageHandler;
 import com.fuqianla.paysdk.FuQianLa;
 
+=======
+>>>>>>> feature/mineSeven
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
-import c.b.BP;
+import cn.bmob.newim.BmobIM;
 import cn.bmob.v3.Bmob;
-import cn.bmob.v3.BmobConfig;
 
 /**
  * Created by dllo on 16/7/18.
@@ -29,19 +31,13 @@ public class MyApplication extends android.app.Application {
         context = this;
         Bmob.initialize(this, "31c187fb6686bad6d933ff8e565b53a2");
 
-        BP.init(this, "31c187fb6686bad6d933ff8e565b53a2");
-
-//        //NewIM初始化
-//        BmobIM.init(this);
-//        //注册消息接收器
-//        BmobIM.registerDefaultMessageHandler(new DemoMessageHandler());
         //只有主进程运行的时候才需要初始化
-//        if (getApplicationInfo().packageName.equals(getMyProcessName())) {
-//            //im初始化
-//            BmobIM.init(this);
-//            //注册消息接收器
-//            BmobIM.registerDefaultMessageHandler(new DemoMessageHandler());
-//        }
+        if (getApplicationInfo().packageName.equals(getMyProcessName())) {
+            //im初始化
+            BmobIM.init(this);
+            //注册消息接收器
+            BmobIM.registerDefaultMessageHandler(new DemoMessageHandler());
+        }
     }
 
     /**

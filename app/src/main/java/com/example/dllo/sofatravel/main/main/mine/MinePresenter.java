@@ -2,7 +2,6 @@ package com.example.dllo.sofatravel.main.main.mine;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 
 import com.example.dllo.sofatravel.R;
 import com.example.dllo.sofatravel.main.main.base.MyApplication;
@@ -104,7 +103,7 @@ public class MinePresenter implements MineContract.Presenter {
 
     @Override
     public void deleteUserOldName(List<UserInfoBean> list) {
-        String userNewName = list.get(list.size() - 1).getUserName();
+        String userNewName = list.get(list.size() - 1).getUserCustomName();
         view.getUserBeanSuccess(userNewName);
 //        SharedPreferences saveUserName = MyApplication.context.getSharedPreferences("saveUserName", Context.MODE_PRIVATE);
 //        SharedPreferences.Editor editor = saveUserName.edit();
