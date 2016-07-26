@@ -8,6 +8,7 @@ import com.litesuits.orm.db.assit.WhereBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
@@ -44,10 +45,9 @@ public class CollectionModel implements CollectionContract.Model {
 //                getLiteOrm().query(new QueryBuilder<>(CollectionBean.class).where("account" + " LIKE ?", new String[]{account}));
 
         List<CollectionBean> collectionBeanList = MyLiteOrm.getSingleLiteOrm().getLiteOrm().query(new QueryBuilder<>(CollectionBean.class).
-                where("account" + " LIKE ?", new String[]{account}));
+                where("account" + " LIKE ?", new Object[]{account}));
             MyLiteOrm.getSingleLiteOrm().getLiteOrm().delete(new WhereBuilder(CollectionBean.class)
-                    .where("spaceId " + " = ?", new String[]{String.valueOf(collectionBeanList.get(0).getSpaceId())}));
-
+                    .where("spaceId " + " = ?", new Object[]{String.valueOf(collectionBeanList.get(0).getSpaceId())}));
     }
 
     //查询网络数据库
@@ -73,7 +73,7 @@ public class CollectionModel implements CollectionContract.Model {
     @Override
     public void delletLocalBean(CollectionBean bean, String account) {
         ArrayList<CollectionBean> datas = MyLiteOrm.getSingleLiteOrm().
-                getLiteOrm().query(new QueryBuilder<>(CollectionBean.class).where("account" + " LIKE ?", new String[]{account}));
+                getLiteOrm().query(new QueryBuilder<>(CollectionBean.class).where("account" + " LIKE ?", new Object[]{account}));
         for (CollectionBean bean1 : datas) {
             MyLiteOrm.getSingleLiteOrm().getLiteOrm().delete(bean1);
         }
@@ -100,46 +100,6 @@ public class CollectionModel implements CollectionContract.Model {
             public void onError(int i, String s) {
             }
         });
-    }
-
-    @Override
-    public void queryCollectLocalBean(String account) {
-
-    }
-
-    @Override
-    public void queryCollectBmoBean(String account) {
-
-    }
-
-    @Override
-    public void delletLocalBean(CollectionBean bean, String account) {
-
-    }
-
-    @Override
-    public void delletBmobBean(CollectionBean bean, String account) {
-
-    }
-
-    @Override
-    public void queryCollectLocalBean(String account) {
-
-    }
-
-    @Override
-    public void queryCollectBmoBean(String account) {
-
-    }
-
-    @Override
-    public void delletLocalBean(CollectionBean bean, String account) {
-
-    }
-
-    @Override
-    public void delletBmobBean(CollectionBean bean, String account) {
-
     }
 
     @Override

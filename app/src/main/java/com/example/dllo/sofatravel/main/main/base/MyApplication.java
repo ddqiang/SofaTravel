@@ -1,13 +1,7 @@
 package com.example.dllo.sofatravel.main.main.base;
 
 import android.content.Context;
-
-<<<<<<< HEAD
-import com.example.dllo.sofatravel.main.main.bmobim.DemoMessageHandler;
 import com.fuqianla.paysdk.FuQianLa;
-
-=======
->>>>>>> feature/mineSeven
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;

@@ -21,8 +21,8 @@ public class CollectionActivity extends BaseActivity {
         CollectionFragment fragment = new CollectionFragment();
         CollectionModel model = new CollectionModel();
         CollectionPresenter presenter = new CollectionPresenter(model, fragment);
-        fragment.setPresenter(presenter);
-        model.setPresenter(presenter);
+//        fragment.setPresenter(presenter);
+//        model.setPresenter(presenter);
         getSupportFragmentManager().beginTransaction().add(R.id.activity_collection_framelayout, fragment).commit();
     }
 

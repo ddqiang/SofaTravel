@@ -67,29 +67,17 @@ public class CollectionFragment extends BaseFragment implements CollectionContra
     }
 
     @Override
-<<<<<<< HEAD
-    public void LocalBeanSuccess(ArrayList<CollectionBean> arrayList) {
-
-    }
-
-    @Override
-    public void BmobBeanSuccess(ArrayList<CollectionBean> arrayList) {
-
-=======
     public void BmobBeanSuccess(ArrayList<CollectionBean> arrayList) {
         datas = arrayList;
         adapter.setBeans(arrayList);
         listView.setAdapter(adapter);
->>>>>>> feature/mineSeven
     }
 
     @Override
     public void delletSuccess() {
-<<<<<<< HEAD
 
-=======
         presenter.queryCollectLocalBean(currentAccount);
->>>>>>> feature/mineSeven
+
     }
 
     @Override
