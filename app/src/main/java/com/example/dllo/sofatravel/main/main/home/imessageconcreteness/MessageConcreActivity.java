@@ -67,7 +67,8 @@ public class MessageConcreActivity extends BaseActivity implements View.OnClickL
 
     }
     private void messageConvreOk() {
-        OkSingle.getInstance().getMessageConcre(getIntent().getIntExtra("spaceId", 0), MessageConBean.class, new OkSingle.OnTrue<MessageConBean>() {
+        OkSingle.getInstance().getMessageConcre(getIntent().getIntExtra("spaceId", 0),
+                MessageConBean.class, new OkSingle.OnTrue<MessageConBean>() {
             @Override
             public void hasData(MessageConBean data) {
                 String[] imageURL = new String[data.getData().getPictureList().size()];
@@ -102,7 +103,6 @@ public class MessageConcreActivity extends BaseActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.message_concre_back:
-//                startActivity(new Intent(MessageConcreActivity.this, MessageDetailsActivity.class));
                 finish();
                 break;
             case R.id.message_concre_share:

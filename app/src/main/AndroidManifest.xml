@@ -109,21 +109,21 @@
         </activity>
 
         <!-- 付钱拉 SDK -->
-        <!--<activity-->
-            <!--android:name="com.fuqianla.paysdk.app.FuQianLaActivity"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
-        <!--<meta-data-->
-            <!--android:name="ONEPAY_APPKEY"-->
-            <!--android:value="WlomS83GypBgn4vbkFgsOA" />-->
+        <activity
+            android:name="com.fuqianla.paysdk.app.FuQianLaActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <meta-data
+            android:name="ONEPAY_APPKEY"
+            android:value="WlomS83GypBgn4vbkFgsOA" />
 
-        <!--&lt;!&ndash; 支付宝 sdk &ndash;&gt;-->
-        <!--<activity-->
-            <!--android:name="com.alipay.sdk.app.H5PayActivity"-->
-            <!--android:configChanges="orientation|keyboardHidden|navigation|screenSize"-->
-            <!--android:exported="false"-->
-            <!--android:screenOrientation="behind"-->
-            <!--android:windowSoftInputMode="adjustResize|stateHidden" />-->
+        <!-- 支付宝 sdk -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
     </application>
     <receiver android:name="cn.bmob.newim.core.ConnectChangeReceiver">
         <intent-filter>

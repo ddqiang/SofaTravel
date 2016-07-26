@@ -56,6 +56,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void initData() {
 
+
         //透明状态栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         //透明导航栏
