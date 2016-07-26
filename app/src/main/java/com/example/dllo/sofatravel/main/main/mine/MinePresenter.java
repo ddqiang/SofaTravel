@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory;
 
 import com.example.dllo.sofatravel.R;
 import com.example.dllo.sofatravel.main.main.base.MyApplication;
-import com.example.dllo.sofatravel.main.main.mine.loginorregister.UserInfoBean;
 
 import java.util.ArrayList;
 import java.util.List;

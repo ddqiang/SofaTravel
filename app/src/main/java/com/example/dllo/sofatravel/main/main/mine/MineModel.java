@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.dllo.sofatravel.main.main.base.MyApplication;
-import com.example.dllo.sofatravel.main.main.mine.loginorregister.UserInfoBean;
 import com.example.dllo.sofatravel.main.main.tools.MyLiteOrm;
 import com.litesuits.orm.db.assit.QueryBuilder;
 

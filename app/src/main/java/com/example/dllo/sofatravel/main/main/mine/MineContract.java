@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import com.example.dllo.sofatravel.main.main.base.BaseModel;
 import com.example.dllo.sofatravel.main.main.base.BasePresenter;
 import com.example.dllo.sofatravel.main.main.base.BaseView;
-import com.example.dllo.sofatravel.main.main.mine.loginorregister.UserInfoBean;
 
 import java.util.ArrayList;
 import java.util.List;

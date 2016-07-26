@@ -103,7 +103,7 @@
         <activity android:name=".main.main.discover.youthdetails.selectcity.MapActivity" />
         <activity android:name=".main.main.discover.youthdetails.detailinfo.DetailInfoActivity" />
         <activity android:name=".main.main.home.imessageconcreteness.MessageConcreActivity" />
-
+        <activity android:name=".main.main.mine.collection.CollectionActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"

@@ -1,4 +1,4 @@
-package com.example.dllo.sofatravel.main.main.mine.loginorregister;
+package com.example.dllo.sofatravel.main.main.mine;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

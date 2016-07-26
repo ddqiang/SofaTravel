@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,12 +30,19 @@ import com.example.dllo.sofatravel.R;
 import com.example.dllo.sofatravel.main.main.base.BaseFragment;
 import com.example.dllo.sofatravel.main.main.mine.collection.CollectionActivity;
 import com.example.dllo.sofatravel.main.main.mine.loginorregister.LoginOrRegisterActivity;
-import com.example.dllo.sofatravel.main.main.mine.loginorregister.UserInfoBean;
 import com.example.dllo.sofatravel.main.main.values.TheValues;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+
+import cn.bmob.newim.BmobIM;
+import cn.bmob.newim.bean.BmobIMConversation;
+import cn.bmob.newim.bean.BmobIMUserInfo;
+import cn.bmob.newim.listener.ConnectListener;
+import cn.bmob.newim.listener.ConversationListener;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
 
 
 /**
@@ -540,9 +548,36 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
                 setUpDialog();
                 break;
             case R.id.fragment_mine_share_layout_other:
+                final UserInfoBean user = BmobUser.getCurrentUser(context, UserInfoBean.class);
+                BmobIM.connect(user.getObjectId(), new ConnectListener() {
+                    @Override
+                    public void done(String uid, BmobException e) {
+                        if (e == null) {
+                            Log.d("lanou", "chenggong");
+                            BmobIMUserInfo info = new BmobIMUserInfo();
+                            info.setUserId(user.getObjectId());
+                            BmobIM.getInstance().startPrivateConversation(info, new ConversationListener() {
+                                @Override
+                                public void done(BmobIMConversation c, BmobException e) {
+//                                    if (e == null) {
+//                                        //在此跳转到聊天页面
+//                                        Intent intent2 =
+//                                        Bundle bundle = new Bundle();
+//                                        bundle.putSerializable("c", c);
+//                                        startActivity(ChatActivity.class, bundle, false);
+//                                    } else {
+//                                        toast(e.getMessage() + "(" + e.getErrorCode() + ")");
+//                                    }
+                                }
+                            });
+                        } else {
+                            Log.d("lanou", "失败" + e);
+                        }
+                    }
+                });
                 break;
             case R.id.fragment_mine_house_layout:
-
+                BmobIM.getInstance().disConnect();
                 break;
             case R.id.fragment_mine_login_or_signup_username:
                 getUserName();
