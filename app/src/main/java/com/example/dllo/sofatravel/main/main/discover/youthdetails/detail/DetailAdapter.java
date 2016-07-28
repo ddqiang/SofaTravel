@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -61,12 +62,20 @@ public class DetailAdapter extends BaseAdapter {
         myViewHolder.district.setText(bean.getData().getResult().get(position).getDistrict());
         int price = bean.getData().getResult().get(position).getPrice();
         myViewHolder.price.setText(String.valueOf(price));
+        myViewHolder.detailRatingBar.setRating((float) bean.getData().getResult().get(position).getCommentScore());
+//        if (bean.getData().getResult().get(position).getAmenities().get(0) == 202) {
+//            Glide.with(context).load(bean.getData().getResult().get(position).getAmenities()).into(myViewHolder.hotWater);
+//            myViewHolder.hotWater.setVisibility(View.VISIBLE);
+//        }
         return convertView;
+
     }
 
     class MyViewHolder {
         ImageView thumbnailId;
         TextView hotelName, district, businessZone, address, price;
+        RatingBar detailRatingBar;
+        ImageView hotWater;
 
         public MyViewHolder(View view) {
             thumbnailId = (ImageView) view.findViewById(R.id.item_dis_detail_thumbnail);
@@ -75,6 +84,9 @@ public class DetailAdapter extends BaseAdapter {
             businessZone = (TextView) view.findViewById(R.id.dis_detail_business_zone);
             address = (TextView) view.findViewById(R.id.dis_detail_address);
             price = (TextView) view.findViewById(R.id.dis_detail_price);
+            detailRatingBar = (RatingBar) view.findViewById(R.id.dis_detail_rating_bar);
+            hotWater = (ImageView) view.findViewById(R.id.dis_detail_hot_water);
+
         }
     }
 }

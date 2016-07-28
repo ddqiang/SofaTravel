@@ -2,10 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white">
 
 
     <RelativeLayout
+        android:background="#01000000"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -18,20 +20,22 @@
             android:src="@mipmap/topbar_back" />
 
         <TextView
+
             android:id="@+id/dis_detail_info_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/five"
             android:layout_toRightOf="@id/dis_detail_info_back"
             android:gravity="center"
-            android:text="详情" />
+            android:text="详情"
+            />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_margin="@dimen/five"
-            android:src="@mipmap/icon_spacedetail_share" />
+        <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_margin="@dimen/five"-->
+            <!--android:src="@mipmap/icon_spacedetail_share" />-->
     </RelativeLayout>
 
     <ScrollView
@@ -59,10 +63,14 @@
                 android:text="大连14925" />
 
             <RatingBar
-                style="@style/RatingBar"
+                android:id="@+id/dis_detail_info_ratingbar"
+                android:isIndicator="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:rating="2"
+                style="@style/RatingBarOne"
+                />
 
             <View
                 android:layout_width="match_parent"
@@ -85,6 +93,13 @@
                 android:maxLines="3"
 
                 />
+            <com.amap.api.maps.MapView
+                android:id="@+id/dis_info_map"
+                android:layout_width="match_parent"
+                android:layout_height="100dp">
+
+            </com.amap.api.maps.MapView>
+
 
             <View
                 android:layout_width="match_parent"
@@ -109,7 +124,71 @@
                     android:src="@mipmap/icon_right_blue" />
             </LinearLayout>
 
-            <ExpandableListView
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:id="@+id/dis_info_check_in_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/five"
+                        android:gravity="center"
+                        android:text="@string/check_in" />
+
+                    <TextView
+                        android:id="@+id/dis_info_in_time_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="check_in_time"
+                        android:textColor="@color/green" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/dis_info_sum"
+                    android:layout_width="@dimen/fifty"
+                    android:layout_height="@dimen/twenty"
+                    android:layout_margin="@dimen/ten"
+                    android:background="@drawable/round"
+                    android:text="共1晚"
+                    android:textColor="@color/green" />
+
+                <LinearLayout
+                    android:id="@+id/dis_info_check_out_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/five"
+                        android:gravity="center"
+                        android:text="@string/check_out" />
+
+                    <TextView
+                        android:id="@+id/dis_info_out_time_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="check_out_time"
+                        android:textColor="@color/green" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <ListView
                 android:id="@+id/dis_detail_info_expandable_lv"
                 android:layout_width="match_parent"
                 android:layout_height="300dp" />

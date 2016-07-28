@@ -24,9 +24,11 @@
     <dimen name="fragment_mine_layout_right_icon_height">20dp</dimen>
     <dimen name="fragment_mine_layout_thread_margin_top">10dp</dimen>
     <dimen name="fragment_mine_layout_padding">5dp</dimen>
-    <dimen name="textsize_ten">10dp</dimen>
+    <dimen name="textsize_ten">10dp</dimen>eighty
     <dimen name="textsize_twenty">20sp</dimen>
     <dimen name="textSize_fifteen">15dp</dimen>
     <dimen name="textSize_one">1dp</dimen>
+    <dimen name="one_hundred">100dp</dimen>
+    <dimen name="eighty">80dp</dimen>
 
 </resources>

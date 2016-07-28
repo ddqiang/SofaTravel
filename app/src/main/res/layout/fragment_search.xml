@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/eighty"
+        android:src="@mipmap/ic_launcher_one" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/five"
+        android:gravity="center"
+        android:text="沙发旅行,年轻人的社交民宿预定平台"
+        android:textColor="@color/green"
+        android:textSize="@dimen/ten" />
+
+    <RelativeLayout
+        android:id="@+id/frag_search_select_city_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/ten">
+
+        <ImageView
+
+            android:id="@+id/fragemnt_search_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_area" />
+
+        <TextView
+            android:id="@+id/frag_search_city_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/five"
+            android:layout_toRightOf="@id/fragemnt_search_area"
+            android:background="@null"
+            android:text="选择城市"
+            android:textColor="@color/green" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/five"
+            android:src="@mipmap/icon_right_search" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/one"
+        android:background="@color/discover_gray" />
+
+    <RelativeLayout
+        android:id="@+id/frag_search_select_time_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/ten">
+
+        <ImageView
+            android:id="@+id/fragment_calender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_calendar" />
+
+        <TextView
+            android:id="@+id/frag_search_calender_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/five"
+            android:layout_toRightOf="@id/fragment_calender"
+            android:background="@null"
+            android:text="入住-离开时间"
+            android:textColor="@color/green" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/five"
+            android:src="@mipmap/icon_right_search" />
+    </RelativeLayout>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/one"
+        android:background="@color/discover_gray" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/twenty"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+
+            android:id="@+id/frag_search_list_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fifteen"
+            android:text="列表模式"
+            android:textColor="@color/green"
+            android:textSize="@dimen/fifteen" />
+
+        <TextView
+            android:id="@+id/frag_search_map_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fifteen"
+            android:text="地图模式"
+            android:textColor="@color/green"
+            android:textSize="@dimen/fifteen" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/frag_search_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/twenty"
+        android:background="@drawable/fragment_search"
+        android:text="搜索"
+        android:textColor="@color/green" />
+
+</LinearLayout>

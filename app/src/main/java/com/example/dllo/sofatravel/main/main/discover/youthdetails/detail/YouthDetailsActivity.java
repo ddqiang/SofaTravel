@@ -11,19 +11,17 @@ import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dllo.sofatravel.R;
 import com.example.dllo.sofatravel.main.main.base.BaseActivity;
 import com.example.dllo.sofatravel.main.main.discover.youthdetails.detailinfo.DetailInfoActivity;
-import com.example.dllo.sofatravel.main.main.discover.youthdetails.detailinfo.DetailInfoAdpter;
 import com.example.dllo.sofatravel.main.main.discover.youthdetails.search.SearchDetailActivity;
 import com.example.dllo.sofatravel.main.main.discover.youthdetails.selectcity.MapActivity;
 import com.example.dllo.sofatravel.main.main.discover.youthdetails.selectcity.SelectCityActivity;
 import com.example.dllo.sofatravel.main.main.tools.OkSingle;
-
-import org.w3c.dom.Text;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -43,15 +41,11 @@ public class YouthDetailsActivity extends BaseActivity implements View.OnClickLi
     private ImageView map;//地图
     private DetailBean bean;
     private String city = "%e5%a4%a7%e8%bf%9e";
-
-
     private DetailAdapter adapter;
     private ListView detailList;
-
-
     @Override
     public int getLayout() {
-        return R.layout.activity_discover_detail;
+        return R.layout.activity_dis_detail;
     }
 
     @Override
@@ -73,6 +67,7 @@ public class YouthDetailsActivity extends BaseActivity implements View.OnClickLi
         cityTv = (TextView) findViewById(R.id.discover_detail_location);
         map.setOnClickListener(this);
         detailList = (ListView) findViewById(R.id.discover_detail_list);
+
     }
 
     @Override
@@ -131,9 +126,6 @@ public class YouthDetailsActivity extends BaseActivity implements View.OnClickLi
 //            }
 //        });
     }
-
-
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

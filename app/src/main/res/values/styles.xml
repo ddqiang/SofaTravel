@@ -31,8 +31,20 @@
 
     <style name="RatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/ratingbar_drawable</item>
+        <item name="android:minHeight">20dip</item>
+        <item name="android:maxHeight">20dip</item>
+        <item name="android:minWidth">20dip</item>
         <item name="android:stepSize">0.5</item>
         <item name="android:isIndicator">true</item>
     </style>
+    <style name="RatingBarOne" parent="@android:style/Widget.Holo.RatingBar.Small">
+        <item name="android:minHeight">50dip</item>
+        <item name="android:maxHeight">50dip</item>
+        <item name="android:minWidth">50dip</item>
+        <item name="android:stepSize">0.5</item>
+        <item name="android:isIndicator">true</item>
+
+    </style>
+
 
 </resources>

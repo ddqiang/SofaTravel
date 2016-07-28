@@ -47,6 +47,29 @@
             android:textColor="@color/discover_gray"
             android:textSize="@dimen/ten" />
 
+        <ImageView
+            android:id="@+id/dis_detail_hot_water"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/five"
+            android:src="@mipmap/icon_qinglv_device_hole_day_hot_water_small" />
+
+        <ImageView
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/five"
+            android:src="@mipmap/icon_qinglv_device_line_net_small" />
+
+        <ImageView
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/five"
+            android:src="@mipmap/icon_qinglv_device_blower_small" />
+
+
     </LinearLayout>
 
     <TextView
@@ -99,11 +122,13 @@
             </LinearLayout>
 
             <RatingBar
-                style="@style/RatingBar"
+                android:id="@+id/dis_detail_rating_bar"
+                style="@style/RatingBarOne"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-           />
+                android:layout_margin="@dimen/fifteen"
+                android:rating="5" />
         </RelativeLayout>
 
 

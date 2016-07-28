@@ -1,13 +1,25 @@
 package com.example.dllo.sofatravel.main.main.discover.youthdetails.detailinfo;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.LocationSource;
+import com.amap.api.maps.MapView;
 import com.example.dllo.sofatravel.R;
 import com.example.dllo.sofatravel.main.main.base.BaseActivity;
 import com.example.dllo.sofatravel.main.main.discover.youthdetails.detail.DetailAdapter;
@@ -24,17 +36,27 @@ import java.util.Date;
 /**
  * Created by dllo on 16/7/20.
  */
-public class DetailInfoActivity extends BaseActivity implements View.OnClickListener {
-    private TextView hotelName, introEditor;
+public class DetailInfoActivity extends BaseActivity implements View.OnClickListener, LocationSource, AMapLocationListener {
+    private TextView hotelName, introEditor;//旅店名称,简介
     private DetailInfoBean bean;
     private String hotelId;
-    private ImageView back;
+    private ImageView back;//返回
     private DetailBedBean bedBean;//床位信息bean;
     private DetailInfoAdpter detailInfoAdpter;
     private ExpandableListView expandableListView;
+    private BedAdapter bedAdapter;
+    private ListView bedListView;
+
+
     private Banner banner;
-    private ImageView imageHead;
     private String[] imageURL;
+    private RatingBar ratingBar;
+
+    private MapView infoMap;
+    private AMapLocationClientOption mLocationOption;//定位
+    private AMap aMap;
+    private LocationSource.OnLocationChangedListener mListener;
+
 
     @Override
     public int getLayout() {
@@ -43,12 +65,44 @@ public class DetailInfoActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void initView() {
-        hotelName = (TextView) findViewById(R.id.dis_detail_info_share_title);
-        introEditor = (TextView) findViewById(R.id.dis_detail_info_intro_editor);
-        back = (ImageView) findViewById(R.id.dis_detail_info_back);
+        hotelName = (TextView) findViewById(R.id.dis_detail_info_share_title);//名称
+        introEditor = (TextView) findViewById(R.id.dis_detail_info_intro_editor);//简介
+        back = (ImageView) findViewById(R.id.dis_detail_info_back);//返回
         back.setOnClickListener(this);
-        expandableListView = (ExpandableListView) findViewById(R.id.dis_detail_info_expandable_lv);
-        banner = (Banner) findViewById(R.id.dis_detail_info_banner);
+        bedListView = (ListView) findViewById(R.id.dis_detail_info_expandable_lv);
+        //  expandableListView = (ExpandableListView) findViewById(R.id.dis_detail_info_expandable_lv);
+        banner = (Banner) findViewById(R.id.dis_detail_info_banner);//轮播图
+        ratingBar = (RatingBar) findViewById(R.id.dis_detail_info_ratingbar);
+        infoMap = (MapView) findViewById(R.id.dis_info_map);//地图
+//        infoMap.onCreate(null);
+        // initMap();
+    }
+
+    public void initMap() {
+        aMap = infoMap.getMap();
+        aMap.setLocationSource(this);
+        aMap.getUiSettings().setMyLocationButtonEnabled(true);//设置默认按钮是否显示
+        aMap.setMyLocationEnabled(true);
+        //设置定位类型定位模式
+        aMap.setMyLocationType(AMap.LOCATION_TYPE_LOCATE);
+
+        mLocationOption = new AMapLocationClientOption();
+        mLocationOption.setNeedAddress(true);
+        mLocationOption.setOnceLocation(false);
+        AMapLocationClient mlocationClient = new AMapLocationClient(getApplicationContext());
+        //设置定位监听
+        mlocationClient.setLocationListener(this);
+        //高精度模式
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        //定位间隔
+        mLocationOption.setInterval(2000);
+        //设置定位参数
+        mlocationClient.setLocationOption(mLocationOption);
+        if (mLocationOption.isOnceLocation()) {
+            mLocationOption.setOnceLocation(true);
+        }
+        //启动定位
+        mlocationClient.startLocation();
 
     }
 
@@ -56,6 +110,7 @@ public class DetailInfoActivity extends BaseActivity implements View.OnClickList
     public void initData() {
         getRequest();
         getInfoBedRequest();
+//        expandableListView.setFocusable(false);
     }
 
     //解析轮播图数据
@@ -80,56 +135,40 @@ public class DetailInfoActivity extends BaseActivity implements View.OnClickList
                 banner.setDelayTime(2000);
                 hotelName.setText(data.getData().getActivityDto().getShareTitle());
                 introEditor.setText(data.getData().getIntroEditor());
+                Log.d("DetailInfoActivity", "data.getData().getCommentScore():" + data.getData().getCommentScore());
+                ratingBar.setRating((float) data.getData().getCommentScore());
             }
         }, new OkSingle.OnError() {
             @Override
             public void noHasData() {
-
             }
         });
-
-//            OkSingle.getInstance().getRequestAsync(infoUrl, DetailInfoBean.class, new OkSingle.OnTrue<DetailInfoBean>() {
-//            @Override
-//            public void hasData(DetailInfoBean data) {
-//                hotelName.setText(data.getData().getActivityDto().getShareTitle());
-//                introEditor.setText(data.getData().getIntroEditor());
-//
-//            }
-//        }, new OkSingle.OnError() {
-//            @Override
-//            public void noHasData() {
-//                Toast.makeText(DetailInfoActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
-//            }
-//        });
     }
 
     // 解析床位数据
     public void getInfoBedRequest() {
         detailInfoAdpter = new DetailInfoAdpter(this);
+        bedAdapter = new BedAdapter(this);
         hotelId = getIntent().getStringExtra("hotelId");
         final Long startTime = System.currentTimeMillis();
         final Long endTime = startTime + 24 * 60 * 60 * 1000;
-        String bedUrl = "http://www.shafalvxing.com/hotel/queryHotelDetailRmList.do?bizParams=%7B%22"
-                + "startTime%22%3A"+startTime+"%2C%22endTime%22%3A"+endTime+"%2C%22hotelId%22%3A%22" + hotelId + "%22%7D";
+//        String bedUrl = "http://www.shafalvxing.com/hotel/queryHotelDetailRmList.do?bizParams=%7B%22"
+//                + "startTime%22%3A" + startTime + "%2C%22endTime%22%3A" + endTime + "%2C%22hotelId%22%3A%22" + hotelId + "%22%7D";
+        String bedUrl = "http://www.shafalvxing.com/hotel/queryHotelDetailRmList.do?bizParams=%7B%22" +
+                "endTime%22%3A"+endTime+"%2C%22hotelId%22%3A%22"+hotelId+"%22%2C%22startTime%22%3A"+startTime+"%7D";
         Log.d("DetailInfoActivity", bedUrl);
+       // String bedUrl="http://www.shafalvxing.com/hotel/queryHotelDetailRmList.do?bizParams=%7B%22endTime%22%3A1469757455714%2C%22hotelId%22%"+hotelId+"%22%2C%22startTime%22%3A1469671055714%7D";
         OkSingle.getInstance().getRequestAsync(bedUrl, DetailBedBean.class, new OkSingle.OnTrue<DetailBedBean>() {
             @Override
             public void hasData(DetailBedBean data) {
+                Log.d("DetailInfoActivity", "data.getData().getRmlist().size():" + data.getData().getRmlist().size());
                 bedBean = data;
-                detailInfoAdpter.setBean(data);
-                expandableListView.setAdapter(detailInfoAdpter);
-//                for (int i = 0; i < data.getData().getRmlist().size(); i++) {
-//                    expandableListView.expandGroup(i);
-//                }
-//                expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-//                    @Override
-//                    public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-//                        return true;
-//                    }
-//                });
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-                Log.d("DetailInfoActivity", simpleDateFormat.format(new Date(startTime)));
-                Log.d("DetailInfoActivity", simpleDateFormat.format(new Date(endTime)));
+                bedAdapter.setBean(data);
+                bedListView.setAdapter(bedAdapter);
+                //   detailInfoAdpter.setBean(data);
+                //        expandableListView.setAdapter(detailInfoAdpter);
+                //  setListViewHeightBasedOnChildren(expandableListView);
+                //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
             }
         }, new OkSingle.OnError() {
             @Override
@@ -145,6 +184,106 @@ public class DetailInfoActivity extends BaseActivity implements View.OnClickList
             case R.id.dis_detail_info_back:
                 finish();
                 break;
+        }
+    }
+
+    //  设置listView高度
+    public void setListViewHeightBasedOnChildren(ExpandableListView listView) {
+        // 获取ListView对应的Adapter
+        ExpandableListAdapter listAdapter = listView.getExpandableListAdapter();
+        if (listAdapter == null) {
+            // pre -condition
+            return;
+        }
+        int totalHeight = 0;
+        for (int i = 0; i < listAdapter.getGroupCount(); i++) { // listAdapter.getCount()返回数据项的数目
+            View listgroupItem = listAdapter.getGroupView(i, true, null, listView);
+            listgroupItem.measure(0, 0); // 计算子项View 的宽高
+            totalHeight += listgroupItem.getMeasuredHeight(); // 统计所有子项的总高度
+            Log.d("DetailInfoAdpter", "height : group" + i + "次" + totalHeight);
+            for (int j = 0; j < listAdapter.getChildrenCount(i); j++) {
+                View listchildItem = listAdapter.getChildView(i, j, false, null, listView);
+                listchildItem.measure(0, 0); // 计算子项View 的宽高
+                totalHeight += listchildItem.getMeasuredHeight(); // 统计所有子项的总高度
+                Log.d("DetailInfoAdpter", "height :" + "group:" + i + " child:" + j + "次" + totalHeight);
+            }
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getGroupCount() - 1));
+        // listView.getDividerHeight()获取子项间分隔符占用的高度
+        // params.height最后得到整个ListView完整显示需要的高度
+        listView.setLayoutParams(params);
+    }
+
+    /**
+     * 地图
+     */
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
+//        infoMap.onDestroy();
+//        AMapLocationClient mlocationClient = new AMapLocationClient(this);
+//        mlocationClient.stopLocation();
+//    }
+//
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        //在activity执行onResume时执行mMapView.onResume ()，实现地图生命周期管理
+//        infoMap.onResume();
+//    }
+//
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        //在activity执行onPause时执行mMapView.onPause ()，实现地图生命周期管理
+//        infoMap.onPause();
+//    }
+
+//    @Override
+//    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        //在activity执行onSaveInstanceState时执行mMapView.onSaveInstanceState (outState)，实现地图生命周期管理
+//        infoMap.onSaveInstanceState(outState);
+//    }
+//
+    @Override
+    public void activate(OnLocationChangedListener onLocationChangedListener) {
+        this.mListener = onLocationChangedListener;
+    }
+
+    @Override
+    public void deactivate() {
+    }
+
+    @Override
+    public void onLocationChanged(AMapLocation aMapLocation) {
+        if (aMapLocation != null) {
+            if (aMapLocation.getErrorCode() == 0) {
+                Log.d("MainActivity", "chrnggong");
+                aMapLocation.getLocationType();
+                aMapLocation.getLatitude();//获取纬度
+                aMapLocation.getLongitude();//获取经度
+                aMapLocation.getAccuracy();//获取精度信息
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date date = new Date(aMapLocation.getTime());
+                df.format(date);//定位时间
+                aMapLocation.getAddress();//地址，如果option中设置isNeedAddress为false，则没有此结果，网络定位结果中会有地址信息，GPS定位不返回地址信息。
+                aMapLocation.getCountry();//国家信息
+                aMapLocation.getProvince();//省信息
+                Log.d("MainActivity", aMapLocation.getCity());//城市信息
+
+                aMapLocation.getDistrict();//城区信息
+                aMapLocation.getStreet();//街道信息
+                aMapLocation.getStreetNum();//街道门牌号信息
+                aMapLocation.getCityCode();//城市编码
+                aMapLocation.getAdCode();//地区编码
+                aMapLocation.getAoiName();//获取当前定位点的AOI信息
+                mListener.onLocationChanged(aMapLocation);
+            } else {
+                Log.d("xx", aMapLocation.getErrorCode() + "//" + aMapLocation.getErrorInfo());
+            }
         }
     }
 }
