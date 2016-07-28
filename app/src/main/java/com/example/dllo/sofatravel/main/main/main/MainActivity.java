@@ -21,7 +21,7 @@ import com.example.dllo.sofatravel.main.main.search.SearchFragment;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
-    private RadioButton home, discover, order, mine;
+    private RadioButton home, discover, order, mine,search;
     private TextView homeTv, discoverTv, searchTv, orderTv, mineTv;
     private MineFragment mineFragment;
     private ImageView discoverIv;
@@ -38,7 +38,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         discover = (RadioButton) findViewById(R.id.discover_tab);
         order = (RadioButton) findViewById(R.id.order_tab);
         mine = (RadioButton) findViewById(R.id.mine_tab);
-        discoverIv = (ImageView) findViewById(R.id.search_tab);
+        search = (RadioButton) findViewById(R.id.search_tab);
 
         homeTv = (TextView) findViewById(R.id.home_tab_text);
         discoverTv = (TextView) findViewById(R.id.discover_tab_text);
@@ -46,7 +46,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         orderTv = (TextView) findViewById(R.id.order_tab_text);
         mineTv = (TextView) findViewById(R.id.mine_tab_text);
 
-        discoverIv.setOnClickListener(this);
+        search.setOnClickListener(this);
         home.setOnClickListener(this);
         discover.setOnClickListener(this);
         order.setOnClickListener(this);
