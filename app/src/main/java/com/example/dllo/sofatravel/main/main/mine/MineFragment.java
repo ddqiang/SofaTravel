@@ -174,13 +174,13 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
             getUserInfoDialog.setTitle("加载中");
             getUserInfoDialog.setMessage("loading");
             getUserInfoDialog.show();
-            //queryUserName();
-            // queryUserImage();
+            queryUserName();
+            queryUserImage();
             SharedPreferences sharedPreferences = context.getSharedPreferences("saveAccountName", Context.MODE_PRIVATE);
             currentAccountName = sharedPreferences.getString("accountName", "");
             SharedPreferences preferences = context.getSharedPreferences("saveUserName", Context.MODE_PRIVATE);
             currentUserName = preferences.getString("userName", "未设置");
-            presenter.queryUserInfoFromLiteOrm(currentAccountName);
+            //presenter.queryUserInfoFromLiteOrm(currentAccountName);
         }
         setOnClick();
 
