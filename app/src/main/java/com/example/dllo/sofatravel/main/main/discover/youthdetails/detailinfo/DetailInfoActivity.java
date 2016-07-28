@@ -105,6 +105,7 @@ public class DetailInfoActivity extends BaseActivity implements View.OnClickList
     public void initData() {
         getRequest();
         getInfoBedRequest();
+        bedListView.setFocusable(false);
 //        expandableListView.setFocusable(false);
     }
 
