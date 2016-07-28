@@ -2,13 +2,13 @@
 
     Base application theme.
 
-    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
     </style>
 
-    <!--<style name="ImageTranslucentTheme" parent="AppTheme">-->
-        <!--&lt;!&ndash;在Android 4.4之前的版本上运行，直接跟随系统主题&ndash;&gt;-->
-    <!--</style>-->
+    <style name="ImageTranslucentTheme" parent="AppTheme">
+        <!--在Android 4.4之前的版本上运行，直接跟随系统主题-->
+    </style>
 
 
     <style name="main_aty_tab">
