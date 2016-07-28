@@ -53,6 +53,15 @@
     <string name="room">房间</string>
     <string name="bed">床</string>
     <string name="context">内容</string>
+    <string name="age_a">岁</string>
+    <string name="point">·</string>
+    <string name="shareSpace">共享空间详情</string>
+    <string name="order">直接下单预定一晚</string>
+    <string name="washing">洗衣机</string>
+    <string name="Toilet">马桶</string>
+    <string name="tv">电视</string>
+    <string name="wash">卫生间</string>
+    <string name="wifi">无线网</string>
 
 
 </resources>
