@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -35,6 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/ten"
                     android:layout_toRightOf="@id/discover_detail_back"
+                    android:textColor="@color/black"
                     android:text="大连" />
 
                 <ImageView
