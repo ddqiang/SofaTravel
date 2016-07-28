@@ -170,7 +170,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="共享空间详情"
+                android:text="@string/shareSpace"
                 android:textSize="@dimen/textsize_twenty" />
 
             <TextView
@@ -316,37 +316,47 @@
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
 
-                    android:text="无线网" />
+                    android:text="@string/wifi" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
-                    android:text="卫生间" />
+                    android:text="@string/wash" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
-                    android:text="电视" />
+                    android:text="@string/tv" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
-                    android:text="马桶" />
+                    android:text="@string/Toilet" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
-                    android:text="洗衣机" />
+                    android:text="@string/washing" />
             </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/message_concre_reservations"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fifty"
+        android:background="@color/green"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/ten"
+        android:text="@string/order"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textsize_twenty" />
 </LinearLayout>

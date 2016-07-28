@@ -4,6 +4,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -18,13 +19,12 @@ import com.example.dllo.sofatravel.main.main.mine.MineModel;
 import com.example.dllo.sofatravel.main.main.mine.MinePresenter;
 import com.example.dllo.sofatravel.main.main.order.OrderFragment;
 import com.example.dllo.sofatravel.main.main.search.SearchFragment;
-import com.litesuits.orm.LiteOrm;
-
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
-    private RadioButton home, discover, search, order, mine;
+    private RadioButton home, discover, order, mine;
     private TextView homeTv, discoverTv, searchTv, orderTv, mineTv;
     private MineFragment mineFragment;
+    private ImageView discoverIv;
 
     @Override
     public int getLayout() {
@@ -38,7 +38,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         discover = (RadioButton) findViewById(R.id.discover_tab);
         order = (RadioButton) findViewById(R.id.order_tab);
         mine = (RadioButton) findViewById(R.id.mine_tab);
-        search = (RadioButton) findViewById(R.id.search_tab);
+        discoverIv = (ImageView) findViewById(R.id.search_tab);
 
         homeTv = (TextView) findViewById(R.id.home_tab_text);
         discoverTv = (TextView) findViewById(R.id.discover_tab_text);
@@ -46,8 +46,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         orderTv = (TextView) findViewById(R.id.order_tab_text);
         mineTv = (TextView) findViewById(R.id.mine_tab_text);
 
+        discoverIv.setOnClickListener(this);
         home.setOnClickListener(this);
-        search.setOnClickListener(this);
         discover.setOnClickListener(this);
         order.setOnClickListener(this);
         mine.setOnClickListener(this);
@@ -56,9 +56,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void initData() {
 
-
         //透明状态栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
         //透明导航栏
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 

@@ -189,10 +189,10 @@ public interface IPullToRefresh<T extends View> {
 
 	/**
 	 * Set OnRefreshListener for the Widget
-	 * 
+	 *
 	 * @param listener - Listener to be used when the Widget is set to Refresh
 	 */
-	public void setOnRefreshListener(OnRefreshListener2<T> listener);
+//	public void setOnRefreshListener(com.example.dllo.sofatravel.main.main.home.messagedetails.MessageDetailsActivity listener);
 
 	/**
 	 * Sets whether Overscroll support is enabled. This is different to

@@ -78,6 +78,5 @@ dependencies {
     compile files('libs/MobTools-2016.0707.1708.jar')
     compile files('libs/alipaySDK.jar')
     compile files('libs/fuqianla.jar')
-    compile project(':Mylibrary')
-
+    compile project(':library')
 }

@@ -40,7 +40,6 @@ public class MyApplication extends android.app.Application {
      * @return
      */
     public static String getMyProcessName() {
-
         try {
             File file = new File("/proc/" + android.os.Process.myPid() + "/" + "cmdline");
             BufferedReader mBufferedReader = new BufferedReader(new FileReader(file));
