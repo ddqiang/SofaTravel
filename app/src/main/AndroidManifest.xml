@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dllo.sofatravel">
 
-    <!--BmobSDK所需的权限 -->
 
     <!-- 允许程序打开网络套接字权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -129,7 +128,7 @@
         <service android:name="com.amap.api.location.APSService"></service>
 
         <activity
-            android:name=".main.main.main.MainActivity"
+            android:name=".main.main.main.WelcomeActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -152,6 +151,8 @@
         <activity android:name=".main.main.discover.youthdetails.detailinfo.DetailInfoActivity" />
         <activity android:name=".main.main.home.imessageconcreteness.MessageConcreActivity" />
         <activity android:name=".main.main.mine.collection.CollectionActivity" />
+        <activity android:name=".main.main.order.ConversationActivity" />
+        <activity android:name=".main.main.main.MainActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"

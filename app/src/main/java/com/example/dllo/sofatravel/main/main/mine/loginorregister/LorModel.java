@@ -40,17 +40,17 @@ public class LorModel implements LoginOrRegisterContract.LoginOrRegisterModel {
         user.signUp(MyApplication.context, new SaveListener() {
             @Override
             public void onSuccess() {
-//                user.login(MyApplication.context, new SaveListener() {
-//                    @Override
-//                    public void onSuccess() {
-//                        loginOrRegisterPresenter.registerSuccess();
-//                    }
-//
-//                    @Override
-//                    public void onFailure(int i, String s) {
-//
-//                    }
-//                });
+                user.login(MyApplication.context, new SaveListener() {
+                    @Override
+                    public void onSuccess() {
+                        loginOrRegisterPresenter.registerSuccess();
+                    }
+
+                    @Override
+                    public void onFailure(int i, String s) {
+
+                    }
+                });
                 loginOrRegisterPresenter.registerSuccess();
             }
 

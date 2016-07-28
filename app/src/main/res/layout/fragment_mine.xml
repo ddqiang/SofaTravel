@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     android:orientation="vertical">
 
 
@@ -29,7 +30,8 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_margin="@dimen/fragment_mine_login_or_signup_text_margin"
-            android:text="@string/fragment_mine_login_or_signup_text_content" />
+            android:text="@string/fragment_mine_login_or_signup_text_content"
+            android:textSize="20sp" />
 
         <RelativeLayout
             android:id="@+id/fragment_mine_release_layout"
@@ -191,7 +193,8 @@
             android:layout_below="@id/fragment_mine_telnumber_layout"
             android:layout_marginLeft="@dimen/fragment_mine_relative_marginleft"
             android:layout_marginRight="@dimen/fragment_mine_relative_marginright"
-            android:padding="@dimen/fragment_mine_layout_padding">
+            android:padding="@dimen/fragment_mine_layout_padding"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -237,7 +240,8 @@
             android:layout_centerHorizontal="true"
             android:layout_margin="@dimen/fragment_mine_login_or_signup_text_margin"
             android:background="@drawable/fragment_login_or_register_et_background"
-            android:padding="5dp" />
+            android:padding="5dp"
+            android:text="未设置" />
 
         <RelativeLayout
             android:id="@+id/fragment_mine_money_layout"
@@ -400,7 +404,8 @@
             android:layout_below="@id/fragment_mine_share_layout_other"
             android:layout_marginLeft="@dimen/fragment_mine_relative_marginleft"
             android:layout_marginRight="@dimen/fragment_mine_relative_marginright"
-            android:padding="@dimen/fragment_mine_layout_padding">
+            android:padding="@dimen/fragment_mine_layout_padding"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -430,4 +435,14 @@
                 android:background="#e2e2e2" />
         </RelativeLayout>
     </RelativeLayout>
+
+    <!--<com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton-->
+    <!--android:id="@+id/fragment_mine_fab"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_marginBottom="100dp"-->
+    <!--android:layout_marginRight="20dp"-->
+    <!--android:background="@mipmap/ic_launcher_one"></com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton>-->
 </RelativeLayout>

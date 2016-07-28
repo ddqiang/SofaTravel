@@ -11,6 +11,7 @@ public class DemoMessageHandler extends BmobIMMessageHandler {
     @Override
     public void onMessageReceive(final MessageEvent event) {
         //当接收到服务器发来的消息时，此方法被调用
+
     }
 
     @Override

@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.example.dllo.sofatravel.R;
 import com.example.dllo.sofatravel.main.main.base.BaseActivity;
-
 import com.example.dllo.sofatravel.main.main.discover.DiscoverFragment;
 import com.example.dllo.sofatravel.main.main.home.HomeFragment;
 import com.example.dllo.sofatravel.main.main.mine.MineContract;
@@ -18,7 +17,6 @@ import com.example.dllo.sofatravel.main.main.mine.MineModel;
 import com.example.dllo.sofatravel.main.main.mine.MinePresenter;
 import com.example.dllo.sofatravel.main.main.order.OrderFragment;
 import com.example.dllo.sofatravel.main.main.search.SearchFragment;
-import com.litesuits.orm.LiteOrm;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -56,7 +54,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void initData() {
 
-
         //透明状态栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         //透明导航栏
@@ -82,7 +79,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.home_tab:
                 transaction.replace(R.id.show_fragment_fl, new HomeFragment());
-
                 homeTv.setTextColor(android.graphics.Color.parseColor("#A3D9DB"));
                 discoverTv.setTextColor(android.graphics.Color.parseColor("#000000"));
                 searchTv.setTextColor(android.graphics.Color.parseColor("#000000"));
@@ -92,7 +88,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.discover_tab:
                 transaction.replace(R.id.show_fragment_fl, new DiscoverFragment());
-
                 homeTv.setTextColor(android.graphics.Color.parseColor("#000000"));
                 discoverTv.setTextColor(android.graphics.Color.parseColor("#A3D9DB"));
                 searchTv.setTextColor(android.graphics.Color.parseColor("#000000"));
@@ -101,7 +96,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.search_tab:
                 transaction.replace(R.id.show_fragment_fl, new SearchFragment());
-
                 homeTv.setTextColor(android.graphics.Color.parseColor("#000000"));
                 discoverTv.setTextColor(android.graphics.Color.parseColor("#000000"));
                 searchTv.setTextColor(android.graphics.Color.parseColor("#A3D9DB"));
@@ -110,7 +104,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.order_tab:
                 transaction.replace(R.id.show_fragment_fl, new OrderFragment());
-
                 homeTv.setTextColor(android.graphics.Color.parseColor("#000000"));
                 discoverTv.setTextColor(android.graphics.Color.parseColor("#000000"));
                 searchTv.setTextColor(android.graphics.Color.parseColor("#000000"));
@@ -119,7 +112,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.mine_tab:
                 transaction.replace(R.id.show_fragment_fl, mineFragment);
-
                 homeTv.setTextColor(android.graphics.Color.parseColor("#000000"));
                 discoverTv.setTextColor(android.graphics.Color.parseColor("#000000"));
                 searchTv.setTextColor(android.graphics.Color.parseColor("#000000"));
@@ -129,4 +121,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
         transaction.commit();
     }
+
+
 }
