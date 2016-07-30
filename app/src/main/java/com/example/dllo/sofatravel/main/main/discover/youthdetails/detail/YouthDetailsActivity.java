@@ -22,15 +22,20 @@ import com.example.dllo.sofatravel.main.main.discover.youthdetails.search.Search
 import com.example.dllo.sofatravel.main.main.discover.youthdetails.selectcity.MapActivity;
 import com.example.dllo.sofatravel.main.main.discover.youthdetails.selectcity.SelectCityActivity;
 import com.example.dllo.sofatravel.main.main.tools.OkSingle;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
  * Created by dllo on 16/7/18.
  */
 public class YouthDetailsActivity extends BaseActivity implements View.OnClickListener {
+    private PullToRefreshListView pullToRefreshListView;//刷新
     private LinearLayout checkInTime, checkOutTime, search, location;//入住,离开,搜索,选择城市
     private ImageView back;//返回
     private TextView cityTv;
@@ -38,11 +43,17 @@ public class YouthDetailsActivity extends BaseActivity implements View.OnClickLi
     private boolean isIn = true;
     private int in, out;
     private TextView sum;//共~晚
-    private ImageView map;//地图
+    private ImageView mMap;//地图
     private DetailBean bean;
     private String city = "%e5%a4%a7%e8%bf%9e";
+    private String cityTxt;
     private DetailAdapter adapter;
     private ListView detailList;
+    private int page = 1;
+    private String inDate;
+    private String outDate;
+
+
     @Override
     public int getLayout() {
         return R.layout.activity_dis_detail;
@@ -63,10 +74,11 @@ public class YouthDetailsActivity extends BaseActivity implements View.OnClickLi
         inTimeTv = (TextView) findViewById(R.id.dis_in_time_tv);
         outTimeTv = (TextView) findViewById(R.id.dis_out_time_tv);
         sum = (TextView) findViewById(R.id.dis_sum);
-        map = (ImageView) findViewById(R.id.discover_detail_map);//地图
+        mMap = (ImageView) findViewById(R.id.discover_detail_map);//地图
         cityTv = (TextView) findViewById(R.id.discover_detail_location);
-        map.setOnClickListener(this);
-        detailList = (ListView) findViewById(R.id.discover_detail_list);
+        mMap.setOnClickListener(this);
+        pullToRefreshListView = (PullToRefreshListView) findViewById(R.id.discover_detail_list);
+        pullToRefreshListView.setMode(PullToRefreshBase.Mode.BOTH);
 
     }
 
@@ -76,20 +88,23 @@ public class YouthDetailsActivity extends BaseActivity implements View.OnClickLi
         int year = now.getYear() + 1900;
         int month = now.getMonth() + 1;
         int day = now.getDate();
+        in = day;
+        inDate = year+ "-" + month+ "-" + day;
         inTimeTv.setText(year + "年" + month + "月" + day + "日");
         outTimeTv.setText(year + "年" + month + "月" + (day + 1) + "日");
         getRequest();
 
         //行点击事件
-        detailList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        pullToRefreshListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent detailInfo = new Intent(YouthDetailsActivity.this, DetailInfoActivity.class);
-                detailInfo.putExtra("hotelId",bean.getData().getResult().get(position).getHotelId());
+                detailInfo.putExtra("hotelId", bean.getData().getResult().get(position-1).getHotelId());
                 Log.d("YouthDetailsActivity", bean.getData().getResult().get(position).getHotelId());
                 startActivity(detailInfo);
             }
         });
+        initPullToReFresh();
     }
 
     //解析数据
@@ -101,31 +116,63 @@ public class YouthDetailsActivity extends BaseActivity implements View.OnClickLi
         OkSingle.getInstance().getYouthDeatil(city, DetailBean.class, new OkSingle.OnTrue<DetailBean>() {
             @Override
             public void hasData(DetailBean data) {
-                Log.d("YouthDetailsActivity", "data:" + data);
+                Log.d("YouthDetailsActivity", "refresh:" + data);
                 bean = data;
                 adapter.setBean(data);
-                detailList.setAdapter(adapter);
+                pullToRefreshListView.setAdapter(adapter);
+                pullToRefreshListView.onRefreshComplete();
             }
         }, new OkSingle.OnError() {
             @Override
             public void noHasData() {
             }
         });
-//        OkSingle.getInstance().getRequestAsync(youthUrl, DetailBean.class, new OkSingle.OnTrue<DetailBean>() {
-//            @Override
-//            public void hasData(DetailBean data) {
-//                bean = data;
-//                adapter.setBean(data);
-//                detailList.setAdapter(adapter);
-//
-//            }
-//        }, new OkSingle.OnError() {
-//            @Override
-//            public void noHasData() {
-//                Toast.makeText(YouthDetailsActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
-//            }
-//        });
     }
+
+    // 上拉加载数据
+    public void addData(){
+        Long startTime = System.currentTimeMillis();
+        Long endTime = startTime + 24 * 60 * 60 * 1000;
+        String url = "http://www.shafalvxing.com/hotel/getHotelListByCity.do?bizParams=" +
+                " %7B%22startTime%22%3A"+startTime+"%2C%22endPrice%22%3A0%2C%22endTime%22%3A"+endTime+"%2C%22district%22%3A%22%22%2C%22" +
+                "startPrice%22%3A0%2C%22page%22%3A"+page+"%2C%22cityName%22%3A%22"+city+"%e5%B8%82%22%7D";
+        OkSingle.getInstance().getRequestAsync(url, DetailBean.class, new OkSingle.OnTrue<DetailBean>() {
+            @Override
+            public void hasData(DetailBean data) {
+                if (data.getData().getHasNext() == 1){
+                    page++;
+                } else {}
+                Log.d("YouthDetailsActivity", "add:" + data);
+                Log.d("YouthDetailsActivity", "page:" + page);
+                adapter.addData(data);
+            }
+        }, new OkSingle.OnError() {
+            @Override
+            public void noHasData() {
+
+            }
+        });
+
+    }
+
+    //刷新
+    public void initPullToReFresh() {
+        pullToRefreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                pullToRefreshListView.setRefreshing(true);
+                getRequest();
+
+            }
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                addData();
+                pullToRefreshListView.setRefreshing(true);
+                pullToRefreshListView.onRefreshComplete();
+            }
+        });
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -142,6 +189,7 @@ public class YouthDetailsActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.discover_detail_map://地图
                 Intent mapIntent = new Intent(YouthDetailsActivity.this, MapActivity.class);
+                mapIntent.putExtra("city", cityTxt);
                 startActivity(mapIntent);
                 break;
             case R.id.dis_check_in_time://入住
@@ -164,6 +212,7 @@ public class YouthDetailsActivity extends BaseActivity implements View.OnClickLi
                 if (data != null) {
                     cityTv.setText(data.getStringExtra("city"));
                     city = encoder(data.getStringExtra("city"));
+                    cityTxt = data.getStringExtra("city");
                     getRequest();
                 }
                 break;
@@ -183,14 +232,17 @@ public class YouthDetailsActivity extends BaseActivity implements View.OnClickLi
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 Log.d("YouthDetailsActivity", "month:" + month);
                 if (isIn) {
+                    inDate = year+ "-" + (month + 1) + "-"+ dayOfMonth;
                     inTimeTv.setText(year + "年" + (month + 1) + "月" + dayOfMonth + "日");
                     in = dayOfMonth;
                     isIn = false;
                 } else {
+                    outDate = year+ "-" + (month + 1)+ "-" + dayOfMonth ;
                     outTimeTv.setText(year + "年" + (month + 1) + "月" + dayOfMonth + "日");
                     isIn = true;
                     out = dayOfMonth;
                 }
+
                 Toast.makeText(YouthDetailsActivity.this, "选择日期" + dayOfMonth, Toast.LENGTH_LONG).show();
             }
         });
@@ -199,26 +251,37 @@ public class YouthDetailsActivity extends BaseActivity implements View.OnClickLi
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (isIn) {
-                    sum.setText("共" + (out - in) + "晚");
-                }
+                sum.setText("共" + daysBetweenTwoDate(inDate, outDate) + "晚");
                 Toast.makeText(YouthDetailsActivity.this, "确定", Toast.LENGTH_SHORT).show();
             }
         });
         builder.show();
     }
 
+    // 计算2个日期之间有多少天
+    public int daysBetweenTwoDate(String inDate, String outDate){
+        long daysInMillis= 0;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date in = simpleDateFormat.parse(inDate);
+            Date out = simpleDateFormat.parse(outDate);
+            daysInMillis =  out.getTime() - in.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return (int) (daysInMillis / (1000*3600*24));
+    }
+
     // 转码
-    public String encoder(String city){
+    public String encoder(String city) {
         String s = "";
         try {
-            s = URLEncoder.encode(city,"UTF-8");
+            s = URLEncoder.encode(city, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         return s;
     }
-
 
 
 }

@@ -9,7 +9,8 @@
         android:text="@string/discover_title"
         android:textSize="@dimen/twenty"
         android:padding="@dimen/fifteen"
-        android:gravity="center"/>
+        android:gravity="center"
+        />
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/one"
@@ -19,12 +20,15 @@
         android:id="@+id/discover_youth_travel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@mipmap/icon_qinglv_banner"/>
+        android:src="@mipmap/icon_qinglv_banner"
+
+        />
     <ImageView
         android:id="@+id/discover_music"
         android:padding="@dimen/five"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@mipmap/icon_music_banner"/>
+        android:src="@mipmap/icon_music_banner"
+        />
 
 </LinearLayout>

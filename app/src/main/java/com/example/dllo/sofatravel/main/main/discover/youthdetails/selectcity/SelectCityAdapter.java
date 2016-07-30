@@ -11,13 +11,15 @@ import android.widget.TextView;
 
 import com.example.dllo.sofatravel.R;
 
+import java.util.HashMap;
+
 /**
  * Created by dllo on 16/7/21.
  */
 public class SelectCityAdapter extends BaseExpandableListAdapter {
     private Context context;
     private  SelectCityBean bean;
-
+    private HashMap<String,Integer> actualPos;
 
     public void setBean(SelectCityBean bean) {
         this.bean = bean;

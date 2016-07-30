@@ -22,14 +22,14 @@ import com.example.dllo.sofatravel.main.main.tools.OkSingle;
 /**
  * Created by dllo on 16/7/19.
  */
-public class SelectCityActivity extends BaseActivity implements View.OnClickListener {
+public class SelectCityActivity extends BaseActivity implements View.OnClickListener, SelectLetterView.OnTouchingLetterChangedListener {
     private ImageView back;
     private ExpandableListView expandableListView;
     private SelectCityBean bean;
     private SelectCityAdapter adapter;
     private String selectUrl = "http://www.shafalvxing.com/city/citySearchInfo.do?bizParams=%7B%7D";
     private RecyclerView recyclerView;
-
+    private SelectLetterView letterView;
     @Override
     public int getLayout() {
         return R.layout.activity_dis_select_city;
@@ -37,6 +37,8 @@ public class SelectCityActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void initView() {
+        letterView = (SelectLetterView) findViewById(R.id.dis_select_city_view);
+        letterView.setOnTouchingLetterChangedListener(this);
         back = (ImageView) findViewById(R.id.discover_select_city_back);
         back.setOnClickListener(this);
         expandableListView = (ExpandableListView) findViewById(R.id.dis_dis_select_lv);
@@ -82,6 +84,8 @@ public class SelectCityActivity extends BaseActivity implements View.OnClickList
                 });
                 //  添加热门城市
                 addHotCity();
+                // 索引设置数据
+                letterView.setBean(data);
             }
         }, new OkSingle.OnError() {
             @Override
@@ -90,9 +94,7 @@ public class SelectCityActivity extends BaseActivity implements View.OnClickList
                 Toast.makeText(SelectCityActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
-
     public void addHotCity(){
         View view = LayoutInflater.from(this).inflate(R.layout.item_dis_select_hot_city, null);
         GridView gridView = (GridView) view.findViewById(R.id.dis_hot_city_gv);
@@ -116,8 +118,6 @@ public class SelectCityActivity extends BaseActivity implements View.OnClickList
 //        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         expandableListView.addHeaderView(view);
     }
-
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -126,6 +126,10 @@ public class SelectCityActivity extends BaseActivity implements View.OnClickList
                 break;
         }
     }
-
-
+    //  点击字母的监听
+    @Override
+    public void onTouchingLetterChanged(int s) {
+        Toast.makeText(this, bean.getData().getSearchCity().get(s).getWord(), Toast.LENGTH_SHORT).show();
+        expandableListView.setSelectedGroup(s);
+    }
 }

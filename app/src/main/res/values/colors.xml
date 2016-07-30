@@ -7,4 +7,5 @@
     <color name="green">#A3D9DB</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="dis_gray">#EAEAEA</color>
 </resources>

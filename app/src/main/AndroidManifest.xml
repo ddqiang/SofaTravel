@@ -159,6 +159,7 @@
         <activity android:name=".main.main.mine.collection.CollectionActivity" />
         <activity android:name=".main.main.order.ConversationActivity" />
         <activity android:name=".main.main.main.MainActivity" />
+        <activity android:name=".main.main.discover.youthdetails.order.DisOrderActivity"/>
 
         <meta-data
             android:name="com.google.android.gms.version"

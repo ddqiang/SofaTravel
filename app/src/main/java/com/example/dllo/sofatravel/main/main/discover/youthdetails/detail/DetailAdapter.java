@@ -23,6 +23,10 @@ public class DetailAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void addData(DetailBean bean){
+        this.bean.getData().getResult().addAll(bean.getData().getResult());
+        notifyDataSetChanged();
+    }
     private Context context;
 
     public DetailAdapter(Context context) {

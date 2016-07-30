@@ -32,6 +32,7 @@ public class SearchDetailActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.dis_search_cancel:
+
                 finish();
                 break;
         }

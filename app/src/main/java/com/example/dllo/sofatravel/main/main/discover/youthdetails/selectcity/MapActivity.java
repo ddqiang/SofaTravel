@@ -72,6 +72,9 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
         }
         //启动定位
         mlocationClient.startLocation();
+        // 设置titles
+        titles.setText(getIntent().getStringExtra("city"));
+
     }
     @Override
     protected void onDestroy() {

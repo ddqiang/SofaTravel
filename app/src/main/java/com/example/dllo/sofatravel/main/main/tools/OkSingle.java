@@ -127,18 +127,20 @@ public class OkSingle {
         String url = "http://www.shafalvxing.com/space/getSharedSpaceByCity." +
                 "do?bizParams=%7B%22cityId%22%3A%22" + messageId + "%22%2C%22endPrice%22%3A0%2C%22page%22%3A%221%22%2C%22startPrice%22%3" +
                 "A0%2C%22userToken%22%3A%22MzdlNGY1MzE2ZjI4MjZiNzNlNjRjNmRkMzFlOTM5YTczZGRhYzI1NmI1ZWExNzI4%22%7D";
-        Log.d("OkSingle", url);
+
         getRequestAsync(url, t, onTrue, onError);
     }
 //发现界面
    public <T> void getYouthDeatil(String id,Class<T>t,OnTrue<T>onTrue,OnError onError){
         Long startTime = System.currentTimeMillis();
         Long endTime = startTime + 24 * 60 * 60 * 1000;
-
+        int page = 1;
         String url = "http://www.shafalvxing.com/hotel/getHotelListByCity.do?bizParams=" +
               " %7B%22startTime%22%3A"+startTime+"%2C%22endPrice%22%3A0%2C%22endTime%22%3A"+endTime+"%2C%22district%22%3A%22%22%2C%22" +
-                "startPrice%22%3A0%2C%22page%22%3A1%2C%22cityName%22%3A%22"+id+"%e5%B8%82%22%7D";
+                "startPrice%22%3A0%2C%22page%22%3A"+page+"%2C%22cityName%22%3A%22"+id+"%e5%B8%82%22%7D";
+
         getRequestAsync(url, t, onTrue, onError);
+        Log.d("OkSingle", url);
     }
 
     // 发现 热门城市解析

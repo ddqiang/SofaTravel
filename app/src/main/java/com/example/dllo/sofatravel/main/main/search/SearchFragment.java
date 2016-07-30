@@ -28,6 +28,8 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
     private TextView searchMap;//地图模式
     private TextView cityTv;
     private Button searchBtn;//搜索
+    private  TextView listTv;
+    private TextView mapTv;
 
 
     @Override
@@ -43,10 +45,14 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
         selectTime.setOnClickListener(this);
         searchMap = (TextView) view.findViewById(R.id.frag_search_map_tv);//地图模式
         searchMap.setOnClickListener(this);
-        cityTv = (TextView) view.findViewById(R.id.frag_search_city_tv);
+        cityTv = (TextView) view.findViewById(R.id.frag_search_city_tv);//显示城市
         cityTv.setOnClickListener(this);
-        searchBtn= (Button) view.findViewById(R.id.frag_search_btn);
+        searchBtn= (Button) view.findViewById(R.id.frag_search_btn);//搜索button
         searchBtn.setOnClickListener(this);
+        listTv= (TextView) view.findViewById(R.id.frag_search_list_tv);
+
+        mapTv= (TextView) view.findViewById(R.id.frag_search_map_tv);
+
 
     }
 
@@ -80,7 +86,9 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-                    cityTv.setText(data.getStringExtra("city"));
+        if (data != null) {
+            cityTv.setText(data.getStringExtra("city"));
+        }
     }
 
     //显示日历的Dialog

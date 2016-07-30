@@ -53,7 +53,8 @@ public class BedAdapter extends BaseAdapter {
             groupHolder= (GroupHolder) convertView.getTag();
         }
         Glide.with(context).load(bean.getData().getRmlist().get(position).getRmTypeImageUrl()).into(groupHolder.picture);
-        groupHolder.productRoomName.setText(bean.getData().getRmlist().get(position).getRoomName());
+        groupHolder.productRoomName.setText(bean.getData().getRmlist().get(position).getProductRoomName());
+        groupHolder.price.setText(bean.getData().getRmlist().get(position).getPrice() + "");
 
         return convertView;
     }

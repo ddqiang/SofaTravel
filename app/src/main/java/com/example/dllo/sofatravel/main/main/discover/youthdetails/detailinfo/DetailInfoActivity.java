@@ -1,12 +1,14 @@
 package com.example.dllo.sofatravel.main.main.discover.youthdetails.detailinfo;
 
-import android.os.Bundle;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -21,6 +23,7 @@ import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
 import com.example.dllo.sofatravel.R;
 import com.example.dllo.sofatravel.main.main.base.BaseActivity;
+import com.example.dllo.sofatravel.main.main.discover.youthdetails.order.DisOrderActivity;
 import com.example.dllo.sofatravel.main.main.tools.OkSingle;
 import com.youth.banner.Banner;
 
@@ -37,7 +40,6 @@ public class DetailInfoActivity extends BaseActivity implements View.OnClickList
     private String hotelId;
     private ImageView back;//返回
     private DetailBedBean bedBean;//床位信息bean;
-    private DetailInfoAdpter detailInfoAdpter;
     private ExpandableListView expandableListView;
     private BedAdapter bedAdapter;
     private ListView bedListView;
@@ -65,40 +67,22 @@ public class DetailInfoActivity extends BaseActivity implements View.OnClickList
         back = (ImageView) findViewById(R.id.dis_detail_info_back);//返回
         back.setOnClickListener(this);
         bedListView = (ListView) findViewById(R.id.dis_detail_info_expandable_lv);
-        //  expandableListView = (ExpandableListView) findViewById(R.id.dis_detail_info_expandable_lv);
+        // expandableListView = (ExpandableListView) findViewById(R.id.dis_detail_info_expandable_lv);
         banner = (Banner) findViewById(R.id.dis_detail_info_banner);//轮播图
         ratingBar = (RatingBar) findViewById(R.id.dis_detail_info_ratingbar);
         infoMap = (MapView) findViewById(R.id.dis_info_map);//地图
-//        infoMap.onCreate(null);
+        // infoMap.onCreate(null);
         // initMap();
-    }
-
-    public void initMap() {
-        aMap = infoMap.getMap();
-        aMap.setLocationSource(this);
-        aMap.getUiSettings().setMyLocationButtonEnabled(true);//设置默认按钮是否显示
-        aMap.setMyLocationEnabled(true);
-        //设置定位类型定位模式
-        aMap.setMyLocationType(AMap.LOCATION_TYPE_LOCATE);
-
-        mLocationOption = new AMapLocationClientOption();
-        mLocationOption.setNeedAddress(true);
-        mLocationOption.setOnceLocation(false);
-        AMapLocationClient mlocationClient = new AMapLocationClient(getApplicationContext());
-        //设置定位监听
-        mlocationClient.setLocationListener(this);
-        //高精度模式
-        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
-        //定位间隔
-        mLocationOption.setInterval(2000);
-        //设置定位参数
-        mlocationClient.setLocationOption(mLocationOption);
-        if (mLocationOption.isOnceLocation()) {
-            mLocationOption.setOnceLocation(true);
-        }
-        //启动定位
-        mlocationClient.startLocation();
-
+        bedListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent=new Intent(DetailInfoActivity.this, DisOrderActivity.class);
+                intent.putExtra("price",bedBean.getData().getRmlist().get(position).getPrice());
+                intent.putExtra("hotelName",bean.getData().getHotelName());
+                intent.putExtra("rooms",bedBean.getData().getRmlist().get(position).getAvailableRooms());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -106,7 +90,7 @@ public class DetailInfoActivity extends BaseActivity implements View.OnClickList
         getRequest();
         getInfoBedRequest();
         bedListView.setFocusable(false);
-//        expandableListView.setFocusable(false);
+
     }
 
     //解析轮播图数据
@@ -115,6 +99,7 @@ public class DetailInfoActivity extends BaseActivity implements View.OnClickList
         OkSingle.getInstance().getHotelDeatil(hotelId, DetailInfoBean.class, new OkSingle.OnTrue<DetailInfoBean>() {
             @Override
             public void hasData(DetailInfoBean data) {
+                bean = data;
                 int num = 0;
                 for (int i = 0; i < data.getData().getPictureList().size(); i++) {
                     num += data.getData().getPictureList().get(i).getPictureList().size();
@@ -143,28 +128,25 @@ public class DetailInfoActivity extends BaseActivity implements View.OnClickList
 
     // 解析床位数据
     public void getInfoBedRequest() {
-        detailInfoAdpter = new DetailInfoAdpter(this);
         bedAdapter = new BedAdapter(this);
         hotelId = getIntent().getStringExtra("hotelId");
         final Long startTime = System.currentTimeMillis();
         final Long endTime = startTime + 24 * 60 * 60 * 1000;
-//        String bedUrl = "http://www.shafalvxing.com/hotel/queryHotelDetailRmList.do?bizParams=%7B%22"
-//                + "startTime%22%3A" + startTime + "%2C%22endTime%22%3A" + endTime + "%2C%22hotelId%22%3A%22" + hotelId + "%22%7D";
         String bedUrl = "http://www.shafalvxing.com/hotel/queryHotelDetailRmList.do?bizParams=%7B%22" +
                 "endTime%22%3A"+endTime+"%2C%22hotelId%22%3A%22"+hotelId+"%22%2C%22startTime%22%3A"+startTime+"%7D";
         Log.d("DetailInfoActivity", bedUrl);
-       // String bedUrl="http://www.shafalvxing.com/hotel/queryHotelDetailRmList.do?bizParams=%7B%22endTime%22%3A1469757455714%2C%22hotelId%22%"+hotelId+"%22%2C%22startTime%22%3A1469671055714%7D";
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        Log.d("DetailInfoActivity", simpleDateFormat.format(startTime));
+//        Log.d("DetailInfoActivity", simpleDateFormat.format(endTime));
+
         OkSingle.getInstance().getRequestAsync(bedUrl, DetailBedBean.class, new OkSingle.OnTrue<DetailBedBean>() {
             @Override
             public void hasData(DetailBedBean data) {
-                Log.d("DetailInfoActivity", "data.getData().getRmlist().size():" + data.getData().getRmlist().size());
+             //   Log.d("DetailInfoActivity", "data.getData().getRmlist().size():" + data.getData().getRmlist().size());
                 bedBean = data;
                 bedAdapter.setBean(data);
                 bedListView.setAdapter(bedAdapter);
-                //   detailInfoAdpter.setBean(data);
-                //        expandableListView.setAdapter(detailInfoAdpter);
-                //  setListViewHeightBasedOnChildren(expandableListView);
-                //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+                setListViewHeightBasedOnChildren(bedListView);
             }
         }, new OkSingle.OnError() {
             @Override
@@ -183,7 +165,26 @@ public class DetailInfoActivity extends BaseActivity implements View.OnClickList
         }
     }
 
+
     //  设置listView高度
+    public void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+
+        if (listAdapter == null) {
+            return;
+        }
+        int totalHeight = 0;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+
+    }
+    //设置ExpandableListView高度
     public void setListViewHeightBasedOnChildren(ExpandableListView listView) {
         // 获取ListView对应的Adapter
         ExpandableListAdapter listAdapter = listView.getExpandableListAdapter();
@@ -214,6 +215,33 @@ public class DetailInfoActivity extends BaseActivity implements View.OnClickList
     /**
      * 地图
      */
+    public void initMap() {
+        aMap = infoMap.getMap();
+        aMap.setLocationSource(this);
+        aMap.getUiSettings().setMyLocationButtonEnabled(true);//设置默认按钮是否显示
+        aMap.setMyLocationEnabled(true);
+        //设置定位类型定位模式
+        aMap.setMyLocationType(AMap.LOCATION_TYPE_LOCATE);
+
+        mLocationOption = new AMapLocationClientOption();
+        mLocationOption.setNeedAddress(true);
+        mLocationOption.setOnceLocation(false);
+        AMapLocationClient mlocationClient = new AMapLocationClient(getApplicationContext());
+        //设置定位监听
+        mlocationClient.setLocationListener(this);
+        //高精度模式
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        //定位间隔
+        mLocationOption.setInterval(2000);
+        //设置定位参数
+        mlocationClient.setLocationOption(mLocationOption);
+        if (mLocationOption.isOnceLocation()) {
+            mLocationOption.setOnceLocation(true);
+        }
+        //启动定位
+        mlocationClient.startLocation();
+
+    }
 //    @Override
 //    protected void onDestroy() {
 //        super.onDestroy();
