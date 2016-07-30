@@ -1,5 +1,6 @@
 package com.example.dllo.sofatravel.main.main.home;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,17 +9,17 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.dllo.sofatravel.R;
 import com.example.dllo.sofatravel.main.main.base.MyOnClick;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.dllo.sofatravel.main.main.tools.NetWorkOnLine;
 
 /**
  * Created by dllo on 16/7/19.
  */
+@SuppressLint("NewApi")
 public class HomeGrViewAdapter extends BaseAdapter {
 
     private HomeBean homeBean;
@@ -27,6 +28,7 @@ public class HomeGrViewAdapter extends BaseAdapter {
 
     public void setMyOnClick(MyOnClick myOnClick) {
         this.myOnClick = myOnClick;
+
     }
 
     public HomeGrViewAdapter(Context context) {
@@ -55,7 +57,7 @@ public class HomeGrViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        MyGrViewViewHolder holder;
+        MyGrViewViewHolder holder=null;
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.home_grideview_item, parent, false);
             holder = new MyGrViewViewHolder(convertView);
@@ -63,15 +65,21 @@ public class HomeGrViewAdapter extends BaseAdapter {
         } else {
             holder = (MyGrViewViewHolder) convertView.getTag();
         }
+
         holder.cityTv.setText(homeBean.getData().getHomePageInfo().getRecommendCity().get(position).getCityNameCh());
         holder.cityEnglishTv.setText(homeBean.getData().getHomePageInfo().getRecommendCity().get(position).getCityNameEn());
         Glide.with(context).load(homeBean.getData().getHomePageInfo().getRecommendCity().get(position).getMainPic()).into(holder.imageView);
+        if (NetWorkOnLine.isNetworkAvailable()){
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 myOnClick.onClick(position);
+
             }
         });
+        }else {
+            Toast.makeText(context, "请求失败,请检查网络设置", Toast.LENGTH_SHORT).show();
+        }
         return convertView;
     }
 
@@ -85,4 +93,5 @@ public class HomeGrViewAdapter extends BaseAdapter {
             cityEnglishTv = (TextView) view.findViewById(R.id.home_gridView_item_cityNameEnglish);
         }
     }
+
 }
