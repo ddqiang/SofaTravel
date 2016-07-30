@@ -7,6 +7,9 @@
     <string name="more_filter">更多筛选条件</string>
     <string name="discover_content">青旅名/著名地标搜索</string>
 
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
     <string name="fragment_mine_login_or_signup_text_content">注册登录</string>
     <string name="fragment_mine_release_text_content">做房主赚房租</string>
     <string name="fragment_mine_setup_text_content">设置</string>

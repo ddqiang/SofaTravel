@@ -22,26 +22,26 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by dllo on 16/7/23.
  */
 public class CollectionAdapter extends BaseAdapter {
-    private ArrayList<CollectionBean> beans;
-    private Context context;
+    private ArrayList<CollectionBean> mbeans;
+    private Context mcontext;
 
     public void setBeans(ArrayList<CollectionBean> beans) {
-        this.beans = beans;
+        this.mbeans = beans;
         notifyDataSetChanged();
     }
 
     public CollectionAdapter(Context context) {
-        this.context = context;
+        this.mcontext = context;
     }
 
     @Override
     public int getCount() {
-        return beans == null ? 0 : beans.size();
+        return mbeans == null ? 0 : mbeans.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return beans == null ? null : beans.get(position);
+        return mbeans == null ? null : mbeans.get(position);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class CollectionAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_fragment_mine_collection_listview_layout, parent, false);
+            convertView = LayoutInflater.from(mcontext).inflate(R.layout.item_fragment_mine_collection_listview_layout, parent, false);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
 
@@ -62,15 +62,15 @@ public class CollectionAdapter extends BaseAdapter {
         }
 
 
-        Glide.with(context).load(beans.get(position).getSpaceImage()).into(viewHolder.itemFragmentMineCollectionListviewLayoutMessageShowIv);
-        Glide.with(context).load(beans.get(position).getOwnerHead()).into(viewHolder.itemFragmentMineCollectionListviewLayoutMessageHead);
-        viewHolder.itemFragmentMineCollectionListviewLayoutMessageAge.setText((int) beans.get(position).getOwnerAge() + "");
-        viewHolder.itemFragmentMineCollectionListviewLayoutMessageJob.setText(beans.get(position).getOwnerJob());
-        viewHolder.itemFragmentMineCollectionListviewLayoutMessageName.setText(beans.get(position).getOwnerName());
-        viewHolder.itemFragmentMineCollectionListviewLayoutMessageResponseRate.setText((int) beans.get(position).getResponseRate() + "");
-        viewHolder.itemFragmentMineCollectionListviewLayoutMessagePrice.setText((int) beans.get(position).getPrice() + "");
-        viewHolder.itemFragmentMineCollectionListviewLayoutMessageSex.setText(beans.get(position).getOwnerSex());
-        viewHolder.itemFragmentMineCollectionListviewLayoutMessageTitle.setText(beans.get(position).getTitle());
+        Glide.with(mcontext).load(mbeans.get(position).getSpaceImage()).into(viewHolder.itemFragmentMineCollectionListviewLayoutMessageShowIv);
+        Glide.with(mcontext).load(mbeans.get(position).getOwnerHead()).into(viewHolder.itemFragmentMineCollectionListviewLayoutMessageHead);
+        viewHolder.itemFragmentMineCollectionListviewLayoutMessageAge.setText((int) mbeans.get(position).getOwnerAge() + "");
+        viewHolder.itemFragmentMineCollectionListviewLayoutMessageJob.setText(mbeans.get(position).getOwnerJob());
+        viewHolder.itemFragmentMineCollectionListviewLayoutMessageName.setText(mbeans.get(position).getOwnerName());
+        viewHolder.itemFragmentMineCollectionListviewLayoutMessageResponseRate.setText((int) mbeans.get(position).getResponseRate() + "");
+        viewHolder.itemFragmentMineCollectionListviewLayoutMessagePrice.setText((int) mbeans.get(position).getPrice() + "");
+        viewHolder.itemFragmentMineCollectionListviewLayoutMessageSex.setText(mbeans.get(position).getOwnerSex());
+        viewHolder.itemFragmentMineCollectionListviewLayoutMessageTitle.setText(mbeans.get(position).getTitle());
         return convertView;
     }
 
