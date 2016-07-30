@@ -16,11 +16,11 @@ import java.util.ArrayList;
  * Created by dllo on 16/7/23.
  */
 public class CollectionFragment extends BaseFragment implements CollectionContract.View {
-    private CollectionAdapter adapter;
-    private ArrayList<CollectionBean> datas;
-    private ListView listView;
-    private CollectionContract.Presenter presenter;
-    private String currentAccount;
+    private CollectionAdapter mAdapter;
+    private ArrayList<CollectionBean> mDatas;
+    private ListView mListView;
+    private CollectionContract.Presenter mPresenter;
+    private String mCurrentAccount;
 
     @Override
     public int setLayout() {
@@ -29,21 +29,21 @@ public class CollectionFragment extends BaseFragment implements CollectionContra
 
     @Override
     public void initView(View view) {
-        datas = new ArrayList<>();
-        adapter = new CollectionAdapter(context);
-        listView = (ListView) view.findViewById(R.id.fragment_mine_colleciton_listview);
+        mDatas = new ArrayList<>();
+        mAdapter = new CollectionAdapter(context);
+        mListView = (ListView) view.findViewById(R.id.fragment_mine_colleciton_listview);
         SharedPreferences sharedPreferences = context.getSharedPreferences("saveAccountName", Context.MODE_PRIVATE);
-        currentAccount = sharedPreferences.getString("accountName", "null");
+        mCurrentAccount = sharedPreferences.getString("accountName", "null");
     }
 
     @Override
     public void initData() {
-        presenter.queryCollectLocalBean(currentAccount);
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        mPresenter.queryCollectLocalBean(mCurrentAccount);
+        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                presenter.delletBmobBean(datas.get(position), currentAccount);
-                presenter.delletLocalBean(datas.get(position), currentAccount);
+                mPresenter.delletBmobBean(mDatas.get(position), mCurrentAccount);
+                mPresenter.delletLocalBean(mDatas.get(position), mCurrentAccount);
                 return true;
             }
 
@@ -57,31 +57,31 @@ public class CollectionFragment extends BaseFragment implements CollectionContra
 
     @Override
     public void LocalBeanSuccess(ArrayList<CollectionBean> arrayList) {
-        datas = arrayList;
-        adapter.setBeans(arrayList);
+        mDatas = arrayList;
+        mAdapter.setBeans(arrayList);
         if (arrayList.size() == 0) {
-            presenter.queryCollectBmoBean(currentAccount);
+            mPresenter.queryCollectBmoBean(mCurrentAccount);
         }
-        listView.setAdapter(adapter);
+        mListView.setAdapter(mAdapter);
 
     }
 
     @Override
     public void BmobBeanSuccess(ArrayList<CollectionBean> arrayList) {
-        datas = arrayList;
-        adapter.setBeans(arrayList);
-        listView.setAdapter(adapter);
+        mDatas = arrayList;
+        mAdapter.setBeans(arrayList);
+        mListView.setAdapter(mAdapter);
     }
 
     @Override
     public void delletSuccess() {
 
-        presenter.queryCollectLocalBean(currentAccount);
+        mPresenter.queryCollectLocalBean(mCurrentAccount);
 
     }
 
     @Override
     public void setPresenter(CollectionContract.Presenter Presenter) {
-        this.presenter = Presenter;
+        this.mPresenter = Presenter;
     }
 }

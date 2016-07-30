@@ -1,14 +1,12 @@
 package com.example.dllo.sofatravel.main.main.mine.collection;
 
 import com.example.dllo.sofatravel.main.main.base.MyApplication;
-import com.example.dllo.sofatravel.main.main.mine.UserInfoBean;
 import com.example.dllo.sofatravel.main.main.tools.MyLiteOrm;
 import com.litesuits.orm.db.assit.QueryBuilder;
 import com.litesuits.orm.db.assit.WhereBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
@@ -18,18 +16,18 @@ import cn.bmob.v3.listener.SaveListener;
  * Created by dllo on 16/7/23.
  */
 public class CollectionModel implements CollectionContract.Model {
-    private CollectionContract.Presenter presenter;
-    private CollectionBean bean;
+    private CollectionContract.Presenter mPresenter;
+    private CollectionBean mBean;
 
     //存储
     @Override
     public void setCollectionBean(CollectionBean collectionBean, String account) {
-        bean = collectionBean;
+        mBean = collectionBean;
         MyLiteOrm.getSingleLiteOrm().getLiteOrm().insert(collectionBean);
-        bean.save(MyApplication.context, new SaveListener() {
+        mBean.save(MyApplication.context, new SaveListener() {
             @Override
             public void onSuccess() {
-                presenter.onCollectionSuccess(new ArrayList<CollectionBean>());
+                mPresenter.onCollectionSuccess(new ArrayList<CollectionBean>());
             }
 
             @Override
@@ -59,7 +57,7 @@ public class CollectionModel implements CollectionContract.Model {
             @Override
             public void onSuccess(List<CollectionBean> list) {
                 ArrayList<CollectionBean> list1 = (ArrayList<CollectionBean>) list;
-                presenter.onCollectionSuccess(list1);
+                mPresenter.onCollectionSuccess(list1);
             }
 
             @Override
@@ -77,7 +75,7 @@ public class CollectionModel implements CollectionContract.Model {
         for (CollectionBean bean1 : datas) {
             MyLiteOrm.getSingleLiteOrm().getLiteOrm().delete(bean1);
         }
-        presenter.delletSuccess();
+        mPresenter.delletSuccess();
     }
 
     //删除网络
@@ -104,6 +102,6 @@ public class CollectionModel implements CollectionContract.Model {
 
     @Override
     public void setPresenter(CollectionContract.Presenter presenter) {
-        this.presenter = presenter;
+        this.mPresenter = presenter;
     }
 }

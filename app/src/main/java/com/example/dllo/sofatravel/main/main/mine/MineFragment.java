@@ -15,9 +15,11 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -29,13 +31,14 @@ import android.widget.Toast;
 
 import com.example.dllo.sofatravel.R;
 import com.example.dllo.sofatravel.main.main.base.BaseFragment;
+import com.example.dllo.sofatravel.main.main.base.MyApplication;
 import com.example.dllo.sofatravel.main.main.mine.collection.CollectionActivity;
 import com.example.dllo.sofatravel.main.main.mine.loginorregister.LoginOrRegisterActivity;
 import com.example.dllo.sofatravel.main.main.order.ConversationActivity;
+import com.example.dllo.sofatravel.main.main.tools.FloatingActionButton;
+import com.example.dllo.sofatravel.main.main.tools.FloatingActionMenu;
+import com.example.dllo.sofatravel.main.main.tools.SubActionButton;
 import com.example.dllo.sofatravel.main.main.values.TheValues;
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
-import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -48,28 +51,37 @@ import cn.bmob.newim.listener.ConnectListener;
 import cn.bmob.newim.listener.ConversationListener;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.onekeyshare.OnekeyShare;
 
 
 /**
  * Created by dllo on 16/7/18.
  */
-public class MineFragment extends BaseFragment implements MineContract.View, View.OnClickListener {
-    private MineContract.Presenter presenter;
-    private ImageView userImage;
-    private RelativeLayout space, share, feedBack, telNumber, setUp, house, money, collection, setupOther, shareOther, notLoginRelativeLayout, hasLoginRelativeLayout;
-    private TextView loginOrRegisterTv, setUserName;
-    private ChangePageReceiver receiver;
-    private LoginOutReceiver outReceiver;
-    private Bitmap currentUserImage;
-    private PopupWindow popupWindow;
-    private UserInfoBean currentUserInfo;
-    private String currentUserName, currentAccountName;
-    private ProgressDialog getUserInfoDialog;
-
-    private SetDefaultReceiver setDefaultReceiver;
-    private FloatingActionMenu actionMenu;
-    private FloatingActionButton actionButton;
-    private boolean hasLogin;
+public class MineFragment extends BaseFragment implements MineContract.View, View.OnClickListener, View.OnTouchListener {
+    private MineContract.Presenter mPresenter;
+    private ImageView mUserImage;
+    private RelativeLayout mSpace, mShare, mFeedBack, mTelNumber, mSetUp, mHouse, mMoney, mCollection, mSetupOther, mshareOther, mNotLoginRelativeLayout, mHasLoginRelativeLayout;
+    private TextView mLoginOrRegisterTv, mSetUserName;
+    private ChangePageReceiver mReceiver;
+    private LoginOutReceiver mOutReceiver;
+    private Bitmap mCurrentUserImage;
+    private PopupWindow mPopupWindow;
+    private UserInfoBean mCurrentUserInfo;
+    private String mCurrentUserName, mCurrentAccountName;
+    private ProgressDialog mGetUserInfoDialog;
+    private SetDefaultReceiver mSetDefaultReceiver;
+    private FloatingActionMenu mActionMenu;
+    private FloatingActionButton mActionButton;
+    private boolean mHasLogin;
+    int screenWidth;
+    int screenHeight;
+    int lastX;
+    int lastY;
+    private int left;
+    private int top;
+    private int right;
+    private int bottom;
 
     @Override
     public int setLayout() {
@@ -78,32 +90,51 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
 
     @Override
     public void initView(View view) {
-        setDefaultReceiver = new SetDefaultReceiver();
+        mSetDefaultReceiver = new SetDefaultReceiver();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("setDefault");
-        context.registerReceiver(setDefaultReceiver, intentFilter);
+        context.registerReceiver(mSetDefaultReceiver, intentFilter);
         //注册更换布局的广播
-        receiver = new ChangePageReceiver();
+        mReceiver = new ChangePageReceiver();
         IntentFilter filter = new IntentFilter();
         filter.addAction("changePage");
-        context.registerReceiver(receiver, filter);
+        context.registerReceiver(mReceiver, filter);
         //注册退出登录广播
-        outReceiver = new LoginOutReceiver();
+        mOutReceiver = new LoginOutReceiver();
         IntentFilter filter1 = new IntentFilter();
         filter1.addAction("outPut");
-        context.registerReceiver(outReceiver, filter1);
+        context.registerReceiver(mOutReceiver, filter1);
         //view初始化
         initViewId(view);
         //判断程序是否是登录状态
-        presenter.whetherLogin();
+        SharedPreferences sharedPreferences = MyApplication.context.getSharedPreferences("isLogin", Context.MODE_PRIVATE);
+        boolean hasLogin = sharedPreferences.getBoolean("hasLogin", false);
+        if (hasLogin) {
+            //登录状态显示的布局
+            mHasLoginRelativeLayout.setVisibility(View.VISIBLE);
+            mNotLoginRelativeLayout.setVisibility(View.GONE);
+        } else {
+            mHasLoginRelativeLayout.setVisibility(View.GONE);
+            mNotLoginRelativeLayout.setVisibility(View.VISIBLE);
+        }
         setFloatButton();
+        DraftTest();
+
+    }
+
+    private void DraftTest() {
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        screenWidth = dm.widthPixels;
+        screenHeight = dm.heightPixels - 50;
+        mActionButton.setOnTouchListener(this);
+
 
     }
 
     private void setFloatButton() {
         ImageView imageView = new ImageView(context);
         imageView.setImageResource(R.mipmap.setting);
-        actionButton = new FloatingActionButton.Builder(getActivity()).setContentView(imageView).build();
+        mActionButton = new FloatingActionButton.Builder(getActivity()).setContentView(imageView).build();
         SubActionButton.Builder itemBuilder = new SubActionButton.Builder(getActivity());
         ImageView icon1 = new ImageView(context);
         icon1.setImageResource(R.mipmap.qrcode);
@@ -112,7 +143,7 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
             @Override
             public void onClick(View v) {
                 aboutUs();
-                actionMenu.close(false);
+                mActionMenu.close(false);
             }
         });
         ImageView icon2 = new ImageView(context);
@@ -121,8 +152,8 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.isLogin();
-                actionMenu.close(false);
+                mPresenter.isLogin();
+                mActionMenu.close(false);
             }
         });
         ImageView icon3 = new ImageView(context);
@@ -131,9 +162,9 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (hasLogin) {
+                if (mHasLogin) {
                     getUserName();
-                    actionMenu.close(false);
+                    mActionMenu.close(false);
                 } else {
                     Toast.makeText(context, "未登录", Toast.LENGTH_SHORT).show();
                 }
@@ -145,16 +176,17 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (hasLogin) {
+                if (mHasLogin) {
                     setUpDialog();
-                    actionMenu.close(false);
+                    mActionMenu.close(false);
                 } else {
                     Toast.makeText(context, "未登录", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-        actionMenu = new FloatingActionMenu.Builder(getActivity()).addSubActionView(button1).addSubActionView(button2).addSubActionView(button3).addSubActionView(button4).attachTo(actionButton).build();
-        actionMenu.setStateChangeListener(new FloatingActionMenu.MenuStateChangeListener() {
+
+        mActionMenu = new FloatingActionMenu.Builder(getActivity()).addSubActionView(button1).addSubActionView(button2).addSubActionView(button3).addSubActionView(button4).attachTo(mActionButton).build();
+        mActionMenu.setStateChangeListener(new FloatingActionMenu.MenuStateChangeListener() {
             @Override
             public void onMenuOpened(FloatingActionMenu floatingActionMenu) {
             }
@@ -168,18 +200,18 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
     @Override
     public void initData() {
         SharedPreferences isLogin = context.getSharedPreferences("isLogin", Context.MODE_PRIVATE);
-        hasLogin = isLogin.getBoolean("hasLogin", false);
-        if (hasLogin) {
-            getUserInfoDialog = new ProgressDialog(context);
-            getUserInfoDialog.setTitle("加载中");
-            getUserInfoDialog.setMessage("loading");
-            getUserInfoDialog.show();
+        mHasLogin = isLogin.getBoolean("hasLogin", false);
+        if (mHasLogin) {
+            mGetUserInfoDialog = new ProgressDialog(context);
+            mGetUserInfoDialog.setTitle("加载中");
+            mGetUserInfoDialog.setMessage("loading");
+            mGetUserInfoDialog.show();
             queryUserName();
             queryUserImage();
             SharedPreferences sharedPreferences = context.getSharedPreferences("saveAccountName", Context.MODE_PRIVATE);
-            currentAccountName = sharedPreferences.getString("accountName", "");
+            mCurrentAccountName = sharedPreferences.getString("accountName", "");
             SharedPreferences preferences = context.getSharedPreferences("saveUserName", Context.MODE_PRIVATE);
-            currentUserName = preferences.getString("userName", "未设置");
+            mCurrentUserName = preferences.getString("userName", "未设置");
             //presenter.queryUserInfoFromLiteOrm(currentAccountName);
         }
         setOnClick();
@@ -192,7 +224,7 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
         //查询用户头像
         SharedPreferences account = context.getSharedPreferences("saveAccountName", Context.MODE_PRIVATE);
         String accountName = account.getString("accountName", "null");
-        presenter.queryUserImage(accountName);
+        mPresenter.queryUserImage(accountName);
         //presenter.queryUserImageFromLiteOrm(accountName);
     }
 
@@ -200,12 +232,12 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
         //查询用户名字
         SharedPreferences account = context.getSharedPreferences("saveAccountName", Context.MODE_PRIVATE);
         String accountName = account.getString("accountName", "null");
-        presenter.getUserBean(accountName);
+        mPresenter.getUserBean(accountName);
     }
 
     @Override
     public void setPresenter(MineContract.Presenter Presenter) {
-        this.presenter = Presenter;
+        this.mPresenter = Presenter;
     }
 
     @Override
@@ -224,18 +256,18 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
     public void whetherLogin(boolean whetherLogin) {
         if (whetherLogin) {
             //登录状态显示的布局
-            hasLoginRelativeLayout.setVisibility(View.VISIBLE);
-            notLoginRelativeLayout.setVisibility(View.GONE);
+            mHasLoginRelativeLayout.setVisibility(View.VISIBLE);
+            mNotLoginRelativeLayout.setVisibility(View.GONE);
         } else {
-            hasLoginRelativeLayout.setVisibility(View.GONE);
-            notLoginRelativeLayout.setVisibility(View.VISIBLE);
+            mHasLoginRelativeLayout.setVisibility(View.GONE);
+            mNotLoginRelativeLayout.setVisibility(View.VISIBLE);
         }
     }
 
 
     @Override
     public void getUserBeanSuccess(String userName) {
-        setUserName.setText(userName);
+        mSetUserName.setText(userName);
 //        if (getUserInfoDialog != null) {
 //            getUserInfoDialog.dismiss();
 //        }
@@ -249,12 +281,12 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
 
     @Override
     public void getUserImageSuccess(Bitmap bitmap) {
-        currentUserImage = bitmap;
-        currentUserInfo = new UserInfoBean();
-        currentUserInfo.setImage(currentUserImage);
-        currentUserInfo.setUserCustomName(currentUserName);
-        currentUserInfo.setAccount(currentAccountName);
-        presenter.saveUserInfo(currentUserInfo);//将用户名和账号保存
+        mCurrentUserImage = bitmap;
+        mCurrentUserInfo = new UserInfoBean();
+        mCurrentUserInfo.setImage(mCurrentUserImage);
+        mCurrentUserInfo.setUserCustomName(mCurrentUserName);
+        mCurrentUserInfo.setAccount(mCurrentAccountName);
+        mPresenter.saveUserInfo(mCurrentUserInfo);//将用户名和账号保存
 //        UserBeanForLiteOrm beanForLiteOrm = new UserBeanForLiteOrm();
 //        beanForLiteOrm.setUserName(currentUserName);
 //        beanForLiteOrm.setAccount(currentAccountName);
@@ -267,12 +299,12 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
 
     @Override
     public void readUserImageSuccess(Bitmap bitmap) {
-        userImage.setImageBitmap(bitmap);
-        if (getUserInfoDialog != null) {
-            getUserInfoDialog.dismiss();
+        mUserImage.setImageBitmap(bitmap);
+        if (mGetUserInfoDialog != null) {
+            mGetUserInfoDialog.dismiss();
         }
-        if (popupWindow != null) {
-            popupWindow.dismiss();
+        if (mPopupWindow != null) {
+            mPopupWindow.dismiss();
         }
         //读取用户信息 成功后dialog dismiss
     }
@@ -284,7 +316,7 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
 
     @Override
     public void loginOrRegisterSaveDefaultUserBeanToLiteOrmSuccess(UserBeanForLiteOrm beanForLiteOrm) {
-        setUserName.setText(beanForLiteOrm.getUserName());
+        mSetUserName.setText(beanForLiteOrm.getUserName());
     }
 
     @Override
@@ -294,11 +326,11 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
 
     @Override
     public void queryUserInfoFromLiteOrmSuccess(UserBeanForLiteOrm beanForLiteOrm) {
-        userImage.setImageBitmap(beanForLiteOrm.getImage());
-        setUserName.setText(beanForLiteOrm.getUserName());
-        currentUserImage = beanForLiteOrm.getImage();
-        if (getUserInfoDialog != null) {
-            getUserInfoDialog.dismiss();
+        mUserImage.setImageBitmap(beanForLiteOrm.getImage());
+        mSetUserName.setText(beanForLiteOrm.getUserName());
+        mCurrentUserImage = beanForLiteOrm.getImage();
+        if (mGetUserInfoDialog != null) {
+            mGetUserInfoDialog.dismiss();
         }
 //        if (getUserInfoDialog != null) {
 //            getUserInfoDialog.dismiss();
@@ -320,37 +352,37 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
                 if (getUserNameEt.getText().length() == 0) {
                     Toast.makeText(context, "请填写用户名", Toast.LENGTH_SHORT).show();
                 } else {
-                    currentUserName = getUserNameEt.getText().toString();//获取用户输入的名字
+                    mCurrentUserName = getUserNameEt.getText().toString();//获取用户输入的名字
                     SharedPreferences sharedPreferences = context.getSharedPreferences("saveUserName", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("userName", currentUserName);//将用户设置的名字保存本地
+                    editor.putString("userName", mCurrentUserName);//将用户设置的名字保存本地
                     editor.commit();
-                    presenter.getUserImage(currentAccountName);
+                    mPresenter.getUserImage(mCurrentAccountName);
                     //存入数据库中
                     UserBeanForLiteOrm beanForLiteOrm = new UserBeanForLiteOrm();
-                    beanForLiteOrm.setUserName(currentUserName);
-                    beanForLiteOrm.setAccount(currentAccountName);
-                    if (currentUserImage == null) {
+                    beanForLiteOrm.setUserName(mCurrentUserName);
+                    beanForLiteOrm.setAccount(mCurrentAccountName);
+                    if (mCurrentUserImage == null) {
                         Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher_one);
                         beanForLiteOrm.setImage(bitmap);
                     } else {
-                        beanForLiteOrm.setImage(currentUserImage);
+                        beanForLiteOrm.setImage(mCurrentUserImage);
                     }
-                    presenter.changeUserNameForLiteOrm(beanForLiteOrm);
+                    mPresenter.changeUserNameForLiteOrm(beanForLiteOrm);
                     //设置新名字
 
                     UserInfoBean userBean = new UserInfoBean();
-                    userBean.setUserCustomName(currentUserName);
-                    userBean.setAccount(currentAccountName);
-                    if (currentUserImage == null) {
+                    userBean.setUserCustomName(mCurrentUserName);
+                    userBean.setAccount(mCurrentAccountName);
+                    if (mCurrentUserImage == null) {
                         Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher_one);
                         userBean.setImage(bitmap);
                     } else {
-                        userBean.setImage(currentUserImage);
+                        userBean.setImage(mCurrentUserImage);
                     }
-                    presenter.saveUserInfo(userBean);
+                    mPresenter.saveUserInfo(userBean);
                     //存入网络数据库
-                    setUserName.setText(currentUserName);
+                    mSetUserName.setText(mCurrentUserName);
 
                 }
             }
@@ -411,12 +443,12 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
                 SharedPreferences.Editor clearUserName = clearName.edit();
                 clearUserName.clear();
                 clearUserName.commit();
-                userImage.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher_one));
+                mUserImage.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher_one));
                 Intent intent = new Intent("outPut");
                 context.sendBroadcast(intent);
-                currentUserImage = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher_one);
-                currentUserName = new String();
-                currentAccountName = new String();
+                mCurrentUserImage = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher_one);
+                mCurrentUserName = new String();
+                mCurrentAccountName = new String();
                 BmobUser.logOut(context);
                 dialog.dismiss();
             }
@@ -424,18 +456,60 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
         builder.create().show();
     }
 
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        int action = event.getAction();
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+                lastX = (int) event.getRawX();
+                lastY = (int) event.getRawX();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                int dx = (int) (event.getRawX() - lastX);
+                int dy = (int) (event.getRawY() - lastY);
+                left = v.getLeft() + dx;
+                top = v.getTop() + dy;
+                right = v.getRight() + dx;
+                bottom = v.getBottom() + dy;
+                if (left < 0) {
+                    left = 0;
+                    right = left + v.getWidth();
+                }
+                if (right > screenWidth) {
+                    right = screenWidth;
+                    left = right - v.getWidth();
+                }
+                if (top < 0) {
+                    top = 0;
+                    bottom = top + v.getHeight();
+                }
+                if (bottom > screenHeight) {
+                    bottom = screenHeight;
+                    top = bottom - v.getHeight();
+                }
+                v.layout(left, top, right, bottom);
+                lastX = (int) event.getRawX();
+                lastY = (int) event.getRawY();
+                break;
+            case MotionEvent.ACTION_UP:
+
+                break;
+        }
+        return false;
+    }
+
     //登录后接受的广播
     class ChangePageReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            hasLoginRelativeLayout.setVisibility(View.VISIBLE);
-            notLoginRelativeLayout.setVisibility(View.GONE);
+            mHasLoginRelativeLayout.setVisibility(View.VISIBLE);
+            mNotLoginRelativeLayout.setVisibility(View.GONE);
             queryUserName();
             queryUserImage();
             SharedPreferences sharedPreferences = context.getSharedPreferences("saveAccountName", Context.MODE_PRIVATE);
-            currentAccountName = sharedPreferences.getString("accountName", "");
+            mCurrentAccountName = sharedPreferences.getString("accountName", "");
             SharedPreferences preferences = context.getSharedPreferences("saveUserName", Context.MODE_PRIVATE);
-            currentUserName = preferences.getString("userName", "未设置");
+            mCurrentUserName = preferences.getString("userName", "未设置");
             // presenter.queryUserInfoFromLiteOrm(currentAccountName);
             getUserInfoDialog();
         }
@@ -446,8 +520,8 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
         @Override
         public void onReceive(Context context, Intent intent) {
             SharedPreferences sharedPreferences = context.getSharedPreferences("saveAccountName", Context.MODE_PRIVATE);
-            currentAccountName = sharedPreferences.getString("accountName", "");
-            presenter.loginOrRegisterSaveDefaultUserBeanToLiteOrm(currentAccountName, "未设置");
+            mCurrentAccountName = sharedPreferences.getString("accountName", "");
+            mPresenter.loginOrRegisterSaveDefaultUserBeanToLiteOrm(mCurrentAccountName, "未设置");
         }
     }
     //注册后设置默认数据广播
@@ -457,8 +531,8 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            hasLoginRelativeLayout.setVisibility(View.GONE);
-            notLoginRelativeLayout.setVisibility(View.VISIBLE);
+            mHasLoginRelativeLayout.setVisibility(View.GONE);
+            mNotLoginRelativeLayout.setVisibility(View.VISIBLE);
         }
     }
 
@@ -506,22 +580,22 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
                     Bundle bundle = data.getExtras();
                     if (bundle != null) {
                         Bitmap photo = (Bitmap) bundle.get("data"); //get bitmap
-                        userImage.setImageBitmap(photo);
-                        currentUserImage = photo;//设置图片后设置为当前image
+                        mUserImage.setImageBitmap(photo);
+                        mCurrentUserImage = photo;//设置图片后设置为当前image
                         ByteArrayOutputStream stream = new ByteArrayOutputStream();
                         photo.compress(Bitmap.CompressFormat.JPEG, 75, stream);// (0-100)压缩文件
                         // 此处可以把Bitmap保存到sd卡中
-                        userImage.setImageBitmap(photo); // 把图片显示在ImageView控件上
+                        mUserImage.setImageBitmap(photo); // 把图片显示在ImageView控件上
                         UserInfoBean bean = new UserInfoBean();
-                        bean.setAccount(currentAccountName);//设置账号
-                        bean.setUserCustomName(currentUserName);//设置用户名
+                        bean.setAccount(mCurrentAccountName);//设置账号
+                        bean.setUserCustomName(mCurrentUserName);//设置用户名
                         bean.setImage(photo);//设置图片
-                        presenter.saveUserInfo(bean);//存入网络数据库
+                        mPresenter.saveUserInfo(bean);//存入网络数据库
                         UserBeanForLiteOrm beanForLiteOrm = new UserBeanForLiteOrm();
-                        beanForLiteOrm.setAccount(currentAccountName);
-                        beanForLiteOrm.setUserName(currentUserName);
+                        beanForLiteOrm.setAccount(mCurrentAccountName);
+                        beanForLiteOrm.setUserName(mCurrentUserName);
                         beanForLiteOrm.setImage(photo);
-                        presenter.setUserImageForLiteOrm(beanForLiteOrm);//存入本地数据库
+                        mPresenter.setUserImageForLiteOrm(beanForLiteOrm);//存入本地数据库
                         try {
                             stream.close();
                         } catch (IOException e) {
@@ -542,21 +616,21 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
                 Bundle extras = data.getExtras();
                 if (extras != null) {
                     Bitmap photo = extras.getParcelable("data");
-                    currentUserImage = photo;//设置图片后设置为当前image
+                    mCurrentUserImage = photo;//设置图片后设置为当前image
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     photo.compress(Bitmap.CompressFormat.JPEG, 75, stream);// (0-100)压缩文件
                     // 此处可以把Bitmap保存到sd卡中
-                    userImage.setImageBitmap(photo); // 把图片显示在ImageView控件上
+                    mUserImage.setImageBitmap(photo); // 把图片显示在ImageView控件上
                     UserInfoBean bean = new UserInfoBean();
-                    bean.setAccount(currentAccountName);//设置账号
-                    bean.setUserCustomName(currentUserName);//设置用户名
+                    bean.setAccount(mCurrentAccountName);//设置账号
+                    bean.setUserCustomName(mCurrentUserName);//设置用户名
                     bean.setImage(photo);//设置图片
-                    presenter.saveUserInfo(bean);//存入网络数据库
+                    mPresenter.saveUserInfo(bean);//存入网络数据库
                     UserBeanForLiteOrm beanForLiteOrm = new UserBeanForLiteOrm();
-                    beanForLiteOrm.setAccount(currentAccountName);
-                    beanForLiteOrm.setUserName(currentUserName);
+                    beanForLiteOrm.setAccount(mCurrentAccountName);
+                    beanForLiteOrm.setUserName(mCurrentUserName);
                     beanForLiteOrm.setImage(photo);
-                    presenter.setUserImageForLiteOrm(beanForLiteOrm);//存入本地数据库
+                    mPresenter.setUserImageForLiteOrm(beanForLiteOrm);//存入本地数据库
                     try {
                         stream.close();
                     } catch (IOException e) {
@@ -570,10 +644,10 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        context.unregisterReceiver(receiver);
-        context.unregisterReceiver(outReceiver);
-        context.unregisterReceiver(setDefaultReceiver);
-        actionButton.setVisibility(View.GONE);
+        context.unregisterReceiver(mReceiver);
+        context.unregisterReceiver(mOutReceiver);
+        context.unregisterReceiver(mSetDefaultReceiver);
+        mActionButton.setVisibility(View.GONE);
     }
 
 
@@ -598,52 +672,52 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
         camear.setOnClickListener(this);
         locrdImage.setOnClickListener(this);
         close.setOnClickListener(this);
-        popupWindow = new PopupWindow(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        popupWindow.setFocusable(true);
-        popupWindow.setBackgroundDrawable(new BitmapDrawable());
-        popupWindow.setContentView(view);
-        popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+        mPopupWindow = new PopupWindow(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mPopupWindow.setFocusable(true);
+        mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
+        mPopupWindow.setContentView(view);
+        mPopupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
     }
 
     private void initViewId(View view) {
-        loginOrRegisterTv = (TextView) view.findViewById(R.id.fragment_mine_login_or_signup);
-        setUserName = (TextView) view.findViewById(R.id.fragment_mine_login_or_signup_username);
-        userImage = (ImageView) view.findViewById(R.id.fragment_mine_user_image);
-        space = (RelativeLayout) view.findViewById(R.id.fragment_mine_release_layout);
-        share = (RelativeLayout) view.findViewById(R.id.fragment_mine_share_layout);
-        feedBack = (RelativeLayout) view.findViewById(R.id.fragment_mine_suggestion_layout);
-        telNumber = (RelativeLayout) view.findViewById(R.id.fragment_mine_telnumber_layout);
-        setUp = (RelativeLayout) view.findViewById(R.id.fragment_mine_setup_layout);
-        house = (RelativeLayout) view.findViewById(R.id.fragment_mine_house_layout);
-        money = (RelativeLayout) view.findViewById(R.id.fragment_mine_money_layout);
-        collection = (RelativeLayout) view.findViewById(R.id.fragment_mine_collection_layout);
-        setupOther = (RelativeLayout) view.findViewById(R.id.fragment_mine_setup_layout_other);
-        shareOther = (RelativeLayout) view.findViewById(R.id.fragment_mine_share_layout_other);
-        notLoginRelativeLayout = (RelativeLayout) view.findViewById(R.id.fragment_mine_not_login);
-        hasLoginRelativeLayout = (RelativeLayout) view.findViewById(R.id.fragment_mine_has_login);
+        mLoginOrRegisterTv = (TextView) view.findViewById(R.id.fragment_mine_login_or_signup);
+        mSetUserName = (TextView) view.findViewById(R.id.fragment_mine_login_or_signup_username);
+        mUserImage = (ImageView) view.findViewById(R.id.fragment_mine_user_image);
+        mSpace = (RelativeLayout) view.findViewById(R.id.fragment_mine_release_layout);
+        mShare = (RelativeLayout) view.findViewById(R.id.fragment_mine_share_layout);
+        mFeedBack = (RelativeLayout) view.findViewById(R.id.fragment_mine_suggestion_layout);
+        mTelNumber = (RelativeLayout) view.findViewById(R.id.fragment_mine_telnumber_layout);
+        mSetUp = (RelativeLayout) view.findViewById(R.id.fragment_mine_setup_layout);
+        mHouse = (RelativeLayout) view.findViewById(R.id.fragment_mine_house_layout);
+        mMoney = (RelativeLayout) view.findViewById(R.id.fragment_mine_money_layout);
+        mCollection = (RelativeLayout) view.findViewById(R.id.fragment_mine_collection_layout);
+        mSetupOther = (RelativeLayout) view.findViewById(R.id.fragment_mine_setup_layout_other);
+        mshareOther = (RelativeLayout) view.findViewById(R.id.fragment_mine_share_layout_other);
+        mNotLoginRelativeLayout = (RelativeLayout) view.findViewById(R.id.fragment_mine_not_login);
+        mHasLoginRelativeLayout = (RelativeLayout) view.findViewById(R.id.fragment_mine_has_login);
     }
 
     private void setOnClick() {
-        userImage.setOnClickListener(this);
-        space.setOnClickListener(this);
-        share.setOnClickListener(this);
-        setUp.setOnClickListener(this);
-        money.setOnClickListener(this);
-        telNumber.setOnClickListener(this);
-        house.setOnClickListener(this);
-        feedBack.setOnClickListener(this);
-        collection.setOnClickListener(this);
-        setupOther.setOnClickListener(this);
-        shareOther.setOnClickListener(this);
-        loginOrRegisterTv.setOnClickListener(this);
-        setUserName.setOnClickListener(this);
+        mUserImage.setOnClickListener(this);
+        mSpace.setOnClickListener(this);
+        mShare.setOnClickListener(this);
+        mSetUp.setOnClickListener(this);
+        mMoney.setOnClickListener(this);
+        mTelNumber.setOnClickListener(this);
+        mHouse.setOnClickListener(this);
+        mFeedBack.setOnClickListener(this);
+        mCollection.setOnClickListener(this);
+        mSetupOther.setOnClickListener(this);
+        mshareOther.setOnClickListener(this);
+        mLoginOrRegisterTv.setOnClickListener(this);
+        mSetUserName.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fragment_mine_user_image:
-                //presenter.isLogin();
+                mPresenter.isLogin();
                 break;
             case R.id.fragment_mine_release_layout:
                 Intent intent = new Intent(context, LoginOrRegisterActivity.class);
@@ -653,9 +727,12 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
                 telNumberDialog();
                 break;
             case R.id.fragment_mine_share_layout:
+                shareMyApp();
                 break;
             case R.id.fragment_mine_suggestion_layout:
                 Toast.makeText(context, "呵呵,你还敢有意见?", Toast.LENGTH_SHORT).show();
+                Intent intent3 = new Intent(context, SuggestionActivity.class);
+                context.startActivity(intent3);
                 break;
             case R.id.fragment_mine_setup_layout:
 
@@ -665,40 +742,13 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
                 context.startActivity(intent1);
                 break;
             case R.id.fragment_mine_money_layout:
+                conversationTest();
                 break;
             case R.id.fragment_mine_setup_layout_other:
                 //setUpDialog();
                 break;
             case R.id.fragment_mine_share_layout_other:
-                final UserInfoBean user = BmobUser.getCurrentUser(context, UserInfoBean.class);
-                BmobIM.connect(user.getObjectId(), new ConnectListener() {
-                    @Override
-                    public void done(String uid, BmobException e) {
-                        if (e == null) {
-                            BmobIMUserInfo info = new BmobIMUserInfo();
-                            info.setUserId(user.getObjectId());
-                            info.setName(currentUserName);
-
-                            BmobIM.getInstance().startPrivateConversation(info, new ConversationListener() {
-                                @Override
-                                public void done(BmobIMConversation c, BmobException e) {
-                                    if (e == null) {
-                                        //在此跳转到聊天页面
-                                        Intent intent2 = new Intent(context, ConversationActivity.class);
-                                        Bundle bundle = new Bundle();
-                                        bundle.putSerializable("c", c);
-                                        intent2.putExtras(bundle);
-                                        context.startActivity(intent2);
-                                    } else {
-                                        Log.d("lanou", e.getMessage() + "(" + e.getErrorCode() + ")");
-                                    }
-                                }
-                            });
-                        } else {
-                            Log.d("lanou", "失败" + e);
-                        }
-                    }
-                });
+                shareMyApp();
                 break;
             case R.id.fragment_mine_house_layout:
                 BmobIM.getInstance().disConnect();
@@ -712,8 +762,8 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
                 openTakePhoto();
                 break;
             case R.id.mine_message_close:
-                if (popupWindow != null) {
-                    popupWindow.dismiss();
+                if (mPopupWindow != null) {
+                    mPopupWindow.dismiss();
                 }
                 break;
             case R.id.mine_message_localImage:
@@ -727,6 +777,66 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
                 break;
 
         }
+    }
+
+    private void conversationTest() {
+        final UserInfoBean user = BmobUser.getCurrentUser(context, UserInfoBean.class);
+        BmobIM.connect(user.getObjectId(), new ConnectListener() {
+            @Override
+            public void done(String uid, BmobException e) {
+                if (e == null) {
+                    BmobIMUserInfo info = new BmobIMUserInfo();
+                    info.setUserId(user.getObjectId());
+                    info.setName(mCurrentUserName);
+
+                    BmobIM.getInstance().startPrivateConversation(info, new ConversationListener() {
+                        @Override
+                        public void done(BmobIMConversation c, BmobException e) {
+                            if (e == null) {
+                                //在此跳转到聊天页面
+                                Intent intent2 = new Intent(context, ConversationActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("c", c);
+                                intent2.putExtras(bundle);
+                                context.startActivity(intent2);
+                            } else {
+                                Log.d("lanou", e.getMessage() + "(" + e.getErrorCode() + ")");
+                            }
+                        }
+                    });
+                } else {
+                    Log.d("lanou", "失败" + e);
+                }
+            }
+        });
+    }
+
+    private void shareMyApp() {
+        ShareSDK.initSDK(context);
+        OnekeyShare oks = new OnekeyShare();
+        //关闭sso授权
+        oks.disableSSOWhenAuthorize();
+
+// 分享时Notification的图标和文字  2.5.9以后的版本不调用此方法
+        //oks.setNotification(R.drawable.ic_launcher, getString(R.string.app_name));
+        // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
+//                oks.setTitle(getString(R.string.share));
+        // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
+        oks.setTitleUrl("http://www.shafalvxing.com/");
+        // text是分享文本，所有平台都需要这个字段
+        oks.setText("我是分享文本");
+        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+        //oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+        // url仅在微信（包括好友和朋友圈）中使用
+        oks.setUrl("http://www.shafalvxing.com/");
+        // comment是我对这条分享的评论，仅在人人网和QQ空间使用
+        oks.setComment("我是测试评论文本");
+        // site是分享此内容的网站名称，仅在QQ空间使用
+        oks.setSite(getString(R.string.app_name));
+        // siteUrl是分享此内容的网站地址，仅在QQ空间使用
+        oks.setSiteUrl("http://www.shafalvxing.com/");
+        // 启动分享GUI
+        oks.show(context);
     }
 
     private void openTakePhoto() {
