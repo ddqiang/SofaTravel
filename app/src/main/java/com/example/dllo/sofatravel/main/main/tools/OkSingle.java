@@ -7,6 +7,7 @@ import android.os.SystemClock;
 import android.provider.Settings;
 import android.util.Log;
 
+import com.example.dllo.sofatravel.main.main.tools.imagecache.CacheFile;
 import com.example.dllo.sofatravel.main.main.values.TheValues;
 import com.google.gson.Gson;
 
@@ -82,6 +83,10 @@ public class OkSingle {
                 String result = null;
                 try {
                     result = response.body().string();
+
+                    //缓存到本地
+                    CacheFile.Save(result);
+
                     t = gson.fromJson(result, clazz);
                     Message message = handler.obtainMessage();
                     message.what = SUCCESS;
@@ -119,7 +124,7 @@ public class OkSingle {
                 + id + "%7D";
         getRequestAsync(url, t, onTrue, onError);
     }
-    //发现 详情 解析
+
 
     //首页 户主租住地详情数据解析
     public <T> void getOwnerMessageDetail(int messageId, Class<T> t, OnTrue<T> onTrue, OnError onError) {

@@ -65,6 +65,7 @@
     <string name="tv">电视</string>
     <string name="wash">卫生间</string>
     <string name="wifi">无线网</string>
+    <string name="loser">请求失败,请检查网络设置</string>
 
 
 </resources>

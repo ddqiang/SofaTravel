@@ -18,6 +18,10 @@
     <dimen name="five">5dp</dimen>
     <dimen name="fifty">50dp</dimen>
 
+    <dimen name="image_thumbnail_size">200dp</dimen>
+
+    <dimen name="image_thumbnail_spacing">1dp</dimen>
+
     <dimen name="home_banner_twoHundred">200dp</dimen>
 
     <dimen name="fragment_mine_login_or_signup_text_margin">10dp</dimen>

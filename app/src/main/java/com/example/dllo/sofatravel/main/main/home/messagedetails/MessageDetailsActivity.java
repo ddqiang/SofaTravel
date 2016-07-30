@@ -71,6 +71,7 @@ public class MessageDetailsActivity extends BaseActivity implements View.OnClick
                     public void convert(MyViewHolder holder, final MessageBean.DataBean.ResultBean resultBean) {
                         holder.setShowImage(R.id.message_showIv, resultBean.getPictureList().get(0));
                         holder.setText(R.id.message_name, resultBean.getOwnerName());
+                        Log.d("MessageDetailsActivity", "aaaa"+resultBean.getOwnerName());
                         holder.setHeadImage(R.id.message_head, resultBean.getOwnerPic());
                         holder.setAgeText(R.id.message_age, String.valueOf(resultBean.getAge()));
 
