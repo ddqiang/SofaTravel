@@ -10,6 +10,8 @@ import com.bumptech.glide.Glide;
 import com.example.dllo.sofatravel.R;
 import com.example.dllo.sofatravel.main.main.base.BaseActivity;
 import com.example.dllo.sofatravel.main.main.tools.OkSingle;
+import com.example.dllo.sofatravel.main.main.tools.alipay.Merchant;
+import com.example.dllo.sofatravel.main.main.tools.alipay.OrderUtils;
 import com.fuqianla.paysdk.FuQianLaPay;
 import com.youth.banner.Banner;
 
@@ -141,13 +143,13 @@ public class MessageConcreActivity extends BaseActivity implements View.OnClickL
 
     private void topay() {
         FuQianLaPay pay = new FuQianLaPay.Builder(this)
-//                .partner(Merchant.MERCHANT_NO)//商户号
+              .partner(Merchant.MERCHANT_NO)//商户号
                 .alipay(true)
-//                .orderID(OrderUtils.getOutTradeNo())//订单号
+              .orderID(OrderUtils.getOutTradeNo())//订单号
                 .amount(Double.parseDouble("0.1"))//金额
                 .subject("卫龙")//商品名称
                 .body("辣条,好 尅")//商品交易详情
-//                .notifyUrl(Merchant.MERCHANT_NOTIFY_URL)
+               .notifyUrl(Merchant.MERCHANT_NOTIFY_URL)
                 .build();
         pay.startPay();
     }

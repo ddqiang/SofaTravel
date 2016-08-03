@@ -66,6 +66,23 @@
     <string name="wash">卫生间</string>
     <string name="wifi">无线网</string>
     <string name="loser">请求失败,请检查网络设置</string>
+    <string name="dis_order">预定</string>
+    <string name="dis_mine_order">我的订单</string>
+    <string name="dis_sun">共1晚</string>
+    <string name="dis_in_info">入住信息</string>
+    <string name="dis_bed">床位</string>
+    <string name="dis_in_person">入住人</string>
+    <string name="dis_name">入住人姓名</string>
+    <string name="dis_phone">手机号</string>
+    <string name="dis_order_phone">联系号码</string>
+    <string name="dis_price">价格</string>
+    <string name="dis_sum_price">总价</string>
+    <string name="dis_pay">支付方式</string>
+    <string name="dis_order_pay">支付宝</string>
+    <string name="dis_cancel">取消规则</string>
+    <string name="dis_can_not_be_canceled">(不可取消)</string>
+    <string name="dis_content_order">订单确认后,不可变更取消预订人取消将扣除全额预付款作为违约金</string>
+    <string name="dis_confirm">确认并支付</string>
 
 
 </resources>

@@ -21,6 +21,7 @@ import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
+import com.bumptech.glide.Glide;
 import com.example.dllo.sofatravel.R;
 import com.example.dllo.sofatravel.main.main.base.BaseActivity;
 import com.example.dllo.sofatravel.main.main.discover.youthdetails.order.DisOrderActivity;
@@ -80,6 +81,8 @@ public class DetailInfoActivity extends BaseActivity implements View.OnClickList
                 intent.putExtra("price",bedBean.getData().getRmlist().get(position).getPrice());
                 intent.putExtra("hotelName",bean.getData().getHotelName());
                 intent.putExtra("rooms",bedBean.getData().getRmlist().get(position).getAvailableRooms());
+                intent.putExtra("picture",bedBean.getData().getRmlist().get(position).getRmTypeImageUrl());
+                intent.putExtra("address",bean.getData().getAddress());
                 startActivity(intent);
             }
         });
@@ -310,4 +313,5 @@ public class DetailInfoActivity extends BaseActivity implements View.OnClickList
             }
         }
     }
+
 }

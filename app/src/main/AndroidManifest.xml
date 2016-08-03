@@ -162,6 +162,7 @@
         <activity android:name=".main.main.main.MainActivity" />
         <activity android:name=".main.main.discover.youthdetails.order.DisOrderActivity"/>
         <activity android:name=".main.main.mine.SuggestionActivity" />
+        <activity android:name=".main.main.discover.youthdetails.order.mineorder.MineOrderActivity"/>
 
 
         <meta-data
