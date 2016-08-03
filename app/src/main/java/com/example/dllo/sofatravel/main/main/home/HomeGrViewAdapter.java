@@ -22,7 +22,7 @@ import com.example.dllo.sofatravel.main.main.tools.NetWorkOnLine;
 @SuppressLint("NewApi")
 public class HomeGrViewAdapter extends BaseAdapter {
 
-    private HomeBean homeBean;
+    private HomeBean mHomeBean;
     private Context context;
     private MyOnClick myOnClick;
 
@@ -36,18 +36,18 @@ public class HomeGrViewAdapter extends BaseAdapter {
     }
 
     public void setHomeBean(HomeBean homeBean) {
-        this.homeBean = homeBean;
+        this.mHomeBean = homeBean;
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return homeBean == null ? 0 : homeBean.getData().getHomePageInfo().getRecommendCity().size();
+        return mHomeBean == null ? 0 : mHomeBean.getData().getHomePageInfo().getRecommendCity().size();
     }
 
     @Override
     public Object getItem(int position) {
-        return homeBean.getData().getHomePageInfo().getRecommendCity().get(position);
+        return mHomeBean.getData().getHomePageInfo().getRecommendCity().get(position);
     }
 
     @Override
@@ -66,9 +66,9 @@ public class HomeGrViewAdapter extends BaseAdapter {
             holder = (MyGrViewViewHolder) convertView.getTag();
         }
 
-        holder.cityTv.setText(homeBean.getData().getHomePageInfo().getRecommendCity().get(position).getCityNameCh());
-        holder.cityEnglishTv.setText(homeBean.getData().getHomePageInfo().getRecommendCity().get(position).getCityNameEn());
-        Glide.with(context).load(homeBean.getData().getHomePageInfo().getRecommendCity().get(position).getMainPic()).into(holder.imageView);
+        holder.cityTv.setText(mHomeBean.getData().getHomePageInfo().getRecommendCity().get(position).getCityNameCh());
+        holder.cityEnglishTv.setText(mHomeBean.getData().getHomePageInfo().getRecommendCity().get(position).getCityNameEn());
+        Glide.with(context).load(mHomeBean.getData().getHomePageInfo().getRecommendCity().get(position).getMainPic()).into(holder.imageView);
         if (NetWorkOnLine.isNetworkAvailable()){
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override

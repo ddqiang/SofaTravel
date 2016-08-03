@@ -16,9 +16,9 @@ import com.example.dllo.sofatravel.main.main.base.BaseActivity;
  */
 public class BannerDetailActivity extends BaseActivity implements View.OnClickListener {
 
-    private ImageView backIv, shareIv;
-    private TextView titleTv;
-    private WebView webView;
+    private ImageView mBackIv, mShareIv;
+    private TextView mTitleTv;
+    private WebView mWebView;
 
     @Override
     public int getLayout() {
@@ -27,40 +27,40 @@ public class BannerDetailActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void initView() {
-        backIv = (ImageView) findViewById(R.id.banner_detail_back);
-        shareIv = (ImageView) findViewById(R.id.banner_detail_share);
-        titleTv = (TextView) findViewById(R.id.banner_detail_title);
-        webView = (WebView) findViewById(R.id.banner_detail_webView);
+        mBackIv = (ImageView) findViewById(R.id.banner_detail_back);
+        mShareIv = (ImageView) findViewById(R.id.banner_detail_share);
+        mTitleTv = (TextView) findViewById(R.id.banner_detail_title);
+        mWebView = (WebView) findViewById(R.id.banner_detail_webView);
 
-        backIv.setOnClickListener(this);
-        shareIv.setOnClickListener(this);
+        mBackIv.setOnClickListener(this);
+        mShareIv.setOnClickListener(this);
     }
 
     @Override
     public void initData() {
         String title = getIntent().getStringExtra("title");
-        titleTv.setText(title);
-        webView.loadUrl(getIntent().getStringExtra("webUrl"));
+        mTitleTv.setText(title);
+        mWebView.loadUrl(getIntent().getStringExtra("webUrl"));
         //处理VebView 的页面控制和请求通知
         webViewClient();
     }
 
     private void webViewClient() {
-        webView.setWebViewClient(new WebViewClient() {
+        mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 //f返回值为true 的时候控制网页 在 VebView 中去打开,如果为false 调用系统浏览器
-                webView.loadUrl(getIntent().getStringExtra("webUrl"));
+                mWebView.loadUrl(getIntent().getStringExtra("webUrl"));
                 return true;
             }
         });
 
         //启动支持 javaScript
-        WebSettings settings = webView.getSettings();
+        WebSettings settings = mWebView.getSettings();
         settings.setJavaScriptEnabled(true);
         //webView 加载页面优先使用缓存
         settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-        webView.setWebChromeClient(new WebChromeClient() {
+        mWebView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);

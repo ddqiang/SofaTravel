@@ -122,6 +122,7 @@ public class OkSingle {
 
         String url = " http://www.shafalvxing.com/space/getSharedSpaceInfo.do?bizParams=%7B%22spaceId%22%3A"
                 + id + "%7D";
+
         getRequestAsync(url, t, onTrue, onError);
     }
 

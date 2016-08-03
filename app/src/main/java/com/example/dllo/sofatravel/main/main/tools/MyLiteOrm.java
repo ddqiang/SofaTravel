@@ -3,6 +3,7 @@ package com.example.dllo.sofatravel.main.main.tools;
 import android.content.Context;
 
 import com.example.dllo.sofatravel.main.main.base.MyApplication;
+import com.example.dllo.sofatravel.main.main.home.HomeBean;
 import com.example.dllo.sofatravel.main.main.mine.UserBeanForLiteOrm;
 import com.litesuits.orm.LiteOrm;
 import com.litesuits.orm.db.assit.QueryBuilder;
@@ -34,14 +35,15 @@ public class MyLiteOrm {
     }
 
 
-    public void addDataForLiteOrm(Object info) {
+    public Runnable addDataForLiteOrm(Object info) {
         MyLiteOrm.getSingleLiteOrm().getLiteOrm().insert(info);
+        return null;
     }
 
-    public ArrayList<UserBeanForLiteOrm> getUserInfoDatasFromLiteOrm(String colName, Object colParamter) {
-        ArrayList<UserBeanForLiteOrm> datasFromLiteOrm = MyLiteOrm.getSingleLiteOrm().getLiteOrm()
+    public Runnable getUserInfoDatasFromLiteOrm(String colName, String colParamter) {
+       MyLiteOrm.getSingleLiteOrm().getLiteOrm()
                 .query(new QueryBuilder<>(UserBeanForLiteOrm.class)
-                        .where(colName + " LIKE ?", new Object[]{colParamter}));
-        return datasFromLiteOrm;
+                        .where(colName + " LIKE ?", new String[]{colParamter}));
+        return null;
     }
 }

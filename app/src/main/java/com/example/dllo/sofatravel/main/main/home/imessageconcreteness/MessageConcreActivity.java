@@ -22,12 +22,12 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
  */
 public class MessageConcreActivity extends BaseActivity implements View.OnClickListener {
 
-    private ImageView back, share;
-    private TextView price, reservations;
-    private Banner banner;
-    private TextView title, room, bed, azonic, name, context, posOne, posTwo, posThree, description;
-    private ImageView head;
-    private LinearLayout linearLayout;
+    private ImageView mBack, mShare;
+    private TextView mPrice, mReservations;
+    private Banner mBanner;
+    private TextView mTitle, room, bed, azonic, mName, mContext, mPosOne, mPosTwo, mPosThree, mDescription;
+    private ImageView mHead;
+    private LinearLayout mLinearLayout;
     int spaceId = getIntent().getIntExtra("spaceId", 0);
 
     @Override
@@ -37,23 +37,23 @@ public class MessageConcreActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void initView() {
-        banner = (Banner) findViewById(R.id.message_concre_banner);
-        back = (ImageView) findViewById(R.id.message_concre_back);
-        price = (TextView) findViewById(R.id.message_concre_price);
-        title = (TextView) findViewById(R.id.message_concre_title);
-        name = (TextView) findViewById(R.id.message_concre_ownerName);
-        head = (ImageView) findViewById(R.id.message_concre_head);
-        context = (TextView) findViewById(R.id.message_concre_context);
-        posOne = (TextView) findViewById(R.id.message_concre_posOne);
-        posTwo = (TextView) findViewById(R.id.message_concre_posTwo);
-        posThree = (TextView) findViewById(R.id.message_concre_posThree);
-        description = (TextView) findViewById(R.id.message_concre_description);
-        linearLayout = (LinearLayout) findViewById(R.id.message_concre_linearLayout);
-        share = (ImageView) findViewById(R.id.message_concre_share);
-        reservations = (TextView) findViewById(R.id.message_concre_reservations);
-        reservations.setOnClickListener(this);
-        share.setOnClickListener(this);
-        back.setOnClickListener(this);
+        mBanner = (Banner) findViewById(R.id.message_concre_banner);
+        mBack = (ImageView) findViewById(R.id.message_concre_back);
+        mPrice = (TextView) findViewById(R.id.message_concre_price);
+        mTitle = (TextView) findViewById(R.id.message_concre_title);
+        mName = (TextView) findViewById(R.id.message_concre_ownerName);
+        mHead = (ImageView) findViewById(R.id.message_concre_head);
+        mContext = (TextView) findViewById(R.id.message_concre_context);
+        mPosOne = (TextView) findViewById(R.id.message_concre_posOne);
+        mPosTwo = (TextView) findViewById(R.id.message_concre_posTwo);
+        mPosThree = (TextView) findViewById(R.id.message_concre_posThree);
+        mDescription = (TextView) findViewById(R.id.message_concre_description);
+        mLinearLayout = (LinearLayout) findViewById(R.id.message_concre_linearLayout);
+        mShare = (ImageView) findViewById(R.id.message_concre_share);
+        mReservations = (TextView) findViewById(R.id.message_concre_reservations);
+        mReservations.setOnClickListener(this);
+        mShare.setOnClickListener(this);
+        mBack.setOnClickListener(this);
 
     }
 
@@ -73,20 +73,20 @@ public class MessageConcreActivity extends BaseActivity implements View.OnClickL
                         for (int i = 0; i < data.getData().getPictureList().size(); i++) {
                             imageURL[i] = data.getData().getPictureList().get(i);
                         }
-                        banner.setDelayTime(Integer.MAX_VALUE);
-                        banner.setImages(imageURL);
-                        price.setText(String.valueOf(data.getData().getPrice()));
-                        title.setText(data.getData().getTitle());
-                        Glide.with(MessageConcreActivity.this).load(data.getData().getOwnerPic()).into(head);
-                        name.setText(data.getData().getOwnerName());
-                        context.setText(data.getData().getOwnerDescription());
+                        mBanner.setDelayTime(Integer.MAX_VALUE);
+                        mBanner.setImages(imageURL);
+                        mPrice.setText(String.valueOf(data.getData().getPrice()));
+                        mTitle.setText(data.getData().getTitle());
+                        Glide.with(MessageConcreActivity.this).load(data.getData().getOwnerPic()).into(mHead);
+                        mName.setText(data.getData().getOwnerName());
+                        mContext.setText(data.getData().getOwnerDescription());
                         if (data.getData().getLabelList() != null) {
-                            posOne.setText(data.getData().getLabelList().get(0).getLabelName());
-                            posTwo.setText(data.getData().getLabelList().get(1).getLabelName());
-                            posThree.setText(data.getData().getLabelList().get(2).getLabelName());
-                            description.setText(data.getData().getDescription());
+                            mPosOne.setText(data.getData().getLabelList().get(0).getLabelName());
+                            mPosTwo.setText(data.getData().getLabelList().get(1).getLabelName());
+                            mPosThree.setText(data.getData().getLabelList().get(2).getLabelName());
+                            mDescription.setText(data.getData().getDescription());
                         } else {
-                            linearLayout.setVisibility(View.GONE);
+                            mLinearLayout.setVisibility(View.GONE);
                         }
                     }
                 }, new OkSingle.OnError() {

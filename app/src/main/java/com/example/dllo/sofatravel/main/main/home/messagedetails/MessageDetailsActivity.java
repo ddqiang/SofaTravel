@@ -26,10 +26,10 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
  */
 public class MessageDetailsActivity extends BaseActivity implements View.OnClickListener, PullToRefreshBase.OnRefreshListener2 {
 
-    private ImageView back, map;
-    private TextView titleCity;
-    private ListView messageLv;
-    private PullToRefreshListView pullToRefreshListView;
+    private ImageView mBack, mMap;
+    private TextView mTitleCity;
+    private ListView mMessageLv;
+    private PullToRefreshListView mPullToRefreshListView;
 
     @Override
     public int getLayout() {
@@ -38,23 +38,23 @@ public class MessageDetailsActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void initView() {
-        back = (ImageView) findViewById(R.id.messageDetail_back);
-        titleCity = (TextView) findViewById(R.id.messageDetail_city);
-        map = (ImageView) findViewById(R.id.messageDetail_map);
-        pullToRefreshListView = (PullToRefreshListView) findViewById(R.id.messageDetail_lv);
+        mBack = (ImageView) findViewById(R.id.messageDetail_back);
+        mTitleCity = (TextView) findViewById(R.id.messageDetail_city);
+        mMap = (ImageView) findViewById(R.id.messageDetail_map);
+        mPullToRefreshListView = (PullToRefreshListView) findViewById(R.id.messageDetail_lv);
         //实现下拉效果
-        pullToRefreshListView.setMode(PullToRefreshBase.Mode.BOTH);
+        mPullToRefreshListView.setMode(PullToRefreshBase.Mode.BOTH);
 
-        map.setOnClickListener(this);
-        back.setOnClickListener(this);
-        titleCity.setOnClickListener(this);
-        pullToRefreshListView.setOnRefreshListener(this);
+        mMap.setOnClickListener(this);
+        mBack.setOnClickListener(this);
+        mTitleCity.setOnClickListener(this);
+        mPullToRefreshListView.setOnRefreshListener(this);
     }
 
     @Override
     public void initData() {
-        titleCity.setText(getIntent().getStringExtra("city"));
-        messageLv = pullToRefreshListView.getRefreshableView();
+        mTitleCity.setText(getIntent().getStringExtra("city"));
+        mMessageLv = mPullToRefreshListView.getRefreshableView();
         //数据解析
         MyOkHttp();
     }
@@ -65,7 +65,7 @@ public class MessageDetailsActivity extends BaseActivity implements View.OnClick
         OkSingle.getInstance().getOwnerMessageDetail(messageId, MessageBean.class, new OkSingle.OnTrue<MessageBean>() {
             @Override
             public void hasData(final MessageBean data) {
-                messageLv.setAdapter(new CommonAdapter<MessageBean.DataBean.ResultBean>
+                mMessageLv.setAdapter(new CommonAdapter<MessageBean.DataBean.ResultBean>
                         (MessageDetailsActivity.this, data.getData().getResult(), R.layout.messagedetail_lv_item) {
                     @Override
                     public void convert(MyViewHolder holder, final MessageBean.DataBean.ResultBean resultBean) {
@@ -111,7 +111,7 @@ public class MessageDetailsActivity extends BaseActivity implements View.OnClick
                                 startActivity(intent);
                             }
                         });
-                        pullToRefreshListView.onRefreshComplete();
+                        mPullToRefreshListView.onRefreshComplete();
                     }
                 });
             }
@@ -152,7 +152,7 @@ public class MessageDetailsActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void onPullDownToRefresh(PullToRefreshBase refreshView) {
-        pullToRefreshListView.setRefreshing(true);
+        mPullToRefreshListView.setRefreshing(true);
         MyOkHttp();
     }
 
@@ -160,7 +160,7 @@ public class MessageDetailsActivity extends BaseActivity implements View.OnClick
     public void onPullUpToRefresh(PullToRefreshBase refreshView) {
 //        page = page + 10;
         MyOkHttp();
-        pullToRefreshListView.setRefreshing(true);
-        pullToRefreshListView.onRefreshComplete();
+        mPullToRefreshListView.setRefreshing(true);
+        mPullToRefreshListView.onRefreshComplete();
     }
 }

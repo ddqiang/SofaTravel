@@ -26,11 +26,10 @@ import static java.lang.Thread.sleep;
  */
 public class HomeFragment extends BaseFragment {
 
-    private HeaderGridView headerGridView;
-    private HomeGrViewAdapter homeGrViewAdapter;
-    private Banner banner;
-    private Intent intent;
-    private TextView mTextView;
+    private HeaderGridView mHeaderGridView;
+    private HomeGrViewAdapter mHomeGrViewAdapter;
+    private Banner mBanner;
+    private Intent mIntent;
     private final static String TGA = "HomeFragment";
 
     @Override
@@ -40,16 +39,15 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     public void initView(View view) {
-        headerGridView = (HeaderGridView) view.findViewById(R.id.home_gridView);
-        mTextView = (TextView) view.findViewById(R.id.text);
+        mHeaderGridView = (HeaderGridView) view.findViewById(R.id.home_gridView);
     }
 
     @Override
     public void initData() {
-        homeGrViewAdapter = new HomeGrViewAdapter(context);
+        mHomeGrViewAdapter = new HomeGrViewAdapter(context);
         View view1 = LayoutInflater.from(context).inflate(R.layout.home_banner, null);
-        banner = (Banner) view1.findViewById(R.id.fragment_home_banner);
-        headerGridView.addHeaderView(view1);
+        mBanner = (Banner) view1.findViewById(R.id.fragment_home_banner);
+        mHeaderGridView.addHeaderView(view1);
         //首页数据解析 and 轮播图
         if (NetWorkOnLine.isNetworkAvailable()) {
             showHomeOk();
@@ -57,9 +55,9 @@ public class HomeFragment extends BaseFragment {
         String result = CacheFile.loading();
         Gson gson = new Gson();
         HomeBean homeBean = gson.fromJson(result, HomeBean.class);
-        homeGrViewAdapter.setHomeBean(homeBean);
+        mHomeGrViewAdapter.setHomeBean(homeBean);
         BannerShow(homeBean);
-        headerGridView.setAdapter(homeGrViewAdapter);
+        mHeaderGridView.setAdapter(mHomeGrViewAdapter);
     }
 
 
@@ -67,7 +65,7 @@ public class HomeFragment extends BaseFragment {
         OkSingle.getInstance().getMessgeDetail(HomeBean.class, new OkSingle.OnTrue<HomeBean>() {
             @Override
             public void hasData(final HomeBean data) {
-                homeGrViewAdapter.setHomeBean(data);
+                mHomeGrViewAdapter.setHomeBean(data);
                 BannerShow(data);
                 adapterOnClick(data);
             }
@@ -76,28 +74,28 @@ public class HomeFragment extends BaseFragment {
             public void noHasData() {
 
                 Toast.makeText(context, "请求失败,请检查网络设置", Toast.LENGTH_SHORT).show();
-//                mTextView.setText(View.VISIBLE);
+
             }
         });
     }
 
 
     public void BannerShow(final HomeBean data) {
-        banner.setBannerStyle(Banner.CIRCLE_INDICATOR);
-        banner.setIndicatorGravity(Banner.CENTER);
+        mBanner.setBannerStyle(Banner.CIRCLE_INDICATOR);
+        mBanner.setIndicatorGravity(Banner.CENTER);
         Log.d(TGA, "data.getData().getHomePageInfo():" + data.getData().getHomePageInfo());
         String[] bannerUrl = new String[data.getData().getHomePageInfo().getTopBanner().size()];
         for (int i = 0; i < data.getData().getHomePageInfo().getTopBanner().size(); i++) {
             bannerUrl[i] = data.getData().getHomePageInfo().getTopBanner().get(i).getAdvPic();
         }
-        banner.setDelayTime(3000);
-        banner.setImages(bannerUrl);
-        banner.setOnBannerClickListener(new Banner.OnBannerClickListener() {
+        mBanner.setDelayTime(3000);
+        mBanner.setImages(bannerUrl);
+        mBanner.setOnBannerClickListener(new Banner.OnBannerClickListener() {
             @Override
             public void OnBannerClick(View view, int position) {
-                intent = new Intent(context, BannerDetailActivity.class);
-                intent.putExtra("webUrl", data.getData().getHomePageInfo().getTopBanner().get(0).getShareInfo().getShareUrl());
-                intent.putExtra("title", data.getData().getHomePageInfo().getTopBanner().get(0).getAdvTitle());
+                mIntent = new Intent(context, BannerDetailActivity.class);
+                mIntent.putExtra("webUrl", data.getData().getHomePageInfo().getTopBanner().get(0).getShareInfo().getShareUrl());
+                mIntent.putExtra("title", data.getData().getHomePageInfo().getTopBanner().get(0).getAdvTitle());
 
                 final ProgressDialog dialog = ProgressDialog.show(context, "跳转网页", "请稍后...");
                 new Thread(new Runnable() {
@@ -109,7 +107,7 @@ public class HomeFragment extends BaseFragment {
                             e.printStackTrace();
                         }
                         dialog.dismiss();
-                        getActivity().startActivity(intent);
+                        getActivity().startActivity(mIntent);
                     }
                 }).start();
             }
@@ -117,7 +115,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     public void adapterOnClick(final HomeBean data) {
-        homeGrViewAdapter.setMyOnClick(new MyOnClick() {
+        mHomeGrViewAdapter.setMyOnClick(new MyOnClick() {
             @Override
             public void onClick(int pos) {
                 Intent intent = new Intent(context, MessageDetailsActivity.class);
