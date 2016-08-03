@@ -2,7 +2,6 @@ package com.example.dllo.sofatravel.main.main.discover.youthdetails.selectcity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -17,7 +16,6 @@ import com.amap.api.maps.AMap;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
 import com.example.dllo.sofatravel.R;
-import com.example.dllo.sofatravel.main.main.base.BaseActivity;
 import com.example.dllo.sofatravel.main.main.discover.youthdetails.detail.YouthDetailsActivity;
 
 import java.text.SimpleDateFormat;
@@ -27,7 +25,7 @@ import java.util.Date;
  * Created by dllo on 16/7/20.
  */
 public class MapActivity extends AppCompatActivity implements View.OnClickListener, AMapLocationListener, LocationSource {
-    private ImageView back,mapList;//返回
+    private ImageView back, mapList;//返回
     private AMapLocationClientOption mLocationOption;
     private MapView mapView;
     private AMapLocationClient mlocationClient;
@@ -39,14 +37,14 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dis_map);
-        back= (ImageView) findViewById(R.id.discover_map_back);//返回
+        back = (ImageView) findViewById(R.id.discover_map_back);//返回
         back.setOnClickListener(this);
-        mapList= (ImageView) findViewById(R.id.discover_map_list);//
+        mapList = (ImageView) findViewById(R.id.discover_map_list);//
         mapList.setOnClickListener(this);
-        titles= (TextView) findViewById(R.id.discover_map_title);
+        titles = (TextView) findViewById(R.id.discover_map_title);
         titles.setOnClickListener(this);
 
-        mapView= (MapView) findViewById(R.id.aty_dis_map_view);
+        mapView = (MapView) findViewById(R.id.aty_dis_map_view);
         mapView.onCreate(null);
         aMap = mapView.getMap();
         aMap.setLocationSource(this);
@@ -76,6 +74,7 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
         titles.setText(getIntent().getStringExtra("city"));
 
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -83,24 +82,28 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
         mapView.onDestroy();
         mlocationClient.stopLocation();
     }
+
     @Override
     protected void onResume() {
         super.onResume();
         //在activity执行onResume时执行mMapView.onResume ()，实现地图生命周期管理
         mapView.onResume();
     }
+
     @Override
     protected void onPause() {
         super.onPause();
         //在activity执行onPause时执行mMapView.onPause ()，实现地图生命周期管理
         mapView.onPause();
     }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         //在activity执行onSaveInstanceState时执行mMapView.onSaveInstanceState (outState)，实现地图生命周期管理
         mapView.onSaveInstanceState(outState);
     }
+
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
         if (aMapLocation != null) {
@@ -129,26 +132,28 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
             }
         }
     }
+
     @Override
     public void activate(OnLocationChangedListener onLocationChangedListener) {
-        this.mListener=onLocationChangedListener;
+        this.mListener = onLocationChangedListener;
     }
+
     @Override
     public void deactivate() {
     }
+
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.discover_map_title:
                 break;
             case R.id.discover_map_back:
                 finish();
                 break;
             case R.id.discover_map_list:
-                Intent mapListIntent=new Intent(MapActivity.this, YouthDetailsActivity.class);
+                Intent mapListIntent = new Intent(MapActivity.this, YouthDetailsActivity.class);
                 startActivity(mapListIntent);
                 break;
         }
     }
-
 }

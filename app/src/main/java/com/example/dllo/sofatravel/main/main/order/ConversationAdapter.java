@@ -79,7 +79,7 @@ public class ConversationAdapter extends RecyclerView.Adapter {
         public sendViewHolder(View itemView) {
             super(itemView);
             userName = (TextView) itemView.findViewById(R.id.send_user_name);
-            content = (TextView) itemView.findViewById(R.id.send_content);
+            content = (TextView) itemView.findViewById(R.id.receive_content);
             userImage = (ImageView) itemView.findViewById(R.id.send_user_head_image);
 
         }
@@ -93,7 +93,7 @@ public class ConversationAdapter extends RecyclerView.Adapter {
         public receiveViewHolder(View itemView) {
             super(itemView);
             userName = (TextView) itemView.findViewById(R.id.receive_user_name);
-            content = (TextView) itemView.findViewById(R.id.receive_content);
+            content = (TextView) itemView.findViewById(R.id.send_content);
             userImage = (ImageView) itemView.findViewById(R.id.receive_user_head_image);
         }
     }

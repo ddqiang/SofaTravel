@@ -2,7 +2,6 @@ package com.example.dllo.sofatravel.main.main.order;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -86,6 +85,8 @@ public class ConversationActivity extends BaseActivity implements View.OnClickLi
                             bean.setSendUserName(msg.getFromId());
                             bean.setText(msg.getContent());
                             bean.setType(1);
+                            bean.setSendUserName(msg.getFromId());
+                            bean.setReceiverUserName(msg.getToId());
                             beans.add(bean);
                             adapter.setBeans(beans);
                             recyclerView.setAdapter(adapter);
@@ -107,8 +108,5 @@ public class ConversationActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onMessageReceive(List<MessageEvent> list) {
-        for (int i = 0; i < list.size(); i++) {
-            Log.d("lanou", list.get(i).getMessage().getContent());
-        }
     }
 }

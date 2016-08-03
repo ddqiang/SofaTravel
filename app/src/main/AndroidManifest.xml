@@ -4,7 +4,7 @@
     <!--允许写入或删除SD卡-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-
+    <uses-permission android:name="android.permission.SEND_SMS" />
     <!-- 允许程序打开网络套接字权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 保持屏幕常亮所需权限 -->
@@ -160,7 +160,7 @@
         <activity android:name=".main.main.mine.collection.CollectionActivity" />
         <activity android:name=".main.main.order.ConversationActivity" />
         <activity android:name=".main.main.main.MainActivity" />
-        <activity android:name=".main.main.discover.youthdetails.order.DisOrderActivity"/>
+        <activity android:name=".main.main.discover.youthdetails.order.DisOrderActivity" />
         <activity android:name=".main.main.mine.SuggestionActivity" />
 
 

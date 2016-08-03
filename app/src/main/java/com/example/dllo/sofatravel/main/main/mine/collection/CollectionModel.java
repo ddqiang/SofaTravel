@@ -3,7 +3,6 @@ package com.example.dllo.sofatravel.main.main.mine.collection;
 import com.example.dllo.sofatravel.main.main.base.MyApplication;
 import com.example.dllo.sofatravel.main.main.tools.MyLiteOrm;
 import com.litesuits.orm.db.assit.QueryBuilder;
-import com.litesuits.orm.db.assit.WhereBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,10 +41,11 @@ public class CollectionModel implements CollectionContract.Model {
 //        ArrayList<CollectionBean> datas = MyLiteOrm.getSingleLiteOrm().
 //                getLiteOrm().query(new QueryBuilder<>(CollectionBean.class).where("account" + " LIKE ?", new String[]{account}));
 
-        List<CollectionBean> collectionBeanList = MyLiteOrm.getSingleLiteOrm().getLiteOrm().query(new QueryBuilder<>(CollectionBean.class).
+        ArrayList<CollectionBean> collectionBeanList = MyLiteOrm.getSingleLiteOrm().getLiteOrm().query(new QueryBuilder<>(CollectionBean.class).
                 where("account" + " LIKE ?", new Object[]{account}));
-            MyLiteOrm.getSingleLiteOrm().getLiteOrm().delete(new WhereBuilder(CollectionBean.class)
-                    .where("spaceId " + " = ?", new Object[]{String.valueOf(collectionBeanList.get(0).getSpaceId())}));
+        mPresenter.LocalBeanSuccess(collectionBeanList);
+//            MyLiteOrm.getSingleLiteOrm().getLiteOrm().delete(new WhereBuilder(CollectionBean.class)
+//                    .where("spaceId " + " = ?", new Object[]{String.valueOf(collectionBeanList.get(0).getSpaceId())}));
     }
 
     //查询网络数据库
@@ -57,7 +57,7 @@ public class CollectionModel implements CollectionContract.Model {
             @Override
             public void onSuccess(List<CollectionBean> list) {
                 ArrayList<CollectionBean> list1 = (ArrayList<CollectionBean>) list;
-                mPresenter.onCollectionSuccess(list1);
+                mPresenter.BmobBeanSuccess(list1);
             }
 
             @Override
@@ -72,10 +72,14 @@ public class CollectionModel implements CollectionContract.Model {
     public void delletLocalBean(CollectionBean bean, String account) {
         ArrayList<CollectionBean> datas = MyLiteOrm.getSingleLiteOrm().
                 getLiteOrm().query(new QueryBuilder<>(CollectionBean.class).where("account" + " LIKE ?", new Object[]{account}));
-        for (CollectionBean bean1 : datas) {
-            MyLiteOrm.getSingleLiteOrm().getLiteOrm().delete(bean1);
+        for (int i = 0; i < datas.size(); i++) {
+            if (datas.get(i).getSpaceId() == bean.getSpaceId()) {
+                MyLiteOrm.getSingleLiteOrm().getLiteOrm().delete(bean);
+                mPresenter.delletSuccess();
+            }
         }
-        mPresenter.delletSuccess();
+
+
     }
 
     //删除网络
@@ -83,7 +87,7 @@ public class CollectionModel implements CollectionContract.Model {
     public void delletBmobBean(CollectionBean bean, String account) {
         BmobQuery<CollectionBean> bmobQuery = new BmobQuery<CollectionBean>();
         bmobQuery.addWhereEqualTo("accountName", account);
-        bmobQuery.addWhereEqualTo("spaceId",bean.getSpaceId());
+        bmobQuery.addWhereEqualTo("spaceId", bean.getSpaceId());
         bmobQuery.findObjects(MyApplication.context, new FindListener<CollectionBean>() {
             @Override
             public void onSuccess(List<CollectionBean> list) {
