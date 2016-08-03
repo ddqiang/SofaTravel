@@ -126,7 +126,7 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
         DisplayMetrics dm = getResources().getDisplayMetrics();
         screenWidth = dm.widthPixels;
         screenHeight = dm.heightPixels - 50;
-        mActionButton.setOnTouchListener(this);
+       // mActionButton.setOnTouchListener(this);
 
 
     }
@@ -206,19 +206,18 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
             mGetUserInfoDialog.setTitle("加载中");
             mGetUserInfoDialog.setMessage("loading");
             mGetUserInfoDialog.show();
-            queryUserName();
-            queryUserImage();
+            //queryUserName();
+            //queryUserImage();
             SharedPreferences sharedPreferences = context.getSharedPreferences("saveAccountName", Context.MODE_PRIVATE);
             mCurrentAccountName = sharedPreferences.getString("accountName", "");
             SharedPreferences preferences = context.getSharedPreferences("saveUserName", Context.MODE_PRIVATE);
             mCurrentUserName = preferences.getString("userName", "未设置");
-            //presenter.queryUserInfoFromLiteOrm(currentAccountName);
+            mPresenter.queryUserInfoFromLiteOrm(mCurrentAccountName);
         }
         setOnClick();
 
 
     }
-
 
     private void queryUserImage() {
         //查询用户头像
@@ -263,7 +262,6 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
             mNotLoginRelativeLayout.setVisibility(View.VISIBLE);
         }
     }
-
 
     @Override
     public void getUserBeanSuccess(String userName) {
@@ -337,7 +335,6 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
 //        }
     }
 
-
     //设置用户昵称dialog
     private void getUserName() {
 
@@ -390,7 +387,6 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
         builder.create().show();
     }
 
-
     //未登录时 设置 dialog
     private void aboutUs() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -422,7 +418,6 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
         });
         builder.create().show();
     }
-
 
     //登录后 退出登录 dialog
     private void setUpDialog() {
@@ -536,7 +531,6 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
         }
     }
 
-
     /**
      * 开始裁剪
      *
@@ -582,25 +576,25 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
                         Bitmap photo = (Bitmap) bundle.get("data"); //get bitmap
                         mUserImage.setImageBitmap(photo);
                         mCurrentUserImage = photo;//设置图片后设置为当前image
-                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                        photo.compress(Bitmap.CompressFormat.JPEG, 75, stream);// (0-100)压缩文件
-                        // 此处可以把Bitmap保存到sd卡中
-                        mUserImage.setImageBitmap(photo); // 把图片显示在ImageView控件上
-                        UserInfoBean bean = new UserInfoBean();
-                        bean.setAccount(mCurrentAccountName);//设置账号
-                        bean.setUserCustomName(mCurrentUserName);//设置用户名
-                        bean.setImage(photo);//设置图片
-                        mPresenter.saveUserInfo(bean);//存入网络数据库
-                        UserBeanForLiteOrm beanForLiteOrm = new UserBeanForLiteOrm();
-                        beanForLiteOrm.setAccount(mCurrentAccountName);
-                        beanForLiteOrm.setUserName(mCurrentUserName);
-                        beanForLiteOrm.setImage(photo);
-                        mPresenter.setUserImageForLiteOrm(beanForLiteOrm);//存入本地数据库
-                        try {
-                            stream.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+//                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//                        photo.compress(Bitmap.CompressFormat.JPEG, 75, stream);// (0-100)压缩文件
+//                        // 此处可以把Bitmap保存到sd卡中
+//                        mUserImage.setImageBitmap(photo); // 把图片显示在ImageView控件上
+//                        UserInfoBean bean = new UserInfoBean();
+//                        bean.setAccount(mCurrentAccountName);//设置账号
+//                        bean.setUserCustomName(mCurrentUserName);//设置用户名
+//                        bean.setImage(photo);//设置图片
+//                        mPresenter.saveUserInfo(bean);//存入网络数据库
+//                        UserBeanForLiteOrm beanForLiteOrm = new UserBeanForLiteOrm();
+//                        beanForLiteOrm.setAccount(mCurrentAccountName);
+//                        beanForLiteOrm.setUserName(mCurrentUserName);
+//                        beanForLiteOrm.setImage(photo);
+//                        mPresenter.setUserImageForLiteOrm(beanForLiteOrm);//存入本地数据库
+//                        try {
+//                            stream.close();
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
                     } else {
                         return;
                     }
@@ -650,9 +644,7 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
         mActionButton.setVisibility(View.GONE);
     }
 
-
     //progressDialog
-
     private void getUserInfoDialog() {
 //        if (getUserInfoDialog == null) {
 //            getUserInfoDialog = ProgressDialog.show(context, "请等待", "加载数据中", true, false);

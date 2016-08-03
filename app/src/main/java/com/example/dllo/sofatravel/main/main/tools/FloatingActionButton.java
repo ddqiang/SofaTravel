@@ -242,7 +242,7 @@ public class FloatingActionButton extends FrameLayout {
             int size = context.getResources().getDimensionPixelSize(R.dimen.action_button_size);
             int margin = context.getResources().getDimensionPixelSize(R.dimen.action_button_margin);
             LayoutParams layoutParams = new LayoutParams(size, size, Gravity.BOTTOM | Gravity.RIGHT);
-            layoutParams.setMargins(margin, margin, margin, margin);
+            layoutParams.setMargins(0,0,10,200);
             setLayoutParams(layoutParams);
             setTheme(FloatingActionButton.THEME_LIGHT);
             setPosition(FloatingActionButton.POSITION_BOTTOM_RIGHT);

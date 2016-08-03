@@ -6,12 +6,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dllo.sofatravel.R;
 import com.example.dllo.sofatravel.main.main.base.BaseActivity;
@@ -20,6 +22,7 @@ import com.example.dllo.sofatravel.main.main.values.TheValues;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -51,6 +54,7 @@ public class SuggestionActivity extends BaseActivity {
     ImageView activitySuggestionShowImage;
     private Bitmap mCurrentImage;
     private String mCurrentContent;
+    private SmsManager smsManager;
 
     @Override
     public int getLayout() {
@@ -93,10 +97,22 @@ public class SuggestionActivity extends BaseActivity {
             case R.id.activity_suggestion_send:
                 mCurrentContent = activitySuggestionQuestionContentText.getText().toString();
                 Intent data = new Intent(Intent.ACTION_SENDTO);
-                data.setData(Uri.parse("zihow@foxmail.com"));
-                data.putExtra(Intent.EXTRA_SUBJECT, "意见反馈");
-                data.putExtra(Intent.EXTRA_TEXT, mCurrentContent);
-                startActivity(data);
+//                data.setData(Uri.parse("zihow@foxmail.com"));
+//                data.putExtra(Intent.EXTRA_SUBJECT, "意见反馈");
+//                data.putExtra(Intent.EXTRA_TEXT, mCurrentContent);
+//                startActivity(data);
+
+//                Uri uri = Uri.parse("smsto:13390020230");
+//                Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+//                intent.putExtra("sms_body", mCurrentContent);
+//                startActivity(intent);
+                smsManager = SmsManager.getDefault();
+                //拆分短信内容（手机短信长度限制）
+                List<String> divideContents = smsManager.divideMessage(mCurrentContent);
+                for (String text : divideContents) {
+                    smsManager.sendTextMessage("13390020230", null, text, null, null);
+                }
+                Toast.makeText(this, mCurrentContent, Toast.LENGTH_SHORT).show();
                 activitySuggestionQuestionContentText.setText("");
                 activitySuggestionShowImage.setImageBitmap(null);
                 break;

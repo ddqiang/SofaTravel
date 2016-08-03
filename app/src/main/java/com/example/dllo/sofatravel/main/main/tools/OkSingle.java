@@ -3,8 +3,6 @@ package com.example.dllo.sofatravel.main.main.tools;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.os.SystemClock;
-import android.provider.Settings;
 import android.util.Log;
 
 import com.example.dllo.sofatravel.main.main.tools.imagecache.CacheFile;
@@ -12,8 +10,6 @@ import com.example.dllo.sofatravel.main.main.values.TheValues;
 import com.google.gson.Gson;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import okhttp3.Call;
 import okhttp3.Callback;
