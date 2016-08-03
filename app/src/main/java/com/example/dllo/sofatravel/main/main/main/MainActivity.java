@@ -21,10 +21,10 @@ import com.example.dllo.sofatravel.main.main.search.SearchFragment;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
-    private RadioButton home, discover, order, mine,search;
+    private RadioButton home, discover, order, mine, search;
     private TextView homeTv, discoverTv, searchTv, orderTv, mineTv;
     private MineFragment mineFragment;
-    private ImageView discoverIv;
+    private ImageView mSearch;
 
     @Override
     public int getLayout() {
@@ -38,7 +38,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         discover = (RadioButton) findViewById(R.id.discover_tab);
         order = (RadioButton) findViewById(R.id.order_tab);
         mine = (RadioButton) findViewById(R.id.mine_tab);
-        search = (RadioButton) findViewById(R.id.search_tab);
+        mSearch = (ImageView) findViewById(R.id.search_tab);
 
         homeTv = (TextView) findViewById(R.id.home_tab_text);
         discoverTv = (TextView) findViewById(R.id.discover_tab_text);
@@ -46,11 +46,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         orderTv = (TextView) findViewById(R.id.order_tab_text);
         mineTv = (TextView) findViewById(R.id.mine_tab_text);
 
-        search.setOnClickListener(this);
+
+        mSearch.setOnClickListener(this);
         home.setOnClickListener(this);
         discover.setOnClickListener(this);
         order.setOnClickListener(this);
         mine.setOnClickListener(this);
+        homeTv.setOnClickListener(this);
+        discoverTv.setOnClickListener(this);
+        searchTv.setOnClickListener(this);
+        orderTv.setOnClickListener(this);
+        mineTv.setOnClickListener(this);
     }
 
     @Override
@@ -83,42 +89,42 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.home_tab:
                 transaction.replace(R.id.show_fragment_fl, new HomeFragment());
                 homeTv.setTextColor(android.graphics.Color.parseColor("#A3D9DB"));
-                discoverTv.setTextColor(android.graphics.Color.parseColor("#000000"));
-                searchTv.setTextColor(android.graphics.Color.parseColor("#000000"));
-                orderTv.setTextColor(android.graphics.Color.parseColor("#000000"));
-                mineTv.setTextColor(android.graphics.Color.parseColor("#000000"));
+                discoverTv.setTextColor(android.graphics.Color.parseColor("#C0C0C0"));
+                searchTv.setTextColor(android.graphics.Color.parseColor("#C0C0C0"));
+                orderTv.setTextColor(android.graphics.Color.parseColor("#C0C0C0"));
+                mineTv.setTextColor(android.graphics.Color.parseColor("#C0C0C0"));
 
                 break;
             case R.id.discover_tab:
                 transaction.replace(R.id.show_fragment_fl, new DiscoverFragment());
-                homeTv.setTextColor(android.graphics.Color.parseColor("#000000"));
+                homeTv.setTextColor(android.graphics.Color.parseColor("#C0C0C0"));
                 discoverTv.setTextColor(android.graphics.Color.parseColor("#A3D9DB"));
-                searchTv.setTextColor(android.graphics.Color.parseColor("#000000"));
-                orderTv.setTextColor(android.graphics.Color.parseColor("#000000"));
-                mineTv.setTextColor(android.graphics.Color.parseColor("#000000"));
+                searchTv.setTextColor(android.graphics.Color.parseColor("#C0C0C0"));
+                orderTv.setTextColor(android.graphics.Color.parseColor("#C0C0C0"));
+                mineTv.setTextColor(android.graphics.Color.parseColor("#C0C0C0"));
                 break;
             case R.id.search_tab:
                 transaction.replace(R.id.show_fragment_fl, new SearchFragment());
-                homeTv.setTextColor(android.graphics.Color.parseColor("#000000"));
-                discoverTv.setTextColor(android.graphics.Color.parseColor("#000000"));
+                homeTv.setTextColor(android.graphics.Color.parseColor("#C0C0C0"));
+                discoverTv.setTextColor(android.graphics.Color.parseColor("#C0C0C0"));
+                orderTv.setTextColor(android.graphics.Color.parseColor("#C0C0C0"));
+                mineTv.setTextColor(android.graphics.Color.parseColor("#C0C0C0"));
                 searchTv.setTextColor(android.graphics.Color.parseColor("#A3D9DB"));
-                orderTv.setTextColor(android.graphics.Color.parseColor("#000000"));
-                mineTv.setTextColor(android.graphics.Color.parseColor("#000000"));
                 break;
             case R.id.order_tab:
                 transaction.replace(R.id.show_fragment_fl, new OrderFragment());
-                homeTv.setTextColor(android.graphics.Color.parseColor("#000000"));
-                discoverTv.setTextColor(android.graphics.Color.parseColor("#000000"));
-                searchTv.setTextColor(android.graphics.Color.parseColor("#000000"));
+                homeTv.setTextColor(android.graphics.Color.parseColor("#C0C0C0"));
+                discoverTv.setTextColor(android.graphics.Color.parseColor("#C0C0C0"));
+                searchTv.setTextColor(android.graphics.Color.parseColor("#C0C0C0"));
+                mineTv.setTextColor(android.graphics.Color.parseColor("#C0C0C0"));
                 orderTv.setTextColor(android.graphics.Color.parseColor("#A3D9DB"));
-                mineTv.setTextColor(android.graphics.Color.parseColor("#000000"));
                 break;
             case R.id.mine_tab:
                 transaction.replace(R.id.show_fragment_fl, mineFragment);
-                homeTv.setTextColor(android.graphics.Color.parseColor("#000000"));
-                discoverTv.setTextColor(android.graphics.Color.parseColor("#000000"));
-                searchTv.setTextColor(android.graphics.Color.parseColor("#000000"));
-                orderTv.setTextColor(android.graphics.Color.parseColor("#000000"));
+                homeTv.setTextColor(android.graphics.Color.parseColor("#C0C0C0"));
+                discoverTv.setTextColor(android.graphics.Color.parseColor("#C0C0C0"));
+                searchTv.setTextColor(android.graphics.Color.parseColor("#C0C0C0"));
+                mineTv.setTextColor(android.graphics.Color.parseColor("#C0C0C0"));
                 mineTv.setTextColor(android.graphics.Color.parseColor("#A3D9DB"));
                 break;
         }
