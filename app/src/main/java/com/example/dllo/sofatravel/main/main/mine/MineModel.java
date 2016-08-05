@@ -133,7 +133,10 @@ public class MineModel implements MineContract.Model {
     @Override
     public void queryUserInfoFromLiteOrm(String account) {
         ArrayList<UserBeanForLiteOrm> datas = MyLiteOrm.getSingleLiteOrm().getLiteOrm().query(new QueryBuilder<>(UserBeanForLiteOrm.class).where("account" + " LIKE ?", new Object[]{account}));
-        // ArrayList<UserBeanForLiteOrm> datas = MyLiteOrm.getSingleLiteOrm().getUserInfoDatasFromLiteOrm("account", account);
+        if (datas.size() == 0) {
+            queryUserImage(account);
+            getUserBean(account);
+        }
         presenter.queryUserInfoFromLiteOrmSuccess(datas);
     }
 

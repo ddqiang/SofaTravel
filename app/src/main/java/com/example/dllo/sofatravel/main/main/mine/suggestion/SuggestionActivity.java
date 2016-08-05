@@ -1,4 +1,4 @@
-package com.example.dllo.sofatravel.main.main.mine;
+package com.example.dllo.sofatravel.main.main.mine.suggestion;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
