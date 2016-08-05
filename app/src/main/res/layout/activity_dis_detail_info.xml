@@ -155,6 +155,7 @@
 
                 <TextView
                     android:id="@+id/dis_info_sum"
+                    android:gravity="center"
                     android:layout_width="@dimen/fifty"
                     android:layout_height="@dimen/twenty"
                     android:layout_margin="@dimen/ten"

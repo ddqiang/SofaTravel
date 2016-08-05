@@ -15,17 +15,19 @@ public class OrderBean {
     private String userName;
     private String phoneNumber;
     private String address;
+    private String imgUrl;
 
     public OrderBean() {
     }
 
-    public OrderBean(String hotelNAme, String price, int bed, String userName, String phoneNumber, String address) {
+    public OrderBean(String hotelNAme, String price, int bed, String userName, String phoneNumber, String address, String imgUrl) {
         this.hotelNAme = hotelNAme;
         this.price = price;
         this.bed = bed;
         this.userName = userName;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.imgUrl = imgUrl;
     }
 
 
@@ -90,5 +92,13 @@ public class OrderBean {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 }

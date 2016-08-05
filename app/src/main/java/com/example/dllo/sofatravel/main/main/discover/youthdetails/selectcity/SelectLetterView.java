@@ -17,14 +17,9 @@ import android.view.WindowManager;
  * Created by zly on 16/7/28.
  */
 public class SelectLetterView extends View {
-
     private OnTouchingLetterChangedListener onTouchingLetterChangedListener;
-
     private SelectCityBean bean;
     private String[] letters;
-//            {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P",
-//    "Q","R","S","T","U","V","W","X","Y","Z"};
-
     private int choose = -1;
     private boolean showBkg = false;
 

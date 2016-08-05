@@ -44,16 +44,14 @@ public class DetailInfoActivity extends BaseActivity implements View.OnClickList
     private ExpandableListView expandableListView;
     private BedAdapter bedAdapter;
     private ListView bedListView;
-
-
     private Banner banner;
     private String[] imageURL;
     private RatingBar ratingBar;
-
     private MapView infoMap;
     private AMapLocationClientOption mLocationOption;//定位
     private AMap aMap;
     private LocationSource.OnLocationChangedListener mListener;
+    private  TextView infoInTime,infoOutTime,sum;
 
 
     @Override
@@ -72,6 +70,9 @@ public class DetailInfoActivity extends BaseActivity implements View.OnClickList
         banner = (Banner) findViewById(R.id.dis_detail_info_banner);//轮播图
         ratingBar = (RatingBar) findViewById(R.id.dis_detail_info_ratingbar);
         infoMap = (MapView) findViewById(R.id.dis_info_map);//地图
+        infoInTime= (TextView) findViewById(R.id.dis_info_in_time_tv);
+        infoOutTime= (TextView) findViewById(R.id.dis_info_out_time_tv);
+        sum= (TextView) findViewById(R.id.dis_info_sum);
         // infoMap.onCreate(null);
         // initMap();
         bedListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -83,6 +84,9 @@ public class DetailInfoActivity extends BaseActivity implements View.OnClickList
                 intent.putExtra("rooms",bedBean.getData().getRmlist().get(position).getAvailableRooms());
                 intent.putExtra("picture",bedBean.getData().getRmlist().get(position).getRmTypeImageUrl());
                 intent.putExtra("address",bean.getData().getAddress());
+                intent.putExtra("img", getIntent().getStringExtra("img"));
+                intent.putExtra("inDate",getIntent().getStringExtra("inDate"));
+                intent.putExtra("outDate",getIntent().getStringExtra("outDate"));
                 startActivity(intent);
             }
         });
@@ -90,6 +94,10 @@ public class DetailInfoActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void initData() {
+        infoInTime.setText(getIntent().getStringExtra("inDate"));
+        infoOutTime.setText(getIntent().getStringExtra("outDate"));
+        sum.setText("共"+getIntent().getIntExtra("sum",1)+"晚");
+
         getRequest();
         getInfoBedRequest();
         bedListView.setFocusable(false);
@@ -141,7 +149,6 @@ public class DetailInfoActivity extends BaseActivity implements View.OnClickList
 //        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //        Log.d("DetailInfoActivity", simpleDateFormat.format(startTime));
 //        Log.d("DetailInfoActivity", simpleDateFormat.format(endTime));
-
         OkSingle.getInstance().getRequestAsync(bedUrl, DetailBedBean.class, new OkSingle.OnTrue<DetailBedBean>() {
             @Override
             public void hasData(DetailBedBean data) {

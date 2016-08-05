@@ -90,6 +90,7 @@ public class YouthDetailsActivity extends BaseActivity implements View.OnClickLi
         int day = now.getDate();
         in = day;
         inDate = year+ "-" + month+ "-" + day;
+        outDate = year+"-" + month+ "-" + (day + 1);
         inTimeTv.setText(year + "年" + month + "月" + day + "日");
         outTimeTv.setText(year + "年" + month + "月" + (day + 1) + "日");
         getRequest();
@@ -100,6 +101,10 @@ public class YouthDetailsActivity extends BaseActivity implements View.OnClickLi
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent detailInfo = new Intent(YouthDetailsActivity.this, DetailInfoActivity.class);
                 detailInfo.putExtra("hotelId", bean.getData().getResult().get(position-1).getHotelId());
+                detailInfo.putExtra("img", bean.getData().getResult().get(position - 1).getThumbnailId());
+                detailInfo.putExtra("inDate",inDate);
+                detailInfo.putExtra("outDate",outDate);
+                detailInfo.putExtra("sum", daysBetweenTwoDate(inDate, outDate));
                 Log.d("YouthDetailsActivity", bean.getData().getResult().get(position).getHotelId());
                 startActivity(detailInfo);
             }
@@ -255,6 +260,7 @@ public class YouthDetailsActivity extends BaseActivity implements View.OnClickLi
                 Toast.makeText(YouthDetailsActivity.this, "确定", Toast.LENGTH_SHORT).show();
             }
         });
+        builder.setNegativeButton("取消",null);
         builder.show();
     }
 

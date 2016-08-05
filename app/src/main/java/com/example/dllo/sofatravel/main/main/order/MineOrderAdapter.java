@@ -1,17 +1,24 @@
-package com.example.dllo.sofatravel.main.main.discover.youthdetails.order.mineorder;
+package com.example.dllo.sofatravel.main.main.order;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.BitmapTypeRequest;
+import com.bumptech.glide.Glide;
 import com.example.dllo.sofatravel.R;
 import com.example.dllo.sofatravel.main.main.discover.youthdetails.order.OrderBean;
+import com.example.dllo.sofatravel.main.main.tools.threadpool.SingleThreadPool;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by dllo on 16/8/1.
@@ -19,6 +26,7 @@ import java.util.ArrayList;
 public class MineOrderAdapter extends BaseAdapter {
     private ArrayList<OrderBean>bean;
     private Context context;
+    private Bitmap bitmap;
 
     public void setBean(ArrayList<OrderBean> bean) {
         this.bean = bean;
@@ -60,20 +68,20 @@ public class MineOrderAdapter extends BaseAdapter {
         myViewHolder.bed.setText(bean.get(position).getBed() + "");
         myViewHolder.price.setText(bean.get(position).getPrice() );
         myViewHolder.address.setText(bean.get(position).getAddress());
-        Log.d("MineOrderAdapter", bean.get(position).getAddress());
+        Glide.with(context).load(bean.get(position).getImgUrl()).into(myViewHolder.imageView);
         return convertView;
     }
     class MyViewHolder{
         TextView hotelName, name, phoneNumber, time, bed, price, address;
-
+        ImageView imageView;
         public MyViewHolder(View view) {
             hotelName= (TextView) view.findViewById(R.id.dis_mine_order_hotel_name);
             name = (TextView) view.findViewById(R.id.dis_mine_order_user_name);
             phoneNumber = (TextView) view.findViewById(R.id.dis_mine_order_phone_number);
-            time = (TextView) view.findViewById(R.id.dis_mine_order_time);
             bed = (TextView) view.findViewById(R.id.dis_mine_order_bed);
             price = (TextView) view.findViewById(R.id.dis_mine_order_price);
             address = (TextView) view.findViewById(R.id.dis_mine_order_address);
+            imageView = (ImageView) view.findViewById(R.id.dis_mine_order_iv);
         }
     }
 }

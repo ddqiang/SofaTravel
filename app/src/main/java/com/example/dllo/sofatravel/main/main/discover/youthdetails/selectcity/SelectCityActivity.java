@@ -28,7 +28,6 @@ public class SelectCityActivity extends BaseActivity implements View.OnClickList
     private SelectCityBean bean;
     private SelectCityAdapter adapter;
     private String selectUrl = "http://www.shafalvxing.com/city/citySearchInfo.do?bizParams=%7B%7D";
-    private RecyclerView recyclerView;
     private SelectLetterView letterView;
     @Override
     public int getLayout() {
@@ -111,11 +110,6 @@ public class SelectCityActivity extends BaseActivity implements View.OnClickList
                 finish();
             }
         });
-//        recyclerView = (RecyclerView) view.findViewById(R.id.dis_select_hot_city_rv);
-//        rvAdapter = new SelectCityHotAdapter(this);
-//        rvAdapter.setBean(bean);
-//        recyclerView.setAdapter(rvAdapter);
-//        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         expandableListView.addHeaderView(view);
     }
     @Override

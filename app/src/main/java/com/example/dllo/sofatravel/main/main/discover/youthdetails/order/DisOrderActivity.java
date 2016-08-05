@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.dllo.sofatravel.R;
 import com.example.dllo.sofatravel.main.main.base.BaseActivity;
-import com.example.dllo.sofatravel.main.main.discover.youthdetails.order.mineorder.MineOrderActivity;
+
 import com.example.dllo.sofatravel.main.main.tools.MyLiteOrm;
 import com.example.dllo.sofatravel.main.main.tools.alipay.Merchant;
 import com.example.dllo.sofatravel.main.main.tools.alipay.OrderUtils;
@@ -35,6 +35,7 @@ public class DisOrderActivity extends BaseActivity implements View.OnClickListen
     private Button orderPay;
     private ImageView picture;
     private EditText name,phoneNumber;
+    private TextView orderInTime,orderOutTime,sum;
 
 
 
@@ -60,6 +61,11 @@ public class DisOrderActivity extends BaseActivity implements View.OnClickListen
         mineOrder.setOnClickListener(this);
         orderPay = (Button) findViewById(R.id.dis_order_pay);
         orderPay.setOnClickListener(this);
+
+        orderInTime= (TextView) findViewById(R.id.dis_order_in_time_tv);
+        orderOutTime= (TextView) findViewById(R.id.dis_order_out_time_tv);
+        sum= (TextView) findViewById(R.id.dis_order_sum);
+
         picture= (ImageView) findViewById(R.id.dis_order_picture);
         Glide.with(this).load(getIntent().getStringExtra("picture")).into(picture);
 
@@ -89,7 +95,9 @@ public class DisOrderActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void initData() {
-
+        orderInTime.setText(getIntent().getStringExtra("inDate"));
+        orderOutTime.setText(getIntent().getStringExtra("outDate"));
+        sum.setText("共"+getIntent().getIntExtra("sum",1)+"晚");
     }
 
 
@@ -100,11 +108,9 @@ public class DisOrderActivity extends BaseActivity implements View.OnClickListen
                 finish();
                 break;
             case R.id.dis_order_mine_order:
-                Intent orderIntent = new Intent(this, MineOrderActivity.class);
-                startActivity(orderIntent);
+
                 break;
             case R.id.dis_order_pay:
-
                 saveToDataBase();
                 break;
         }
@@ -134,7 +140,7 @@ public class DisOrderActivity extends BaseActivity implements View.OnClickListen
             }
             MyLiteOrm.getSingleLiteOrm().getLiteOrm().insert(new OrderBean(hotelName.getText().toString(),
                     price.getText().toString(), bedNum, name.getText().toString(),
-                    phoneNumber.getText().toString(), getIntent().getStringExtra("address")));
+                    phoneNumber.getText().toString(), getIntent().getStringExtra("address"), getIntent().getStringExtra("img")));
             toPay();
         } else {
             Toast.makeText(this, "请输入姓名和手机号码", Toast.LENGTH_SHORT).show();

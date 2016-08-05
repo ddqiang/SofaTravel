@@ -97,7 +97,7 @@
                         android:text="@string/check_in" />
 
                     <TextView
-                        android:id="@+id/dis_info_in_time_tv"
+                        android:id="@+id/dis_order_in_time_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -106,7 +106,8 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/dis_info_sum"
+                    android:id="@+id/dis_order_sum"
+                    android:gravity="center"
                     android:layout_width="@dimen/fifty"
                     android:layout_height="@dimen/twenty"
                     android:layout_margin="@dimen/ten"
@@ -129,7 +130,7 @@
                         android:text="@string/check_out" />
 
                     <TextView
-                        android:id="@+id/dis_info_out_time_tv"
+                        android:id="@+id/dis_order_out_time_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
