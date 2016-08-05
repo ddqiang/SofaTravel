@@ -1,15 +1,11 @@
 package com.example.dllo.sofatravel.main.main.tools;
 
 import android.content.Context;
-
 import com.example.dllo.sofatravel.main.main.base.MyApplication;
-import com.example.dllo.sofatravel.main.main.home.HomeBean;
 import com.example.dllo.sofatravel.main.main.mine.UserBeanForLiteOrm;
 import com.litesuits.orm.LiteOrm;
 import com.litesuits.orm.db.assit.QueryBuilder;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 
 /**
  * Created by dllo on 16/7/21.
@@ -33,7 +29,6 @@ public class MyLiteOrm {
         }
         return liteOrm;
     }
-
 
     public Runnable addDataForLiteOrm(Object info) {
         MyLiteOrm.getSingleLiteOrm().getLiteOrm().insert(info);

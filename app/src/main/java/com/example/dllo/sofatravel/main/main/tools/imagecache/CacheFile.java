@@ -15,9 +15,8 @@ import java.io.OutputStreamWriter;
  */
 public class CacheFile {
 
-    //存流
+    //取流
     public static String loading() {
-
         FileInputStream inputStream = null;
         BufferedReader reader = null;
         StringBuilder content = new StringBuilder();
@@ -44,7 +43,7 @@ public class CacheFile {
         return content.toString();
     }
 
-    //取流
+    //存流
     public static void Save(String s) {
 
         FileOutputStream outputStream = null;

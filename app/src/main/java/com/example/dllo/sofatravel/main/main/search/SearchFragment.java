@@ -79,7 +79,6 @@ public class SearchFragment extends BaseFragment implements View.OnClickListener
                 startActivity(searchBtn);
                 break;
         }
-
     }
 
     //将获得的城市名称显示在textView上

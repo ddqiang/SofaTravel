@@ -30,7 +30,9 @@ public class HomeFragment extends BaseFragment {
     private HomeGrViewAdapter mHomeGrViewAdapter;
     private Banner mBanner;
     private Intent mIntent;
+    private String[] mBannerUrl;
     private final static String TGA = "HomeFragment";
+
 
     @Override
     public int setLayout() {
@@ -50,13 +52,16 @@ public class HomeFragment extends BaseFragment {
         mHeaderGridView.addHeaderView(view1);
         //首页数据解析 and 轮播图
         if (NetWorkOnLine.isNetworkAvailable()) {
+
             showHomeOk();
+        } else {
+            String result = CacheFile.loading();
+            Gson gson = new Gson();
+            HomeBean homeBean = gson.fromJson(result, HomeBean.class);
+            mHomeGrViewAdapter.setHomeBean(homeBean);
+
+            BannerShow(homeBean);
         }
-        String result = CacheFile.loading();
-        Gson gson = new Gson();
-        HomeBean homeBean = gson.fromJson(result, HomeBean.class);
-        mHomeGrViewAdapter.setHomeBean(homeBean);
-        BannerShow(homeBean);
         mHeaderGridView.setAdapter(mHomeGrViewAdapter);
     }
 
@@ -79,17 +84,18 @@ public class HomeFragment extends BaseFragment {
         });
     }
 
-
     public void BannerShow(final HomeBean data) {
         mBanner.setBannerStyle(Banner.CIRCLE_INDICATOR);
         mBanner.setIndicatorGravity(Banner.CENTER);
-        Log.d(TGA, "data.getData().getHomePageInfo():" + data.getData().getHomePageInfo());
-        String[] bannerUrl = new String[data.getData().getHomePageInfo().getTopBanner().size()];
-        for (int i = 0; i < data.getData().getHomePageInfo().getTopBanner().size(); i++) {
-            bannerUrl[i] = data.getData().getHomePageInfo().getTopBanner().get(i).getAdvPic();
+
+        if (data.getData().getHomePageInfo().getTopBanner() != null) {
+            mBannerUrl = new String[data.getData().getHomePageInfo().getTopBanner().size()];
+            for (int i = 0; i < data.getData().getHomePageInfo().getTopBanner().size(); i++) {
+                mBannerUrl[i] = data.getData().getHomePageInfo().getTopBanner().get(i).getAdvPic();
+            }
+            mBanner.setDelayTime(3000);
+            mBanner.setImages(mBannerUrl);
         }
-        mBanner.setDelayTime(3000);
-        mBanner.setImages(bannerUrl);
         mBanner.setOnBannerClickListener(new Banner.OnBannerClickListener() {
             @Override
             public void OnBannerClick(View view, int position) {
@@ -122,8 +128,6 @@ public class HomeFragment extends BaseFragment {
                 intent.putExtra("messageId", data.getData().getHomePageInfo().getRecommendCity().get(pos).getId());
                 intent.putExtra("city", data.getData().getHomePageInfo().getRecommendCity().get(pos).getCityNameCh());
                 startActivity(intent);
-
-
             }
         });
     }

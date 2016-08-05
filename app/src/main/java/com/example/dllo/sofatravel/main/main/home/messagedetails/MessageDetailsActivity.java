@@ -61,7 +61,6 @@ public class MessageDetailsActivity extends BaseActivity implements View.OnClick
 
     private void MyOkHttp() {
         int messageId = getIntent().getIntExtra("messageId", 0);
-        Log.d("MessageDetailsActivity", "messageId:" + messageId);
         OkSingle.getInstance().getOwnerMessageDetail(messageId, MessageBean.class, new OkSingle.OnTrue<MessageBean>() {
             @Override
             public void hasData(final MessageBean data) {
@@ -71,7 +70,6 @@ public class MessageDetailsActivity extends BaseActivity implements View.OnClick
                     public void convert(MyViewHolder holder, final MessageBean.DataBean.ResultBean resultBean) {
                         holder.setShowImage(R.id.message_showIv, resultBean.getPictureList().get(0));
                         holder.setText(R.id.message_name, resultBean.getOwnerName());
-                        Log.d("MessageDetailsActivity", "aaaa"+resultBean.getOwnerName());
                         holder.setHeadImage(R.id.message_head, resultBean.getOwnerPic());
                         holder.setAgeText(R.id.message_age, String.valueOf(resultBean.getAge()));
 
@@ -128,6 +126,7 @@ public class MessageDetailsActivity extends BaseActivity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.messageDetail_back:
+
                 finish();
                 break;
             case R.id.messageDetail_map:
