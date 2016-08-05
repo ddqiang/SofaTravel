@@ -43,7 +43,7 @@ public class MyLiteOrm {
     public Runnable getUserInfoDatasFromLiteOrm(String colName, String colParamter) {
        MyLiteOrm.getSingleLiteOrm().getLiteOrm()
                 .query(new QueryBuilder<>(UserBeanForLiteOrm.class)
-                        .where(colName + " LIKE ?", new String[]{colParamter}));
+                        .where(colName + " LIKE ?", new Object[]{colParamter}));
         return null;
     }
 }
