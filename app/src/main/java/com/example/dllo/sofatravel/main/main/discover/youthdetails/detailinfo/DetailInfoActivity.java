@@ -21,7 +21,6 @@ import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
-import com.bumptech.glide.Glide;
 import com.example.dllo.sofatravel.R;
 import com.example.dllo.sofatravel.main.main.base.BaseActivity;
 import com.example.dllo.sofatravel.main.main.discover.youthdetails.order.DisOrderActivity;
@@ -78,6 +77,7 @@ public class DetailInfoActivity extends BaseActivity implements View.OnClickList
         bedListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 Intent intent=new Intent(DetailInfoActivity.this, DisOrderActivity.class);
                 intent.putExtra("price",bedBean.getData().getRmlist().get(position).getPrice());
                 intent.putExtra("hotelName",bean.getData().getHotelName());
@@ -144,7 +144,7 @@ public class DetailInfoActivity extends BaseActivity implements View.OnClickList
         final Long startTime = System.currentTimeMillis();
         final Long endTime = startTime + 24 * 60 * 60 * 1000;
         String bedUrl = "http://www.shafalvxing.com/hotel/queryHotelDetailRmList.do?bizParams=%7B%22" +
-                "endTime%22%3A"+endTime+"%2C%22hotelId%22%3A%22"+hotelId+"%22%2C%22startTime%22%3A"+startTime+"%7D";
+                "endTime%22%3A" + endTime + "%2C%22hotelId%22%3A%22" + hotelId + "%22%2C%22startTime%22%3A" + startTime + "%7D";
         Log.d("DetailInfoActivity", bedUrl);
 //        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //        Log.d("DetailInfoActivity", simpleDateFormat.format(startTime));
@@ -152,7 +152,7 @@ public class DetailInfoActivity extends BaseActivity implements View.OnClickList
         OkSingle.getInstance().getRequestAsync(bedUrl, DetailBedBean.class, new OkSingle.OnTrue<DetailBedBean>() {
             @Override
             public void hasData(DetailBedBean data) {
-             //   Log.d("DetailInfoActivity", "data.getData().getRmlist().size():" + data.getData().getRmlist().size());
+                //   Log.d("DetailInfoActivity", "data.getData().getRmlist().size():" + data.getData().getRmlist().size());
                 bedBean = data;
                 bedAdapter.setBean(data);
                 bedListView.setAdapter(bedAdapter);
@@ -194,6 +194,7 @@ public class DetailInfoActivity extends BaseActivity implements View.OnClickList
         listView.setLayoutParams(params);
 
     }
+
     //设置ExpandableListView高度
     public void setListViewHeightBasedOnChildren(ExpandableListView listView) {
         // 获取ListView对应的Adapter
@@ -275,7 +276,7 @@ public class DetailInfoActivity extends BaseActivity implements View.OnClickList
 //        infoMap.onPause();
 //    }
 
-//    @Override
+    //    @Override
 //    protected void onSaveInstanceState(Bundle outState) {
 //        super.onSaveInstanceState(outState);
 //        //在activity执行onSaveInstanceState时执行mMapView.onSaveInstanceState (outState)，实现地图生命周期管理

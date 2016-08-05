@@ -153,7 +153,7 @@
         <activity android:name=".main.main.mine.loginorregister.LoginOrRegisterActivity" />
         <activity android:name=".main.main.home.bannerdetails.BannerDetailActivity" />
         <activity android:name=".main.main.home.messagedetails.MessageDetailsActivity" />
-
+        <activity android:name=".main.main.mine.house.HouseActivity" />
         <activity android:name=".main.main.discover.youthdetails.selectcity.MapActivity" />
         <activity android:name=".main.main.discover.youthdetails.detailinfo.DetailInfoActivity" />
         <activity android:name=".main.main.home.imessageconcreteness.MessageConcreActivity" />
@@ -161,9 +161,9 @@
         <activity android:name=".main.main.order.ConversationActivity" />
         <activity android:name=".main.main.main.MainActivity" />
         <activity android:name=".main.main.discover.youthdetails.order.DisOrderActivity" />
-        <activity android:name=".main.main.mine.SuggestionActivity" />
-        <activity android:name=".main.main.discover.youthdetails.order.mineorder.MineOrderActivity"/>
-
+        <activity android:name=".main.main.mine.suggestion.SuggestionActivity" />
+        <activity android:name=".main.main.discover.youthdetails.order.mineorder.MineOrderActivity" />
+        <activity android:name=".main.main.mine.myhouse.MyHouseActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"

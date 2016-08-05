@@ -37,11 +37,11 @@ public class MinePresenter implements MineContract.Presenter {
             Bitmap bitmap = BitmapFactory.decodeResource(MyApplication.context.getResources(), R.mipmap.ic_launcher_one);
             view.getUserImageSuccess(bitmap);
         } else {
-            if (list.get(list.size() - 1).getImage() == null) {
+            if (list.get(0).getImage() == null) {
                 Bitmap bitmap = BitmapFactory.decodeResource(MyApplication.context.getResources(), R.mipmap.ic_launcher_one);
                 view.getUserImageSuccess(bitmap);
             } else {
-                Bitmap bitmap = list.get(list.size() - 1).getImage();
+                Bitmap bitmap = list.get(0).getImage();
                 view.getUserImageSuccess(bitmap);
             }
         }
@@ -53,11 +53,11 @@ public class MinePresenter implements MineContract.Presenter {
             Bitmap bitmap = BitmapFactory.decodeResource(MyApplication.context.getResources(), R.mipmap.ic_launcher_one);
             view.readUserImageSuccess(bitmap);
         } else {
-            if (list.get(list.size() - 1).getImage() == null) {
+            if (list.get(0).getImage() == null) {
                 Bitmap bitmap = BitmapFactory.decodeResource(MyApplication.context.getResources(), R.mipmap.ic_launcher_one);
                 view.readUserImageSuccess(bitmap);
             } else {
-                Bitmap bitmap = list.get(list.size() - 1).getImage();
+                Bitmap bitmap = list.get(0).getImage();
                 view.readUserImageSuccess(bitmap);
             }
         }
@@ -103,7 +103,7 @@ public class MinePresenter implements MineContract.Presenter {
 
     @Override
     public void deleteUserOldName(List<UserInfoBean> list) {
-        String userNewName = list.get(list.size() - 1).getUserCustomName();
+        String userNewName = list.get(0).getUserCustomName();
         view.getUserBeanSuccess(userNewName);
 //        SharedPreferences saveUserName = MyApplication.context.getSharedPreferences("saveUserName", Context.MODE_PRIVATE);
 //        SharedPreferences.Editor editor = saveUserName.edit();

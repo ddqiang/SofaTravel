@@ -33,7 +33,10 @@ import com.example.dllo.sofatravel.R;
 import com.example.dllo.sofatravel.main.main.base.BaseFragment;
 import com.example.dllo.sofatravel.main.main.base.MyApplication;
 import com.example.dllo.sofatravel.main.main.mine.collection.CollectionActivity;
+import com.example.dllo.sofatravel.main.main.mine.house.HouseActivity;
 import com.example.dllo.sofatravel.main.main.mine.loginorregister.LoginOrRegisterActivity;
+import com.example.dllo.sofatravel.main.main.mine.myhouse.MyHouseActivity;
+import com.example.dllo.sofatravel.main.main.mine.suggestion.SuggestionActivity;
 import com.example.dllo.sofatravel.main.main.order.ConversationActivity;
 import com.example.dllo.sofatravel.main.main.tools.FloatingActionButton;
 import com.example.dllo.sofatravel.main.main.tools.FloatingActionMenu;
@@ -126,7 +129,7 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
         DisplayMetrics dm = getResources().getDisplayMetrics();
         screenWidth = dm.widthPixels;
         screenHeight = dm.heightPixels - 50;
-       // mActionButton.setOnTouchListener(this);
+        // mActionButton.setOnTouchListener(this);
 
 
     }
@@ -186,6 +189,7 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
         });
 
         mActionMenu = new FloatingActionMenu.Builder(getActivity()).addSubActionView(button1).addSubActionView(button2).addSubActionView(button3).addSubActionView(button4).attachTo(mActionButton).build();
+
         mActionMenu.setStateChangeListener(new FloatingActionMenu.MenuStateChangeListener() {
             @Override
             public void onMenuOpened(FloatingActionMenu floatingActionMenu) {
@@ -206,13 +210,13 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
             mGetUserInfoDialog.setTitle("加载中");
             mGetUserInfoDialog.setMessage("loading");
             mGetUserInfoDialog.show();
-            //queryUserName();
-            //queryUserImage();
+            queryUserName();
+            queryUserImage();
             SharedPreferences sharedPreferences = context.getSharedPreferences("saveAccountName", Context.MODE_PRIVATE);
             mCurrentAccountName = sharedPreferences.getString("accountName", "");
             SharedPreferences preferences = context.getSharedPreferences("saveUserName", Context.MODE_PRIVATE);
             mCurrentUserName = preferences.getString("userName", "未设置");
-            mPresenter.queryUserInfoFromLiteOrm(mCurrentAccountName);
+            //mPresenter.queryUserInfoFromLiteOrm(mCurrentAccountName);
         }
         setOnClick();
 
@@ -310,6 +314,9 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
     @Override
     public void setUserImageForLiteOrmSuccess() {
         Toast.makeText(context, "头像设置成功", Toast.LENGTH_SHORT).show();
+        if (mPopupWindow != null) {
+            mPopupWindow.dismiss();
+        }
     }
 
     @Override
@@ -576,25 +583,25 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
                         Bitmap photo = (Bitmap) bundle.get("data"); //get bitmap
                         mUserImage.setImageBitmap(photo);
                         mCurrentUserImage = photo;//设置图片后设置为当前image
-//                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//                        photo.compress(Bitmap.CompressFormat.JPEG, 75, stream);// (0-100)压缩文件
-//                        // 此处可以把Bitmap保存到sd卡中
-//                        mUserImage.setImageBitmap(photo); // 把图片显示在ImageView控件上
-//                        UserInfoBean bean = new UserInfoBean();
-//                        bean.setAccount(mCurrentAccountName);//设置账号
-//                        bean.setUserCustomName(mCurrentUserName);//设置用户名
-//                        bean.setImage(photo);//设置图片
-//                        mPresenter.saveUserInfo(bean);//存入网络数据库
-//                        UserBeanForLiteOrm beanForLiteOrm = new UserBeanForLiteOrm();
-//                        beanForLiteOrm.setAccount(mCurrentAccountName);
-//                        beanForLiteOrm.setUserName(mCurrentUserName);
-//                        beanForLiteOrm.setImage(photo);
-//                        mPresenter.setUserImageForLiteOrm(beanForLiteOrm);//存入本地数据库
-//                        try {
-//                            stream.close();
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        photo.compress(Bitmap.CompressFormat.JPEG, 75, stream);// (0-100)压缩文件
+                        // 此处可以把Bitmap保存到sd卡中
+                        mUserImage.setImageBitmap(photo); // 把图片显示在ImageView控件上
+                        UserInfoBean bean = new UserInfoBean();
+                        bean.setAccount(mCurrentAccountName);//设置账号
+                        bean.setUserCustomName(mCurrentUserName);//设置用户名
+                        bean.setImage(photo);//设置图片
+                        mPresenter.saveUserInfo(bean);//存入网络数据库
+                        UserBeanForLiteOrm beanForLiteOrm = new UserBeanForLiteOrm();
+                        beanForLiteOrm.setAccount(mCurrentAccountName);
+                        beanForLiteOrm.setUserName(mCurrentUserName);
+                        beanForLiteOrm.setImage(photo);
+                        mPresenter.setUserImageForLiteOrm(beanForLiteOrm);//存入本地数据库
+                        try {
+                            stream.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     } else {
                         return;
                     }
@@ -641,13 +648,15 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
         context.unregisterReceiver(mReceiver);
         context.unregisterReceiver(mOutReceiver);
         context.unregisterReceiver(mSetDefaultReceiver);
+        mActionMenu.close(true);
         mActionButton.setVisibility(View.GONE);
     }
 
     //progressDialog
     private void getUserInfoDialog() {
-//        if (getUserInfoDialog == null) {
-//            getUserInfoDialog = ProgressDialog.show(context, "请等待", "加载数据中", true, false);
+        if (mGetUserInfoDialog == null) {
+            mGetUserInfoDialog = ProgressDialog.show(context, "请等待", "加载数据中", true, false);
+        }
 //        } else {
 //            getUserInfoDialog.show();
 //        }
@@ -707,12 +716,13 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
 
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()) {
             case R.id.fragment_mine_user_image:
                 mPresenter.isLogin();
                 break;
             case R.id.fragment_mine_release_layout:
-                Intent intent = new Intent(context, LoginOrRegisterActivity.class);
+                intent = new Intent(context, LoginOrRegisterActivity.class);
                 context.startActivity(intent);
                 break;
             case R.id.fragment_mine_telnumber_layout:
@@ -723,34 +733,32 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
                 break;
             case R.id.fragment_mine_suggestion_layout:
                 Toast.makeText(context, "呵呵,你还敢有意见?", Toast.LENGTH_SHORT).show();
-                Intent intent3 = new Intent(context, SuggestionActivity.class);
-                context.startActivity(intent3);
+                intent = new Intent(context, SuggestionActivity.class);
+                context.startActivity(intent);
                 break;
             case R.id.fragment_mine_setup_layout:
-
                 break;
             case R.id.fragment_mine_collection_layout:
-                Intent intent1 = new Intent(context, CollectionActivity.class);
-                context.startActivity(intent1);
+                intent = new Intent(context, CollectionActivity.class);
+                context.startActivity(intent);
                 break;
             case R.id.fragment_mine_money_layout:
-                conversationTest();
+                intent = new Intent(context, MyHouseActivity.class);
+                context.startActivity(intent);
                 break;
             case R.id.fragment_mine_setup_layout_other:
-                //setUpDialog();
                 break;
             case R.id.fragment_mine_share_layout_other:
                 shareMyApp();
                 break;
             case R.id.fragment_mine_house_layout:
-                BmobIM.getInstance().disConnect();
+                intent = new Intent(context, HouseActivity.class);
+                context.startActivity(intent);
                 break;
             case R.id.fragment_mine_login_or_signup_username:
 
-                //getUserName();
                 break;
             case R.id.mine_message_camera:
-                //Toast.makeText(context, "没有照相机怎么办", Toast.LENGTH_SHORT).show();
                 openTakePhoto();
                 break;
             case R.id.mine_message_close:
@@ -759,13 +767,13 @@ public class MineFragment extends BaseFragment implements MineContract.View, Vie
                 }
                 break;
             case R.id.mine_message_localImage:
-                Intent localImage = new Intent(Intent.ACTION_PICK, null);
-                localImage.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, TheValues.IMAGE_UNSPECIFIED);
-                startActivityForResult(localImage, TheValues.ALBUM_REQUEST_CODE);
+                intent = new Intent(Intent.ACTION_PICK, null);
+                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, TheValues.IMAGE_UNSPECIFIED);
+                startActivityForResult(intent, TheValues.ALBUM_REQUEST_CODE);
                 break;
             case R.id.fragment_mine_login_or_signup:
-                Intent intent2 = new Intent(context, LoginOrRegisterActivity.class);
-                context.startActivity(intent2);
+                intent = new Intent(context, LoginOrRegisterActivity.class);
+                context.startActivity(intent);
                 break;
 
         }

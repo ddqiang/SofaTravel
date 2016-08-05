@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#f2f1f1">
+
+        <ImageView
+            android:id="@+id/activity_house_title_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@mipmap/topbar_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="发布房源"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffff">
+
+            <ImageView
+                android:id="@+id/activity_house_add_image"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:src="@mipmap/ic_launcher_one" />
+
+            <TextView
+                android:id="@+id/activity_house_info_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/activity_house_add_image"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:text="基本信息"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/activity_house_thread_one"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/activity_house_info_title"
+                android:alpha="0.5"
+                android:background="#e2e2e2" />
+
+            <TextView
+                android:id="@+id/activity_house_house_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/activity_house_thread_one"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="房源标题"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/activity_house_add_house_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/activity_house_house_title"
+                android:layout_margin="10dp"
+                android:background="@null"
+                android:hint="一句话介绍你的房源"
+                android:maxLength="50"
+                android:textColorHint="#cccccc" />
+
+            <TextView
+                android:id="@+id/activity_house_thread_two"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/activity_house_add_house_title"
+                android:layout_margin="10dp"
+                android:alpha="0.5"
+                android:background="#e2e2e2" />
+
+            <TextView
+                android:id="@+id/activity_house_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/activity_house_thread_two"
+                android:layout_marginLeft="10dp"
+                android:text="房源类型"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/activity_house_type_choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/activity_house_thread_two"
+                android:layout_marginRight="10dp"
+                android:layout_toRightOf="@id/activity_house_type"
+                android:gravity="right"
+                android:text="选择"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/activity_house_thread_three"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/activity_house_type"
+                android:layout_margin="10dp"
+                android:alpha="0.5"
+                android:background="#e2e2e2" />
+
+            <TextView
+                android:id="@+id/activity_house_bed_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/activity_house_thread_three"
+                android:layout_marginLeft="10dp"
+                android:text="床型"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/activity_house_bed_type_choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/activity_house_thread_three"
+                android:layout_marginRight="10dp"
+                android:layout_toRightOf="@id/activity_house_bed_type"
+                android:gravity="right"
+                android:text="选择"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/activity_house_thread_four"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/activity_house_bed_type"
+                android:layout_margin="10dp"
+                android:alpha="0.5"
+                android:background="#e2e2e2" />
+
+            <TextView
+                android:id="@+id/activity_house_facilities"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/activity_house_thread_four"
+                android:layout_marginLeft="10dp"
+                android:text="便利设施"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/activity_house_facilities_choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/activity_house_thread_four"
+                android:layout_marginRight="10dp"
+                android:layout_toRightOf="@id/activity_house_facilities"
+                android:gravity="right"
+                android:text="选择"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/activity_house_thread_five"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/activity_house_facilities"
+                android:layout_margin="10dp"
+                android:alpha="0.5"
+                android:background="#e2e2e2" />
+
+            <TextView
+                android:id="@+id/activity_house_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/activity_house_thread_five"
+                android:layout_marginLeft="10dp"
+                android:text="房间地址"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/activity_house_address_choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/activity_house_thread_five"
+                android:layout_marginRight="10dp"
+                android:layout_toRightOf="@id/activity_house_address"
+                android:gravity="right"
+                android:text="选择"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/activity_house_thread_six"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/activity_house_address"
+                android:layout_margin="10dp"
+                android:alpha="0.5"
+                android:background="#e2e2e2" />
+
+            <TextView
+                android:id="@+id/activity_house_price_and_people"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/activity_house_thread_six"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:text="人数与价格"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/activity_house_thread_seven"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/activity_house_price_and_people"
+                android:layout_margin="10dp"
+                android:alpha="0.5"
+                android:background="#e2e2e2" />
+
+            <TextView
+                android:id="@+id/activity_house_max_people"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/activity_house_thread_seven"
+                android:layout_marginLeft="10dp"
+                android:text="最大人数"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/activity_house_max_people_choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/activity_house_thread_seven"
+                android:layout_marginRight="10dp"
+                android:layout_toRightOf="@id/activity_house_max_people"
+                android:gravity="right"
+                android:text="选择"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/activity_house_thread_eight"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/activity_house_max_people"
+                android:layout_margin="10dp"
+                android:alpha="0.5"
+                android:background="#e2e2e2" />
+
+            <TextView
+                android:id="@+id/activity_house_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/activity_house_thread_eight"
+                android:layout_marginLeft="10dp"
+                android:text="价格(1人)"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/activity_house_price_choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/activity_house_thread_eight"
+                android:layout_marginRight="10dp"
+                android:layout_toRightOf="@id/activity_house_price"
+                android:gravity="right"
+                android:text="选择"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/activity_house_thread_nine"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/activity_house_price"
+                android:layout_margin="10dp"
+                android:alpha="0.5"
+                android:background="#e2e2e2" />
+
+            <TextView
+                android:id="@+id/activity_house_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/activity_house_thread_nine"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:text="房源信息"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/activity_house_thread_ten"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/activity_house_info"
+                android:layout_margin="10dp"
+                android:alpha="0.5"
+                android:background="#e2e2e2" />
+
+            <TextView
+                android:id="@+id/activity_house_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/activity_house_thread_ten"
+                android:layout_margin="10dp"
+                android:text="房源详情"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/activity_house_add_house_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/activity_house_detail"
+                android:layout_margin="10dp"
+                android:background="@null"
+                android:hint="你的房源在哪个区域?周边有哪些景点或便利设施?房源的独特之处是什么呢?"
+                android:maxLength="200"
+                android:maxLines="5"
+                android:textColorHint="#cccccc" />
+
+            <TextView
+                android:id="@+id/activity_house_thread_eleven"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/activity_house_add_house_detail"
+                android:layout_margin="10dp"
+                android:alpha="0.5"
+                android:background="#e2e2e2" />
+
+            <TextView
+                android:id="@+id/activity_house_traffic_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/activity_house_thread_eleven"
+                android:layout_margin="10dp"
+                android:text="交通信息"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/activity_house_add_traffic_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/activity_house_traffic_info"
+                android:layout_margin="10dp"
+                android:background="@null"
+                android:hint="出行是否方便?靠近哪个地铁/公交站?如何从集成/火车站到达房源所在地?"
+                android:maxLength="200"
+                android:maxLines="5"
+                android:textColorHint="#cccccc" />
+
+            <TextView
+                android:id="@+id/activity_house_thread_twelve"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/activity_house_add_traffic_info"
+                android:layout_margin="10dp"
+                android:alpha="0.5"
+                android:background="#e2e2e2" />
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/activity_house_commit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ed2affdf"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="完成发布"
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
+</LinearLayout>
