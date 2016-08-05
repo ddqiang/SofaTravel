@@ -57,7 +57,6 @@ public class DisOrderActivity extends BaseActivity implements View.OnClickListen
         backBtn.setOnClickListener(this);
         hotelName.setText(getIntent().getStringExtra("hotelName"));
         price.setText(getIntent().getIntExtra("price", 0) + ".00");
-        mineOrder.setOnClickListener(this);
         orderPay = (Button) findViewById(R.id.dis_order_pay);
         orderPay.setOnClickListener(this);
 

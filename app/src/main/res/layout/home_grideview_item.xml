@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="#ffffff">
+    android:background="@color/white">
 
     <ImageView
         android:id="@+id/home_gridView_item_image"
@@ -18,7 +18,7 @@
         android:layout_above="@+id/home_gridView_item_cityNameEnglish"
         android:paddingLeft="@dimen/textsize_ten"
         android:text="@string/item_city"
-        android:textColor="#ffffff"
+        android:textColor="@color/white"
         android:textSize="@dimen/textsize_twenty" />
 
     <TextView
@@ -26,8 +26,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/home_gridView_item_image"
-        android:padding="@dimen/ten"
         android:text="@string/chengshi"
-        android:textColor="#ffffff"
+        android:paddingLeft="@dimen/textsize_ten"
+        android:paddingBottom="@dimen/ten"
+        android:textColor="@color/white"
+
         android:textSize="@dimen/ten" />
 </RelativeLayout>

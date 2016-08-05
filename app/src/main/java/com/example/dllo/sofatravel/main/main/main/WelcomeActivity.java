@@ -26,7 +26,7 @@ public class WelcomeActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        metaballView.setPaintMode(0);
+        metaballView.setPaintMode(1);
         timer = new CountDownTimer(5000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
